@@ -78,7 +78,7 @@ workflow {
                     if (!row.target) {
                         error "CSV must have 'target' column for model: ${params.model}"
                     }
-                    def targetPath = file(row.image_target, checkIfExists: true)
+                    def targetPath = file(row.image, checkIfExists: true)
                     return [meta, imagePath, targetPath]
                 }
             }

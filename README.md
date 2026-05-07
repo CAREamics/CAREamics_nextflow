@@ -39,4 +39,5 @@ nf-test test --profile conda modules/careamicspredict/tests/main.nf.test
 # for all ?
 nf-test test
 ```
-
+### to check
+- usage on Mac and gpu ?
