@@ -4,8 +4,8 @@ process CAREAMICS_TRAIN_N2N {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'community.wave.seqera.io/library/careamics:0.0.16--973e324f2f759ff5' :
-        'community.wave.seqera.io/library/careamics:0.0.16--973e324f2f759ff5' }"
+    'oras://community.wave.seqera.io/library/careamics:0.0.21--5130b64e7194c8c6' :
+    'community.wave.seqera.io/library/careamics:0.0.21--300ee53ce7b54c00' }"
 
     input:
     tuple val(meta), path(train_data), path(target_data,name: "target/*")

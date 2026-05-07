@@ -15,28 +15,19 @@ chmod +x Denoising_careamics/bin/*
 ## current usage
 
 ```bash
-# best way to run
+# locally on WSL/linux/Mac
 nextflow run denoising_pipeline.nf -profile conda|singularity|docker -params-file params_n2v.json|params_n2n_care.json
-
-
+# Tier1, UGent
+nextflow run denoising_pipeline.nf -profile vsc_ugent,singularity -params-file params_n2v.json -w $VSC_SCRATCH_PROJECTS_BASE/project_number/path/work --singularity_cache_dir $VSC_SCRATCH_PROJECTS_BASE/project_number/path/.apptainer/ --tier1_project 2024_300
 ```
 
-## to do
-- clean config =>done
-- readd tests (n2v, predict) => done
-- read csv => done
-- retest on VSC and add config 
-
-## how to use the containers from seqera
-
-### Apptainer
-
+### How to get the container from seqera
 ```bash
-wget https://wave.seqera.io/view/builds/bd-79edde96e3aa7bcb_1
+wget https://wave.seqera.io/view/builds/bd-5130b64e7194c8c6_1
 # use /tmp instead of $VSC_SCRATCH on Tier1
-export APPTAINER_CACHE=$VSC_SCRATCH/.apptainer 
+export APPTAINER_CACHE=$VSC_SCRATCH/.apptainer
 export APPTAINER_TMP=$VSC_SCRATCH/.apptainer
-apptainer pull careamics_wave.sif oras://community.wave.seqera.io/library/careamics:0.0.15--79edde96e3aa7bcb
+apptainer pull careamics_wave.sif oras://community.wave.seqera.io/library/careamics:0.0.21--5130b64e7194c8c6
 ```
 ### How to run test
 

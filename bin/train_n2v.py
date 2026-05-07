@@ -67,8 +67,7 @@ if __name__=="__main__":
     if args.model == "n2v":
         use_n2v2=bool(args.use_n2v2)
         config=create_config(exp_name, datatype,axis, patch, batch, epoch,use_n2v2)
-    elif args.model == "structn2v":
+ #   elif args.model == "structn2v":
  #       config=create_config_strn2v(exp_name, datatype,axis, patch,batch, epoch,args.struct_n2v_axis,args.struct_n2v_span)
-        print("Schildkroete")
     save_configuration(config, os.path.join(output_path, "config.yaml"))
     train_model(train_data, val_data,config)
