@@ -1,0 +1,52 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
+name: careamics_train_care
+description: Train a CARE denoising model using CAREamics
+keywords:
+  - denoising
+  - microscopy
+  - deep learning
+  - careamics
+  - care
+tools:
+  - careamics:
+      description: CAREamics is a library for content-aware image restoration in microscopy
+      homepage: https://careamics.github.io
+      documentation: https://careamics.github.io
+      tool_dev_url: https://github.com/CAREamics/careamics
+      licence: ["BSD-3-Clause"]
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id: 'test', model: 'care' ]
+  - train_data:
+      type: file
+      description: Training data (noisy images or array files)
+      pattern: "*.{tif,tiff,png,npy}"
+  - target_data:
+      type: file
+      description: Target data (clean images or array files)
+      pattern: "*.{tif,tiff,png,npy}"
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id: 'test', model: 'care' ]
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+  - model:
+      type: file
+      description: Trained model checkpoint
+      pattern: "*.pth"
+  - config:
+      type: file
+      description: Training configuration file
+      pattern: "config.yaml"
+authors:
+  - "@yourusername"
+maintainers:
+  - "@yourusername"

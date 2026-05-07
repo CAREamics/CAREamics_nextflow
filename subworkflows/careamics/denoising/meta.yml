@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/meta-schema.json
+name: careamics_denoising
+description: Train and apply CAREamics denoising models (N2V, CARE, N2N)
+keywords:
+  - denoising
+  - microscopy
+  - deep learning
+  - careamics
+  - workflow
+components:
+  - careamics/train/n2v
+  - careamics/train/care
+  - careamics/train/n2n
+  - careamics/predict
+input:
+  - ch_training_input:
+      type: channel
+      description: |
+        Channel containing training data
+        Structure: [ val(meta), path(train_data), path(target_data) ]
+        meta map must contain: id, model (n2v/care/n2n/structn2v)
+        target_data can be null for n2v/structn2v models
+  - ch_test_data:
+      type: channel
+      description: |
+        Channel containing test data for prediction
+        Structure: [ val(meta), path(test_data) ]
+        meta map must contain: id
+output:
+  - config:
+      type: file
+      description: Training configuration files
+      pattern: "*.yaml"
+  - model:
+      type: file
+      description: Trained model checkpoints
+      pattern: "*.pth"
+  - predictions:
+      type: file
+      description: Denoised predictions
+      pattern: "predictions/*"
+  - versions:
+      type: file
+      description: File containing software versions
+      pattern: "versions.yml"
+authors:
+  - "@yourusername"
+maintainers:
+  - "@yourusername"

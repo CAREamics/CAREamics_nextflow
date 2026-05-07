@@ -1,0 +1,49 @@
+process CAREAMICS_TRAIN_N2V {
+    tag "$meta.id"
+    label 'process_gpu_medium'
+
+    conda "${moduleDir}/environment.yml"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'community.wave.seqera.io/library/careamics:0.0.16--973e324f2f759ff5' :
+        'community.wave.seqera.io/library/careamics:0.0.16--973e324f2f759ff5' }"
+
+    input:
+    tuple val(meta), path(train_data)
+
+    output:
+    tuple val(meta), path("*.yaml")             , emit: config
+    tuple val(meta), path("checkpoints/last.ckpt"), emit: model
+    path "versions.yml"                          , emit: versions
+
+    when:
+    task.ext.when == null || task.ext.when
+
+    script:
+    def args   = task.ext.args ?: ''
+    def model_type = meta.model ?: 'n2v'
+    """
+    train_n2v.py \\
+        --train_data $train_data \\
+        --model $model_type \\
+        --output_path . \\
+        $args
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        careamics: \$(python -c "import careamics; print(careamics.__version__)")
+    END_VERSIONS
+    """
+
+    stub:
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    """
+    touch "${prefix}_config.yaml"
+    mkdir -p checkpoints
+    touch checkpoints/last.ckpt
+
+    cat <<-END_VERSIONS > versions.yml
+    "${task.process}":
+        careamics: \$(python -c "import careamics; print(careamics.__version__)")
+    END_VERSIONS
+    """
+}

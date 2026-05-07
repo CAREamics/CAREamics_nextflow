@@ -1,0 +1,161 @@
+{
+    "": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_stub",
+                            "model": "n2v"
+                        },
+                        "config.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_stub",
+                            "model": "n2v"
+                        },
+                        "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ],
+                "config": [
+                    [
+                        {
+                            "id": "test_stub",
+                            "model": "n2v"
+                        },
+                        "config.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "model": [
+                    [
+                        {
+                            "id": "test_stub",
+                            "model": "n2v"
+                        },
+                        "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.2"
+        },
+        "timestamp": "2026-04-17T12:09:20.285536072"
+    },
+    "n2v2": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_n2v2",
+                            "model": "n2v"
+                        },
+                        "config.yaml:md5,ed8e31117ab14f4f0d24e665651fbc22"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_n2v2",
+                            "model": "n2v"
+                        },
+                        "last.ckpt:md5,6b499af23a7cfc6361e60173fe4fc163"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,246ae3e5aacae8469b4b5d2f535540f2"
+                ],
+                "config": [
+                    [
+                        {
+                            "id": "test_n2v2",
+                            "model": "n2v"
+                        },
+                        "config.yaml:md5,ed8e31117ab14f4f0d24e665651fbc22"
+                    ]
+                ],
+                "model": [
+                    [
+                        {
+                            "id": "test_n2v2",
+                            "model": "n2v"
+                        },
+                        "last.ckpt:md5,6b499af23a7cfc6361e60173fe4fc163"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,246ae3e5aacae8469b4b5d2f535540f2"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.2"
+        },
+        "timestamp": "2026-04-17T12:04:06.373174551"
+    },
+    "n2v": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_n2v",
+                            "model": "n2v"
+                        },
+                        "config.yaml:md5,ed8e31117ab14f4f0d24e665651fbc22"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_n2v",
+                            "model": "n2v"
+                        },
+                        "last.ckpt:md5,7b740e908e3c634267fbf2d8bc624d51"
+                    ]
+                ],
+                "2": [
+                    "versions.yml:md5,246ae3e5aacae8469b4b5d2f535540f2"
+                ],
+                "config": [
+                    [
+                        {
+                            "id": "test_n2v",
+                            "model": "n2v"
+                        },
+                        "config.yaml:md5,ed8e31117ab14f4f0d24e665651fbc22"
+                    ]
+                ],
+                "model": [
+                    [
+                        {
+                            "id": "test_n2v",
+                            "model": "n2v"
+                        },
+                        "last.ckpt:md5,7b740e908e3c634267fbf2d8bc624d51"
+                    ]
+                ],
+                "versions": [
+                    "versions.yml:md5,246ae3e5aacae8469b4b5d2f535540f2"
+                ]
+            }
+        ],
+        "meta": {
+            "nf-test": "0.9.3",
+            "nextflow": "25.10.2"
+        },
+        "timestamp": "2026-04-17T12:09:13.058506657"
+    }
+}

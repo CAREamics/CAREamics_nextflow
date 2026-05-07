@@ -1,0 +1,112 @@
+nextflow_process {
+
+    name "Test Process CAREAMICS_TRAIN_N2V"
+    script "../main.nf"
+    process "CAREAMICS_TRAIN_N2V"
+
+    tag "modules"
+    tag "modules_local"
+    tag "careamics"
+    tag "training_n2v"
+
+    test("train model n2v2") {
+
+        when { 
+            process {
+                config "/home/tatiana/Denoising_careamics/modules/careamics/train/n2v/tests/nextflow.config"
+                """
+                input[0] = tuple(
+                    [ id:'test_n2v2', model:'n2v' ],  // Added 'model' to meta
+                    file(params.modules_testdata_base_path + 'n2v_train_sem/train.tif')
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert process.out.config.size() == 1 },
+                { assert process.out.model.size() == 1 },
+                { assert path(process.out.config[0][1]).exists() },
+                { assert path(process.out.model[0][1]).exists() },
+                { assert snapshot(process.out).match("n2v2") }
+            )
+        }
+    }
+
+    test("train model n2v") {
+
+        when { 
+            process {
+                config "/home/tatiana/Denoising_careamics/modules/careamics/train/n2v/tests/nextflow.config"
+                """
+                input[0] = tuple(
+                    [ id:'test_n2v', model:'n2v' ],  // Added 'model' to meta
+                    file(params.modules_testdata_base_path + 'n2v_train_sem/train.tif')
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert process.out.config.size() == 1 },
+                { assert process.out.model.size() == 1 },
+                { assert path(process.out.config[0][1]).exists() },
+                { assert path(process.out.model[0][1]).exists() },
+                { assert snapshot(process.out).match("n2v") }
+            )
+        }
+    }
+    
+  //  test("train model structn2v") {
+
+   //     when {
+   //         process {
+   //             """
+   //             input[0] = tuple(
+   //                 [ id:'test_structn2v', model:'structn2v' ],  // Added 'model' to meta
+   //                 file(params.modules_testdata_base_path + 'strn2v_train/train_image.tif')
+   //             )
+   //             """
+   //         }
+   //     }
+
+  //      then {
+  //          assertAll(
+  //              { assert process.success },
+  //              { assert process.out.config.size() == 1 },
+  //              { assert process.out.model.size() == 1 },
+  //              { assert path(process.out.config[0][1]).exists() },
+  //              { assert path(process.out.model[0][1]).exists() },
+  //              { assert snapshot(process.out).match("structn2v") }
+  //          )
+  //      }
+  //  }
+
+    test("stub") {
+
+        options "-stub"
+
+        when {
+            process {
+                config "/home/tatiana/Denoising_careamics/modules/careamics/train/n2v/tests/nextflow.config"
+                """
+                input[0] = tuple(
+                    [ id:'test_stub', model:'n2v' ],  // Added 'model' to meta
+                    file(params.modules_testdata_base_path + 'n2v_train_sem/train.tif')
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert snapshot(process.out).match("") }
+            )
+        }
+    }
+}

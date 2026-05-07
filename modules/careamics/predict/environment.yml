@@ -1,0 +1,8 @@
+name: careamics_predict
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python>=3.9
+  - careamics=0.0.16
