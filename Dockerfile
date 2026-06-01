@@ -1,0 +1,6 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
+ARG CAREAMICS_VERSION
+
+RUN pip install --no-cache-dir careamics==${CAREAMICS_VERSION}
