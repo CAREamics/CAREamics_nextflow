@@ -12,33 +12,29 @@ permissions:
   packages: write
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        include:
-          - variant: gpu
-            base_image: pytorch/pytorch:2.7.1-cuda11.8-cudnn9-runtime
-          - variant: cpu
-            base_image: python:3.11-slim
+        variant: [cpu, gpu]
+
+    env:
+      VERSION: ${{ github.event.inputs.careamics_version }}
+      OWNER: ${{ github.repository_owner }}
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set image names
-        id: image
+        # NOTE: ${OWNER,,} makes the variable lower case
         run: |
-          VERSION="${{ github.event.inputs.careamics_version }}"
-          OWNER="${{ github.repository_owner }}"
-          VARIANT="${{ matrix.variant }}"
+          echo "DOCKER_IMAGE=ghcr.io/${OWNER,,}/careamics-${{ matrix.variant }}:${VERSION}" >> "$GITHUB_ENV"
+          echo "SIF_IMAGE=oras://ghcr.io/${OWNER,,}/careamics-${{ matrix.variant }}-sif:${VERSION}" >> "$GITHUB_ENV"
+          echo "SIF_FILE=careamics-${{ matrix.variant }}-${VERSION}.sif" >> "$GITHUB_ENV"
 
-          echo "docker_image=ghcr.io/${OWNER}/careamics-${VARIANT}:${VERSION}" >> "$GITHUB_OUTPUT"
-          echo "sif_image=oras://ghcr.io/${OWNER}/careamics-${VARIANT}-sif:${VERSION}" >> "$GITHUB_OUTPUT"
-          echo "sif_file=careamics-${VARIANT}-${VERSION}.sif" >> "$GITHUB_OUTPUT"
-
-      - name: Log in to GitHub Container Registry for Docker
+      - name: Log in to GHCR
         uses: docker/login-action@v4
         with:
           registry: ghcr.io
@@ -50,12 +46,11 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
+          target: ${{ matrix.variant }}
           push: true
           build-args: |
-            BASE_IMAGE=${{ matrix.base_image }}
-            CAREAMICS_VERSION=${{ github.event.inputs.careamics_version }}
-          tags: |
-            ${{ steps.image.outputs.docker_image }}
+            CAREAMICS_VERSION=${{ env.VERSION }}
+          tags: ${{ env.DOCKER_IMAGE }}
 
       - name: Install Apptainer
         run: |
@@ -63,18 +58,16 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y apptainer
 
-      - name: Build SIF from Docker image
+      - name: Build SIF
         run: |
-          apptainer build "${{ steps.image.outputs.sif_file }}" \
-            "docker://${{ steps.image.outputs.docker_image }}"
+          apptainer build "$SIF_FILE" "docker://$DOCKER_IMAGE"
 
-      - name: Log in to GitHub Container Registry for Apptainer ORAS
+      - name: Log in to GHCR with Apptainer
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | apptainer registry login \
             --username "${{ github.actor }}" \
             --password-stdin oras://ghcr.io
 
-      - name: Push SIF to GHCR
+      - name: Push SIF
         run: |
-          apptainer push "${{ steps.image.outputs.sif_file }}" \
-            "${{ steps.image.outputs.sif_image }}"
+          apptainer push "$SIF_FILE" "$SIF_IMAGE"
