@@ -52,6 +52,11 @@ jobs:
             CAREAMICS_VERSION=${{ env.VERSION }}
           tags: ${{ env.DOCKER_IMAGE }}
 
+      - name: Free space
+        run: |
+          docker system prune -af
+          docker builder prune -af
+
       - name: Install Apptainer
         run: |
           sudo add-apt-repository -y ppa:apptainer/ppa
