@@ -43,6 +43,8 @@ def train_model(train_path: Path, config: Configuration, work_dir: str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("--train_data", help="Path to train data.")
+    parser.add_argument("--output_path", help="Path to save the output files.")
     parser.add_argument("--experiment_name", type=str, help="name of the experiment.")
     parser.add_argument("--data_type", type=SupportedData)
     parser.add_argument("--axes", type=str)
@@ -50,8 +52,6 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int)
     parser.add_argument("--num_epochs", type=int)
     parser.add_argument("--use_n2v2", type=bool)
-    parser.add_argument("--train_data", help="Path to train data.")
-    parser.add_argument("--output_path", help="Path to save the output files.")
 
     args = parser.parse_args()
 

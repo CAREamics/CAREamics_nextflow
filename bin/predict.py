@@ -38,7 +38,7 @@ def prediction_careamist(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--ckpt_path", required=True, help="Path to pretrained model")
-    parser.add_argument("--data_path", required=True, help="Path to folder with images")
+    parser.add_argument("--data", required=True, help="Path to folder with images")
     parser.add_argument("--output_path", help="Path to save the output files.")
     parser.add_argument("--batch_size")
     parser.add_argument("--tile_size", nargs="+", type=int, help="2D or 3D")
