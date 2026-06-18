@@ -1,0 +1,89 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com/CAREamics/CAREamics_nextflow/main/nextflow_schema.json",
+    "title": "CAREamics denoising pipeline parameters",
+    "description": "Example Nextflow pipeline for training or applying CAREamics denoising models.",
+    "type": "object",
+    "required": ["prediction_csv"],
+    "properties": {
+        "prediction_csv": {
+            "type": "string",
+            "format": "file-path",
+            "description": "CSV file with prediction samples. Must contain an image column and may contain a sample column."
+        },
+        "pretrained_model": {
+            "type": "string",
+            "format": "file-path",
+            "description": "Path to a pretrained CAREamics checkpoint. If provided, training is skipped."
+        },
+        "train_data": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "Directory containing training data. Required when pretrained_model is not provided."
+        },
+        "target_data": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "Directory containing paired target data. Required for care and n2n training."
+        },
+        "model": {
+            "type": "string",
+            "enum": ["n2v", "care", "n2n"],
+            "description": "CAREamics model type to train."
+        },
+        "experiment_name": {
+            "type": "string",
+            "description": "Name used by CAREamics for the training experiment."
+        },
+        "data_type": {
+            "type": "string",
+            "enum": ["tiff", "zarr", "czi"],
+            "description": "Input data type passed to CAREamics."
+        },
+        "axes": {
+            "type": "string",
+            "description": "Axes for training data, for example SYX."
+        },
+        "test_axis": {
+            "type": "string",
+            "description": "Axes for prediction data, for example YX."
+        },
+        "patch_size": {
+            "type": "string",
+            "description": "Training patch size, passed as a space-separated list, for example '64 64'."
+        },
+        "tile_size": {
+            "type": "string",
+            "description": "Prediction tile size, passed as a space-separated list, for example '256 256'."
+        },
+        "tile_overlap": {
+            "type": "string",
+            "description": "Prediction tile overlap, passed as a space-separated list, for example '48 48'."
+        },
+        "batch_size": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Batch size used for training and prediction."
+        },
+        "num_epochs": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Number of training epochs."
+        },
+        "use_n2v2": {
+            "type": "boolean",
+            "default": false,
+            "description": "Enable N2V2 when training an n2v model."
+        },
+        "write_type": {
+            "type": "string",
+            "enum": ["tiff", "zarr"],
+            "description": "Output format for denoised predictions."
+        },
+        "outdir": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "Output directory."
+        }
+    }
+}

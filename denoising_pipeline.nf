@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
+nextflow.enable.dsl = 2
 
 /*
 ========================================================================================
@@ -9,9 +9,11 @@ nextflow.enable.dsl=2
     1. Denoise microscopy images using CAREamics (N2V, CARE, or N2N)
     
     Usage:
-        nextflow run example_denoising_segmentation_pipeline.nf \
+        nextflow run denoising_pipeline.nf \
             -profile conda|singularity|docker \
-            -params-file params_n2v.json|params_n2n_care.json
+            --prediction_csv prediction.csv \
+            --train_data path/to/train_dir \
+            --model n2v|care|n2n
 ========================================================================================
 */
 
@@ -22,6 +24,17 @@ include { CAREAMICS_TRAIN_N2N  } from './modules/careamics/train/n2n/main'
 include { CAREAMICS_PREDICT    } from './modules/careamics/predict/main'
 
 
+def validate_dir(data_path, param_name) {
+    def data_dir = data_path.toFile()
+
+    if (!data_dir.isDirectory()) {
+        error("${param_name} must point to a directory, but got: ${data_path}")
+    }
+
+    return data_path
+}
+
+
 /*
 ========================================================================================
     MAIN WORKFLOW
@@ -29,95 +42,76 @@ include { CAREAMICS_PREDICT    } from './modules/careamics/predict/main'
 */
 
 workflow {
-    
-    //
-    // STEP 1: DENOISING
-    //
-    
+
     if (params.pretrained_model) {
         // Use pre-trained model for denoising
-        log.info "Using pre-trained model: ${params.pretrained_model}"
-        
-        ch_input_images = channel
-            .fromPath(params.input, checkIfExists: true)
-            .map { file -> 
-                def meta = [id: file.baseName]
-                return [meta, file]
-            }
-        
-        ch_pretrained_model = channel
-            .fromPath(params.pretrained_model, checkIfExists: true)
+        log.info("Using pre-trained model: ${params.pretrained_model}")
+
+        ch_model = channel.fromPath(params.pretrained_model, checkIfExists: true)
             .map { model -> [[id: 'pretrained'], model] }
-        
-        ch_predict_input = ch_input_images
-            .combine(ch_pretrained_model)
-            .map { img_meta, img_file, _model_meta, model_file ->
-                [img_meta, img_file, model_file]
-            }
-        
-        CAREAMICS_PREDICT(ch_predict_input)
-        ch_denoised = CAREAMICS_PREDICT.out.predictions
-        
-    } else if (params.train_csv) {
+    }
+    else if (params.train_data) {
         // Train model first, then denoise
-        log.info "Training ${params.model} model from CSV and denoising"
-        
-        // Prepare training data from CSV
-        ch_training = channel
-            .fromPath(params.train_csv, checkIfExists: true)
-            .splitCsv(header: true)
-            .map { row ->
-                def meta = [id: row.sample, model: params.model]
-                def imagePath = file(row.image, checkIfExists: true)
-                
-                if (params.model == 'n2v') {
-                    // N2V only needs noisy images
-                    return [meta, imagePath]
-                } else {
-                    // CARE and N2N need paired data
-                    if (!row.target) {
-                        error "CSV must have 'target' column for model: ${params.model}"
-                    }
-                    def targetPath = file(row.target, checkIfExists: true)
-                    return [meta, imagePath, targetPath]
-                }
-            }
-        
+        log.info("Training ${params.model} model and denoising prediction samples")
+
+        def trainMeta = [id: params.experiment_name ?: params.model, model: params.model]
+        def trainData = validate_dir(file(params.train_data, checkIfExists: true), 'train_data')
+
         // Train based on model type
         if (params.model == 'n2v') {
+            ch_training = channel.of([trainMeta, trainData])
             CAREAMICS_TRAIN_N2V(ch_training)
-            ch_trained_model = CAREAMICS_TRAIN_N2V.out.model
-        } else if (params.model == 'care') {
-            CAREAMICS_TRAIN_CARE(ch_training)
-            ch_trained_model = CAREAMICS_TRAIN_CARE.out.model
-        } else if (params.model == 'n2n') {
-            CAREAMICS_TRAIN_N2N(ch_training)
-            ch_trained_model = CAREAMICS_TRAIN_N2N.out.model
-        } else {
-            error "Unknown model type: ${params.model}. Use 'n2v', 'care', or 'n2n'"
+            ch_model = CAREAMICS_TRAIN_N2V.out.model
         }
-        
-        // Prepare test images for denoising
-        ch_test_images = channel
-            .fromPath(params.input, checkIfExists: true)
-            .map { file -> [[id: file.baseName], file] }
-        
-        // Combine test images with trained model
-        ch_predict_input = ch_test_images
-            .combine(ch_trained_model)
-            .map { test_meta, test_file, model_meta, model_file ->
-                def merged_meta = test_meta + [model_id: model_meta.id]
-                return [merged_meta, test_file, model_file]
+        else if (params.model == 'care') {
+            if (!params.target_data) {
+                error("Please provide --target_data for model: ${params.model}")
             }
-        
-        CAREAMICS_PREDICT(ch_predict_input)
-        ch_denoised = CAREAMICS_PREDICT.out.predictions
-        
-    } else {
-        error """
-        Please provide either:
-        1. A pre-trained model: --pretrained_model path/to/model.ckpt
-        2. Training CSV: --train_csv path/to/training.csv
-        """
+            def targetData = validate_dir(file(params.target_data, checkIfExists: true), 'target_data')
+            ch_training = channel.of([trainMeta, trainData, targetData])
+            CAREAMICS_TRAIN_CARE(ch_training)
+            ch_model = CAREAMICS_TRAIN_CARE.out.model
+        }
+        else if (params.model == 'n2n') {
+            if (!params.target_data) {
+                error("Please provide --target_data for model: ${params.model}")
+            }
+            def targetData = validate_dir(file(params.target_data, checkIfExists: true), 'target_data')
+            ch_training = channel.of([trainMeta, trainData, targetData])
+            CAREAMICS_TRAIN_N2N(ch_training)
+            ch_model = CAREAMICS_TRAIN_N2N.out.model
+        }
+        else {
+            error("Unknown model type: ${params.model}. Use 'n2v', 'care', or 'n2n'")
+        }
     }
+    else {
+        error(
+            """
+            Please provide either:
+            1. A pre-trained model: --pretrained_model path/to/model.ckpt
+            2. Training data: --train_data path/to/train_dir --model n2v|care|n2n
+            """
+        )
+    }
+
+    // Run prediction
+    ch_prediction_data = channel.fromPath(params.prediction_csv, checkIfExists: true)
+        .splitCsv(header: true)
+        .map { row ->
+            if (!row.image) {
+                error("Prediction CSV must contain an 'image' column")
+            }
+            def predictionPath = file(row.image, checkIfExists: true)
+            def meta = [id: row.sample ?: predictionPath.baseName]
+            return [meta, predictionPath]
+        }
+    ch_predict_input = ch_prediction_data
+        .combine(ch_model)
+        .map { prediction_meta, prediction_path, model_meta, model_file ->
+            def merged_meta = prediction_meta + [model_id: model_meta.id]
+            return [merged_meta, prediction_path, model_file]
+        }
+    CAREAMICS_PREDICT(ch_predict_input)
+    ch_denoised = CAREAMICS_PREDICT.out.predictions
 }

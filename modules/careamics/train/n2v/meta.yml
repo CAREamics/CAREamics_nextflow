@@ -21,9 +21,9 @@ input:
         Groovy Map containing sample information
         e.g. [ id: 'test', model: 'n2v' ]
   - train_data:
-      type: file
-      description: Training data (images or array files)
-      pattern: "*.{tif,tiff,png,npy}"
+      type: directory
+      description: Directory containing training data
+      pattern: "*.{tif,tiff,zarr,czi}"
 output:
   - meta:
       type: map

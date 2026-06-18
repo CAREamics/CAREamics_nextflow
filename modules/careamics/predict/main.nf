@@ -22,7 +22,7 @@ process CAREAMICS_PREDICT {
     }
 
     input:
-    tuple val(meta), path(test_data), path(model)
+    tuple val(meta), path(data), path(model)
 
     output:
     tuple val(meta), path("predictions/*"), emit: predictions
@@ -36,7 +36,7 @@ process CAREAMICS_PREDICT {
     """
     predict.py \\
         --ckpt_path ${model} \\
-        --data ${test_data} \\
+        --data ${data} \\
         ${args}
 
     cat <<-END_VERSIONS > versions.yml

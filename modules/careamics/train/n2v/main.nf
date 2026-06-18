@@ -22,7 +22,7 @@ process CAREAMICS_TRAIN_N2V {
     }
 
     input:
-    tuple val(meta), path(train_data)
+    tuple val(meta), path(train_data, name: "train_data")
 
     output:
     tuple val(meta), path("*.yaml"), emit: config

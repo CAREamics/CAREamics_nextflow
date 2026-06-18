@@ -1,7 +1,5 @@
 {
-    "input" : "/home/tatiana/test_careamics/n2v_test_sem",
-    "outdir" : "/home/tatiana/results_careamics",
-    "train_csv" : "/home/tatiana/test_careamics/input_n2v_wsl.csv",
+    "outdir" : "/home/melisande.croft/Documents/Outputs/nextflow-runs/careamics-dev",
     "model" : "n2v",                     
     "pretrained_model" : null,  
     "epochs" : 30,

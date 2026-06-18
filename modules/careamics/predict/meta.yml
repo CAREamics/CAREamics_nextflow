@@ -20,10 +20,10 @@ input:
       description: |
         Groovy Map containing sample information
         e.g. [ id: 'test' ]
-  - test_data:
+  - data:
       type: file
-      description: Test data to denoise (images or array files)
-      pattern: "*.{tif,tiff,png,npy}"
+      description: File or directory containing data to denoise
+      pattern: "*.{tif,tiff,zarr,czi}"
   - model:
       type: file
       description: Trained model checkpoint
@@ -40,8 +40,8 @@ output:
       pattern: "versions.yml"
   - predictions:
       type: file
-      description: Denoised predictions
-      pattern: "predictions/*"
+      description: Denoised predictions. File format is controlled by write_type.
+      pattern: "predictions/*.{tiff,zarr}"
 authors:
   - "@yourusername"
 maintainers:

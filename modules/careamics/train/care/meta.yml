@@ -21,13 +21,13 @@ input:
         Groovy Map containing sample information
         e.g. [ id: 'test', model: 'care' ]
   - train_data:
-      type: file
-      description: Training data (noisy images or array files)
-      pattern: "*.{tif,tiff,png,npy}"
+      type: directory
+      description: Directory containing input training data
+      pattern: "*.{tif,tiff,zarr,czi}"
   - target_data:
-      type: file
-      description: Target data (clean images or array files)
-      pattern: "*.{tif,tiff,png,npy}"
+      type: directory
+      description: Directory containing clean target data
+      pattern: "*.{tif,tiff,zarr,czi}"
 output:
   - meta:
       type: map

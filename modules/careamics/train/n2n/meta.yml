@@ -21,13 +21,13 @@ input:
         Groovy Map containing sample information
         e.g. [ id: 'test', model: 'n2n' ]
   - train_data:
-      type: file
-      description: Training data (noisy images or array files)
-      pattern: "*.{tif,tiff,png,npy}"
+      type: directory
+      description: Directory containing noisy training data
+      pattern: "*.{tif,tiff,zarr,czi}"
   - target_data:
-      type: file
-      description: Target data (noisy images or array files from different noise source)
-      pattern: "*.{tif,tiff,png,npy}"
+      type: directory
+      description: Directory containing noisy target data from a different noise source
+      pattern: "*.{tif,tiff,zarr,czi}"
 output:
   - meta:
       type: map
