@@ -22,7 +22,7 @@ process CAREAMICS_TRAIN_N2V {
     }
 
     input:
-    tuple val(meta), path(train_data, name: "train_data")
+    tuple val(meta), path(train_data, name: "train_data"), path(val_data, name: "val_data")
 
     output:
     tuple val(meta), path("*.yaml"), emit: config
@@ -35,9 +35,11 @@ process CAREAMICS_TRAIN_N2V {
 
     script:
     def args = task.ext.args ?: ''
+    def val_args = val_data ? "--val_data ${val_data}" : ''
     """
     train_n2v.py \\
         --train_data ${train_data} \\
+        ${val_args} \\
         --output_path . \\
         ${args}
 

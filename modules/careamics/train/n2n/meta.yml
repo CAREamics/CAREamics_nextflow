@@ -28,6 +28,14 @@ input:
       type: directory
       description: Directory containing noisy target data from a different noise source
       pattern: "*.{tif,tiff,zarr,czi}"
+  - val_data:
+      type: directory
+      description: Optional directory containing validation data
+      pattern: "*.{tif,tiff,zarr,czi}"
+  - val_target:
+      type: directory
+      description: Optional directory containing noisy validation target data from a different noise source
+      pattern: "*.{tif,tiff,zarr,czi}"
 output:
   - meta:
       type: map

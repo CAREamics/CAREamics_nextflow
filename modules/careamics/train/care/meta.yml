@@ -28,6 +28,14 @@ input:
       type: directory
       description: Directory containing clean target data
       pattern: "*.{tif,tiff,zarr,czi}"
+  - val_data:
+      type: directory
+      description: Optional directory containing validation data
+      pattern: "*.{tif,tiff,zarr,czi}"
+  - val_target:
+      type: directory
+      description: Optional directory containing clean validation target data
+      pattern: "*.{tif,tiff,zarr,czi}"
 output:
   - meta:
       type: map

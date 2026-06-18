@@ -50,17 +50,24 @@ def create_config(
     return config
 
 
-def train_model(train_path: Path, config: Configuration, work_dir: str):
+def train_model(
+    train_path: Path,
+    config: Configuration,
+    work_dir: str,
+    val_path: Path | None = None,
+):
     """function to train a model"""
     careamist = CAREamist(config=config, work_dir=work_dir)
     careamist.train(
         train_data=train_path,
+        **without_none({"val_data": val_path}),
     )
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--train_data", type=Path, required=True, help="Path to train data.")
+    parser.add_argument("--val_data", type=Path, help="Path to validation data.")
     parser.add_argument(
         "--output_path", type=Path, required=True, help="Path to save the output files."
     )
@@ -94,4 +101,4 @@ if __name__ == "__main__":
         n_channels=args.n_channels,
     )
     save_configuration(config, os.path.join(args.output_path, "config.yaml"))
-    train_model(args.train_data, config, work_dir=args.output_path)
+    train_model(args.train_data, config, work_dir=args.output_path, val_path=args.val_data)

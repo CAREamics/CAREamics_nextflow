@@ -26,6 +26,16 @@
             "format": "directory-path",
             "description": "Directory containing paired target data. Required for care and n2n training."
         },
+        "val_data": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "Optional directory containing validation data."
+        },
+        "val_target": {
+            "type": "string",
+            "format": "directory-path",
+            "description": "Optional directory containing paired validation target data. Required with val_data for care and n2n training."
+        },
         "model": {
             "type": "string",
             "enum": ["n2v", "care", "n2n"],
@@ -77,6 +87,7 @@
         },
         "augmentations": {
             "type": "array",
+            "uniqueItems": true,
             "items": {
                 "type": "string",
                 "enum": ["x_flip", "y_flip", "rotate_90"]

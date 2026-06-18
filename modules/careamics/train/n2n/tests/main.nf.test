@@ -18,7 +18,9 @@ nextflow_process {
                 input[0] = tuple(
                     [ id:'test_care', model:'n2n' ],  // Added 'model' to meta
                     file(params.modules_testdata_base_path + 'N2N_data/train/img.tif'),
-                    file(params.modules_testdata_base_path + 'N2N_data/target/img.tif')
+                    file(params.modules_testdata_base_path + 'N2N_data/target/img.tif'),
+                    [],
+                    []
                 )
                 """
             }
@@ -49,7 +51,9 @@ nextflow_process {
                 input[0] = tuple(
                     [ id:'test_stub', model:'n2n' ],  // Added 'model' to meta
                     file(params.modules_testdata_base_path + 'N2N_data/train/img.tif'),
-                    file(params.modules_testdata_base_path + 'N2N_data/target/img.tif')
+                    file(params.modules_testdata_base_path + 'N2N_data/target/img.tif'),
+                    [],
+                    []
                 )
                 """
             }
@@ -63,4 +67,3 @@ nextflow_process {
         }
     }
 }
-

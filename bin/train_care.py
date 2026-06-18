@@ -50,10 +50,20 @@ def create_config(
     return config
 
 
-def train_model(train_path: Path, target_path: Path, config: Configuration[Any]):
+def train_model(
+    train_path: Path,
+    target_path: Path,
+    config: Configuration[Any],
+    val_path: Path | None = None,
+    val_target_path: Path | None = None,
+):
     """function to train a model"""
     careamist = CAREamist(config=config)
-    careamist.train(train_data=train_path, train_data_target=target_path)
+    careamist.train(
+        train_data=train_path,
+        train_data_target=target_path,
+        **without_none({"val_data": val_path, "val_data_target": val_target_path}),
+    )
 
 
 
@@ -61,6 +71,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--train_data", type=Path, required=True, help="Path to train data.")
     parser.add_argument("--train_target", type=Path, required=True, help="Path to target data.")
+    parser.add_argument("--val_data", type=Path, help="Path to validation data.")
+    parser.add_argument("--val_target", type=Path, help="Path to validation target data.")
     parser.add_argument("--output_path", type=Path, required=True, help="Path to save the output files.")
     parser.add_argument("--experiment_name", type=str, required=True, help="name of the experiment.")
     parser.add_argument("--data_type", type=SupportedData, required=True)
@@ -92,4 +104,4 @@ if __name__ == "__main__":
         n_channels_out=args.n_channels_out,
     )
     save_configuration(config, os.path.join(args.output_path, "config.yaml"))
-    train_model(args.train_data, args.train_target, config)
+    train_model(args.train_data, args.train_target, config, args.val_data, args.val_target)

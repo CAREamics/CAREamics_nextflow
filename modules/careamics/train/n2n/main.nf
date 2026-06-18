@@ -22,7 +22,7 @@ process CAREAMICS_TRAIN_N2N {
     }
 
     input:
-    tuple val(meta), path(train_data, name: "train_data"), path(target_data, name: "target_data")
+    tuple val(meta), path(train_data, name: "train_data"), path(target_data, name: "target_data"), path(val_data, name: "val_data"), path(val_target, name: "val_target")
 
     output:
     tuple val(meta), path("*.yaml"), emit: config
@@ -35,10 +35,15 @@ process CAREAMICS_TRAIN_N2N {
 
     script:
     def args = task.ext.args ?: ''
+    if ((val_data && !val_target) || (!val_data && val_target)) {
+        error "Both val_data and val_target must be provided for ${task.process}, or neither."
+    }
+    def val_args = val_data ? "--val_data ${val_data} --val_target ${val_target}" : ''
     """
     train_n2n.py \\
         --train_data ${train_data} \\
         --train_target ${target_data} \\
+        ${val_args} \\
         --output_path . \\
         ${args}
 
