@@ -1,6 +1,5 @@
 {
-    "outdir" : "/home/melisande.croft/Documents/Outputs/nextflow-runs/careamics-dev",
-    "model" : "n2v",                     
+    "algorithm" : "n2v",
     "pretrained_model" : null,  
     "epochs" : 30,
     "experiment_name": "temp",

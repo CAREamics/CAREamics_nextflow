@@ -6,7 +6,7 @@
                     [
                         {
                             "id": "test_stub",
-                            "model": "n2n"
+                            "algorithm": "n2n"
                         },
                         "test_stub_config.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -15,7 +15,7 @@
                     [
                         {
                             "id": "test_stub",
-                            "model": "n2n"
+                            "algorithm": "n2n"
                         },
                         "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -27,7 +27,7 @@
                     [
                         {
                             "id": "test_stub",
-                            "model": "n2n"
+                            "algorithm": "n2n"
                         },
                         "test_stub_config.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -36,7 +36,7 @@
                     [
                         {
                             "id": "test_stub",
-                            "model": "n2n"
+                            "algorithm": "n2n"
                         },
                         "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]

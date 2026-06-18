@@ -7,7 +7,7 @@ workflow CAREAMICS_DENOISING {
 
     take:
     // Channel: [ val(meta), path(train_data), path(target_data), path(val_data), path(val_target) ]
-    //   meta map with at minimum: id, model (n2v/care/n2n/structn2v)
+    //   meta map with at minimum: id, algorithm (n2v/care/n2n/structn2v)
     //   train_data: path to training images
     //   target_data: path to target images (optional, null for n2v/structn2v)
     //   val_data: optional path to validation images
@@ -23,14 +23,14 @@ workflow CAREAMICS_DENOISING {
     def ch_models   = channel.empty()
     def ch_configs  = channel.empty()
 
-    // Branch training data by model type
+    // Branch training data by algorithm
     ch_training_input
         .branch { meta, train, target, val, val_target ->
-            n2v: meta.model == 'n2v' || meta.model == 'structn2v'
+            n2v: meta.algorithm == 'n2v' || meta.algorithm == 'structn2v'
                 return [meta, train, val ?: []]
-            care: meta.model == 'care'
+            care: meta.algorithm == 'care'
                 return [meta, train, target, val ?: [], val_target ?: []]
-            n2n: meta.model == 'n2n'
+            n2n: meta.algorithm == 'n2n'
                 return [meta, train, target, val ?: [], val_target ?: []]
         }
         .set { ch_branched }

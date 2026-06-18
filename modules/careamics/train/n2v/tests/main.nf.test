@@ -9,14 +9,14 @@ nextflow_process {
     tag "careamics"
     tag "training_n2v"
 
-    test("train model n2v2") {
+    test("train algorithm n2v2") {
 
         when { 
             process {
                 config "/home/tatiana/Denoising_careamics/modules/careamics/train/n2v/tests/nextflow.config"
                 """
                 input[0] = tuple(
-                    [ id:'test_n2v2', model:'n2v' ],  // Added 'model' to meta
+                    [ id:'test_n2v2', algorithm:'n2v' ],  // Added 'algorithm' to meta
                     file(params.modules_testdata_base_path + 'n2v_train_sem/train.tif'),
                     []
                 )
@@ -36,14 +36,14 @@ nextflow_process {
         }
     }
 
-    test("train model n2v") {
+    test("train algorithm n2v") {
 
         when { 
             process {
                 config "/home/tatiana/Denoising_careamics/modules/careamics/train/n2v/tests/nextflow.config"
                 """
                 input[0] = tuple(
-                    [ id:'test_n2v', model:'n2v' ],  // Added 'model' to meta
+                    [ id:'test_n2v', algorithm:'n2v' ],  // Added 'algorithm' to meta
                     file(params.modules_testdata_base_path + 'n2v_train_sem/train.tif'),
                     []
                 )
@@ -63,13 +63,13 @@ nextflow_process {
         }
     }
     
-  //  test("train model structn2v") {
+  //  test("train algorithm structn2v") {
 
    //     when {
    //         process {
    //             """
    //             input[0] = tuple(
-   //                 [ id:'test_structn2v', model:'structn2v' ],  // Added 'model' to meta
+   //                 [ id:'test_structn2v', algorithm:'structn2v' ],  // Added 'algorithm' to meta
    //                 file(params.modules_testdata_base_path + 'strn2v_train/train_image.tif'),
    //                 []
    //             )
@@ -98,7 +98,7 @@ nextflow_process {
                 config "/home/tatiana/Denoising_careamics/modules/careamics/train/n2v/tests/nextflow.config"
                 """
                 input[0] = tuple(
-                    [ id:'test_stub', model:'n2v' ],  // Added 'model' to meta
+                    [ id:'test_stub', algorithm:'n2v' ],  // Added 'algorithm' to meta
                     file(params.modules_testdata_base_path + 'n2v_train_sem/train.tif'),
                     []
                 )

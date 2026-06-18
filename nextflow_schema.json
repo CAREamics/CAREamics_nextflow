@@ -36,10 +36,10 @@
             "format": "directory-path",
             "description": "Optional directory containing paired validation target data. Required with val_data for care and n2n training."
         },
-        "model": {
+        "algorithm": {
             "type": "string",
             "enum": ["n2v", "care", "n2n"],
-            "description": "CAREamics model type to train."
+            "description": "CAREamics denoising algorithm to train."
         },
         "experiment_name": {
             "type": "string",
@@ -102,7 +102,7 @@
         "use_n2v2": {
             "type": "boolean",
             "default": false,
-            "description": "Enable N2V2 when training an n2v model."
+            "description": "Enable N2V2 when training the n2v algorithm."
         },
         "n_channels": {
             "type": "integer",
