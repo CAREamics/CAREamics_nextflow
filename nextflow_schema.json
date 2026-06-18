@@ -70,10 +70,43 @@
             "minimum": 1,
             "description": "Number of training epochs."
         },
+        "num_steps": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Number of training steps. If omitted, CAREamics uses its default behavior."
+        },
+        "augmentations": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": ["x_flip", "y_flip", "rotate_90"]
+            },
+            "description": "Training augmentations to enable."
+        },
+        "n_val_patches": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Number of validation patches."
+        },
         "use_n2v2": {
             "type": "boolean",
             "default": false,
             "description": "Enable N2V2 when training an n2v model."
+        },
+        "n_channels": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Number of channels for N2V training."
+        },
+        "n_channels_in": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Number of input channels for CARE/N2N training."
+        },
+        "n_channels_out": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Number of output channels for CARE/N2N training."
         },
         "write_type": {
             "type": "string",
