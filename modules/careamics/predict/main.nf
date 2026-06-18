@@ -53,7 +53,7 @@ process CAREAMICS_PREDICT {
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        careamics: \$(python -c "import careamics; print(careamics.__version__)")
+        careamics: stub
     END_VERSIONS
     """
 }

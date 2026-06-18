@@ -37,7 +37,7 @@ output:
   - model:
       type: file
       description: Trained model checkpoint
-      pattern: "*.pth"
+      pattern: "*.ckpt"
   - config:
       type: file
       description: Training configuration file

@@ -35,17 +35,17 @@ def prediction_careamist(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--ckpt_path", required=True, help="Path to pretrained model")
-    parser.add_argument("--data", required=True, help="Path to folder with images")
+    parser.add_argument("--ckpt_path", type=Path, required=True, help="Path to pretrained model")
+    parser.add_argument("--data", type=Path, required=True, help="Path to folder with images")
     parser.add_argument(
-        "--output_path", type=Path, help="Path to save the output files.", default="."
+        "--output_path", type=Path, help="Path to save the output files.", default=Path(".")
     )
-    parser.add_argument("--batch_size")
+    parser.add_argument("--batch_size", type=int)
     parser.add_argument("--tile_size", nargs="+", type=int, help="2D or 3D")
     parser.add_argument("--tile_overlap", nargs="+", type=int, help="2D or 3D")
-    parser.add_argument("--axes")
+    parser.add_argument("--axes", type=str)
     parser.add_argument("--data_type", type=SupportedData)
-    parser.add_argument("--write_type")
+    parser.add_argument("--write_type", choices=["tiff", "zarr", "custom"])
     args = parser.parse_args()
 
     prediction_careamist(

@@ -27,7 +27,7 @@ input:
   - model:
       type: file
       description: Trained model checkpoint
-      pattern: "*.pth"
+      pattern: "*.ckpt"
 output:
   - meta:
       type: map

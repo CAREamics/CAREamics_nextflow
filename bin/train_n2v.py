@@ -43,15 +43,17 @@ def train_model(train_path: Path, config: Configuration, work_dir: str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--train_data", help="Path to train data.")
-    parser.add_argument("--output_path", help="Path to save the output files.")
+    parser.add_argument("--train_data", type=Path, help="Path to train data.")
+    parser.add_argument(
+        "--output_path", type=Path, help="Path to save the output files."
+    )
     parser.add_argument("--experiment_name", type=str, help="name of the experiment.")
     parser.add_argument("--data_type", type=SupportedData)
     parser.add_argument("--axes", type=str)
     parser.add_argument("--patch_size", nargs="+", type=int, help="2D or 3D")
     parser.add_argument("--batch_size", type=int)
     parser.add_argument("--num_epochs", type=int)
-    parser.add_argument("--use_n2v2", type=bool)
+    parser.add_argument("--use_n2v2", action="store_true", default=False)
 
     args = parser.parse_args()
 
@@ -62,7 +64,7 @@ if __name__ == "__main__":
         args.patch_size,
         args.batch_size,
         args.num_epochs,
-        args.use_n2v2
+        args.use_n2v2,
     )
     save_configuration(config, os.path.join(args.output_path, "config.yaml"))
     train_model(args.train_data, config, work_dir=args.output_path)

@@ -34,7 +34,7 @@ output:
   - model:
       type: file
       description: Trained model checkpoints
-      pattern: "*.pth"
+      pattern: "*.ckpt"
   - predictions:
       type: file
       description: Denoised predictions
