@@ -54,7 +54,7 @@ workflow {
         // Train model first, then denoise
         log.info("Training ${params.algorithm} algorithm and denoising prediction samples")
 
-        def trainMeta = [id: params.experiment_name ?: params.algorithm, algorithm: params.algorithm]
+        def trainMeta = [id: params.experiment_name ?: 'training']
         def trainData = validate_dir(file(params.train_data, checkIfExists: true), 'train_data')
         def valData = params.val_data ? validate_dir(file(params.val_data, checkIfExists: true), 'val_data') : []
 

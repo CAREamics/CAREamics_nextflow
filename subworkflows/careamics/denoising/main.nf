@@ -6,10 +6,11 @@ include { CAREAMICS_PREDICT    } from '../../../modules/careamics/predict/main'
 workflow CAREAMICS_DENOISING {
 
     take:
-    // Channel: [ val(meta), path(train_data), path(target_data), path(val_data), path(val_target) ]
-    //   meta map with at minimum: id, algorithm (n2v/care/n2n/structn2v)
+    // Channel: [ val(algorithm), val(meta), path(train_data), path(target_data), path(val_data), path(val_target) ]
+    //   algorithm: n2v/care/n2n
+    //   meta map with at minimum: id
     //   train_data: path to training images
-    //   target_data: path to target images (optional, null for n2v/structn2v)
+    //   target_data: path to target images (optional, null for n2v)
     //   val_data: optional path to validation images
     //   val_target: optional path to validation target images
     ch_training_input
@@ -25,12 +26,12 @@ workflow CAREAMICS_DENOISING {
 
     // Branch training data by algorithm
     ch_training_input
-        .branch { meta, train, target, val, val_target ->
-            n2v: meta.algorithm == 'n2v' || meta.algorithm == 'structn2v'
+        .branch { algorithm, meta, train, target, val, val_target ->
+            n2v: algorithm == 'n2v' || algorithm == 'structn2v'
                 return [meta, train, val ?: []]
-            care: meta.algorithm == 'care'
+            care: algorithm == 'care'
                 return [meta, train, target, val ?: [], val_target ?: []]
-            n2n: meta.algorithm == 'n2n'
+            n2n: algorithm == 'n2n'
                 return [meta, train, target, val ?: [], val_target ?: []]
         }
         .set { ch_branched }

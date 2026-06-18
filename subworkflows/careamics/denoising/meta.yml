@@ -17,10 +17,11 @@ input:
       type: channel
       description: |
         Channel containing training data
-        Structure: [ val(meta), path(train_data_dir), path(target_data_dir), path(val_data_dir), path(val_target_dir) ]
-        meta map must contain: id, algorithm (n2v/care/n2n/structn2v)
+        Structure: [ val(algorithm), val(meta), path(train_data_dir), path(target_data_dir), path(val_data_dir), path(val_target_dir) ]
+        algorithm must be one of n2v/care/n2n.
+        meta map must contain: id.
         train_data_dir and target_data_dir are directories containing .tif, .tiff, .zarr, or .czi files.
-        target_data_dir can be null for n2v/structn2v models.
+        target_data_dir can be null for n2v models.
         val_data_dir and val_target_dir are optional validation directories.
   - ch_test_data:
       type: channel

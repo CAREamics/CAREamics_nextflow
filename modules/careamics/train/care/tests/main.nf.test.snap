@@ -5,8 +5,7 @@
                 "0": [
                     [
                         {
-                            "id": "test_stub",
-                            "algorithm": "care"
+                            "id": "test_stub"
                         },
                         "test_stub_config.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -14,8 +13,7 @@
                 "1": [
                     [
                         {
-                            "id": "test_stub",
-                            "algorithm": "care"
+                            "id": "test_stub"
                         },
                         "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -26,8 +24,7 @@
                 "config": [
                     [
                         {
-                            "id": "test_stub",
-                            "algorithm": "care"
+                            "id": "test_stub"
                         },
                         "test_stub_config.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -35,8 +32,7 @@
                 "model": [
                     [
                         {
-                            "id": "test_stub",
-                            "algorithm": "care"
+                            "id": "test_stub"
                         },
                         "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -58,8 +54,7 @@
                 "0": [
                     [
                         {
-                            "id": "test_care",
-                            "algorithm": "care"
+                            "id": "test_care"
                         },
                         "config.yaml:md5,d893b720c8d69955f4155eafabac9df5"
                     ]
@@ -67,8 +62,7 @@
                 "1": [
                     [
                         {
-                            "id": "test_care",
-                            "algorithm": "care"
+                            "id": "test_care"
                         },
                         "last.ckpt:md5,8bcba8da7965f3a920ba39e0496d9d25"
                     ]
@@ -79,8 +73,7 @@
                 "config": [
                     [
                         {
-                            "id": "test_care",
-                            "algorithm": "care"
+                            "id": "test_care"
                         },
                         "config.yaml:md5,d893b720c8d69955f4155eafabac9df5"
                     ]
@@ -88,8 +81,7 @@
                 "model": [
                     [
                         {
-                            "id": "test_care",
-                            "algorithm": "care"
+                            "id": "test_care"
                         },
                         "last.ckpt:md5,8bcba8da7965f3a920ba39e0496d9d25"
                     ]

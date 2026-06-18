@@ -5,8 +5,7 @@
                 "0": [
                     [
                         {
-                            "id": "test_stub",
-                            "algorithm": "n2n"
+                            "id": "test_stub"
                         },
                         "test_stub_config.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -14,8 +13,7 @@
                 "1": [
                     [
                         {
-                            "id": "test_stub",
-                            "algorithm": "n2n"
+                            "id": "test_stub"
                         },
                         "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -26,8 +24,7 @@
                 "config": [
                     [
                         {
-                            "id": "test_stub",
-                            "algorithm": "n2n"
+                            "id": "test_stub"
                         },
                         "test_stub_config.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
@@ -35,8 +32,7 @@
                 "model": [
                     [
                         {
-                            "id": "test_stub",
-                            "algorithm": "n2n"
+                            "id": "test_stub"
                         },
                         "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]

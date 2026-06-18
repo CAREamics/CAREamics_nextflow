@@ -16,7 +16,7 @@ nextflow_process {
                 config "/home/tatiana/Denoising_careamics/modules/careamics/train/care/tests/nextflow.config"
                 """
                 input[0] = tuple(
-                    [ id:'test_care', algorithm:'care' ],  // Added 'algorithm' to meta
+                    [ id:'test_care' ],
                     file(params.modules_testdata_base_path + 'U2OS/train/low/img_0042.tif'),
                     file(params.modules_testdata_base_path + 'U2OS/train/GT/img_0042.tif'),
                     [],
@@ -49,7 +49,7 @@ nextflow_process {
                 config "/home/tatiana/Denoising_careamics/modules/careamics/train/care/tests/nextflow.config"
                 """
                 input[0] = tuple(
-                    [ id:'test_stub', algorithm:'care' ],  // Added 'algorithm' to meta
+                    [ id:'test_stub' ],
                     file(params.modules_testdata_base_path + 'U2OS/train/low/img_0042.tif'),
                     file(params.modules_testdata_base_path + 'U2OS/train/GT/img_0042.tif'),
                     [],

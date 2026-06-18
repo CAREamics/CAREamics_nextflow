@@ -16,7 +16,7 @@ nextflow_process {
                 config "/home/tatiana/Denoising_careamics/modules/careamics/train/n2v/tests/nextflow.config"
                 """
                 input[0] = tuple(
-                    [ id:'test_n2v2', algorithm:'n2v' ],  // Added 'algorithm' to meta
+                    [ id:'test_n2v2' ],
                     file(params.modules_testdata_base_path + 'n2v_train_sem/train.tif'),
                     []
                 )
@@ -43,7 +43,7 @@ nextflow_process {
                 config "/home/tatiana/Denoising_careamics/modules/careamics/train/n2v/tests/nextflow.config"
                 """
                 input[0] = tuple(
-                    [ id:'test_n2v', algorithm:'n2v' ],  // Added 'algorithm' to meta
+                    [ id:'test_n2v' ],
                     file(params.modules_testdata_base_path + 'n2v_train_sem/train.tif'),
                     []
                 )
@@ -69,7 +69,7 @@ nextflow_process {
    //         process {
    //             """
    //             input[0] = tuple(
-   //                 [ id:'test_structn2v', algorithm:'structn2v' ],  // Added 'algorithm' to meta
+   //                 [ id:'test_structn2v' ],
    //                 file(params.modules_testdata_base_path + 'strn2v_train/train_image.tif'),
    //                 []
    //             )
@@ -98,7 +98,7 @@ nextflow_process {
                 config "/home/tatiana/Denoising_careamics/modules/careamics/train/n2v/tests/nextflow.config"
                 """
                 input[0] = tuple(
-                    [ id:'test_stub', algorithm:'n2v' ],  // Added 'algorithm' to meta
+                    [ id:'test_stub' ],
                     file(params.modules_testdata_base_path + 'n2v_train_sem/train.tif'),
                     []
                 )

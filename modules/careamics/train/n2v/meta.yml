@@ -19,7 +19,7 @@ input:
       type: map
       description: |
         Groovy Map containing sample information
-        e.g. [ id: 'test', algorithm: 'n2v' ]
+        e.g. [ id: 'test' ]
   - train_data:
       type: directory
       description: Directory containing training data
@@ -33,7 +33,7 @@ output:
       type: map
       description: |
         Groovy Map containing sample information
-        e.g. [ id: 'test', algorithm: 'n2v' ]
+        e.g. [ id: 'test' ]
   - versions:
       type: file
       description: File containing software versions
