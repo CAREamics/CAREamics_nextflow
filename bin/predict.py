@@ -10,7 +10,7 @@ from careamics.config.support import SupportedData
 
 def prediction_careamist(
     ckpt_path: Path,
-    data_path: Path,
+    data_path: str,
     batch_size: int,
     tile_size: tuple[int, ...],
     tile_overlap: tuple[int, ...],
@@ -36,7 +36,7 @@ def prediction_careamist(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--ckpt_path", type=Path, required=True, help="Path to pretrained model")
-    parser.add_argument("--data", type=Path, required=True, help="Path to folder with images")
+    parser.add_argument("--data", type=str, required=True, help="Path to folder with images")
     parser.add_argument(
         "--output_path", type=Path, help="Path to save the output files.", default=Path(".")
     )

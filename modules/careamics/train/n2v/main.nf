@@ -1,3 +1,7 @@
+def zarr_group_uri(data_path, inner_zarr_path) {
+    inner_zarr_path ? "file://${data_path}/${inner_zarr_path}" : data_path
+}
+
 process CAREAMICS_TRAIN_N2V {
     tag "${meta.id}"
     label 'process_gpu_medium'
@@ -22,7 +26,7 @@ process CAREAMICS_TRAIN_N2V {
     }
 
     input:
-    tuple val(meta), path(train_data, name: "train_data"), path(val_data, name: "val_data")
+    tuple val(meta), path(train_data), val(train_inner_zarr_path), path(val_data), val(val_inner_zarr_path)
 
     output:
     tuple val(meta), path("*.yaml"), emit: config
@@ -35,10 +39,15 @@ process CAREAMICS_TRAIN_N2V {
 
     script:
     def args = task.ext.args ?: ''
-    def val_args = val_data ? "--val_data ${val_data}" : ''
+    if (val_inner_zarr_path?.toString() && !val_data) {
+        error("val_inner_zarr_path requires val_data for ${task.process}.")
+    }
+    def train_data_arg = zarr_group_uri(train_data, train_inner_zarr_path)
+    def val_data_arg = val_data ? zarr_group_uri(val_data, val_inner_zarr_path) : null
+    def val_args = val_data ? "--val_data \"${val_data_arg}\"" : ''
     """
     train_n2v.py \\
-        --train_data ${train_data} \\
+        --train_data "${train_data_arg}" \\
         ${val_args} \\
         --output_path . \\
         ${args}

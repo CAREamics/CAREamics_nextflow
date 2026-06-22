@@ -1,3 +1,7 @@
+def zarr_group_uri(data_path, inner_zarr_path) {
+    inner_zarr_path ? "file://${data_path}/${inner_zarr_path}" : data_path
+}
+
 process CAREAMICS_PREDICT {
     tag "${meta.id}"
     label 'process_gpu_medium'
@@ -22,7 +26,7 @@ process CAREAMICS_PREDICT {
     }
 
     input:
-    tuple val(meta), path(data), path(model)
+    tuple val(meta), path(data), val(data_inner_zarr_path), path(model)
 
     output:
     tuple val(meta), path("predictions/*"), emit: predictions
@@ -33,10 +37,11 @@ process CAREAMICS_PREDICT {
 
     script:
     def args = task.ext.args ?: ''
+    def data_arg = zarr_group_uri(data, data_inner_zarr_path)
     """
     predict.py \\
         --ckpt_path ${model} \\
-        --data ${data} \\
+        --data "${data_arg}" \\
         ${args}
 
     cat <<-END_VERSIONS > versions.yml

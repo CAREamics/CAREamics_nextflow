@@ -18,23 +18,39 @@
         },
         "train_data": {
             "type": "string",
-            "format": "directory-path",
-            "description": "Directory containing training data. Required when pretrained_model is not provided."
+            "description": "Training data as a .tif, .tiff, or .czi file, .zarr store, or directory containing image files. Required when pretrained_model is not provided."
+        },
+        "train_inner_zarr_path": {
+            "type": "string",
+            "description": "Optional relative inner path to a zarr group within train_data. When set, CAREamics receives file://train_data/train_inner_zarr_path while the full zarr store is staged."
         },
         "target_data": {
             "type": "string",
-            "format": "directory-path",
-            "description": "Directory containing paired target data. Required for care and n2n training."
+            "description": "Paired target data as a .tif, .tiff, or .czi file, .zarr store, or directory containing image files. Required for care and n2n training."
+        },
+        "train_target_inner_zarr_path": {
+            "type": "string",
+            "description": "Optional relative inner path to a zarr group within target_data. When set, CAREamics receives file://train_target/train_target_inner_zarr_path while the full zarr store is staged."
         },
         "val_data": {
             "type": "string",
-            "format": "directory-path",
-            "description": "Optional directory containing validation data."
+            "description": "Optional validation data as a .tif, .tiff, or .czi file, .zarr store, or directory containing image files."
+        },
+        "val_inner_zarr_path": {
+            "type": "string",
+            "description": "Optional relative inner path to a zarr group within val_data. Requires val_data."
         },
         "val_target": {
             "type": "string",
-            "format": "directory-path",
-            "description": "Optional directory containing paired validation target data. Required with val_data for care and n2n training."
+            "description": "Optional paired validation target data as a .tif, .tiff, or .czi file, .zarr store, or directory containing image files. Required with val_data for care and n2n training."
+        },
+        "val_target_inner_zarr_path": {
+            "type": "string",
+            "description": "Optional relative inner path to a zarr group within val_target. Requires val_target."
+        },
+        "data_inner_zarr_path": {
+            "type": "string",
+            "description": "Optional default relative inner path to a zarr group within prediction data. Prediction CSV rows may override this with inner_zarr_path or data_inner_zarr_path."
         },
         "algorithm": {
             "type": "string",

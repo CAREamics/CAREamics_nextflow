@@ -22,8 +22,12 @@ input:
         e.g. [ id: 'test' ]
   - data:
       type: file
-      description: File or directory containing data to denoise
-      pattern: "*.{tif,tiff,zarr,czi}"
+      description: Data to denoise as a .tif, .tiff, or .czi file, .zarr store, or directory containing image files
+      pattern: "*.{tif,tiff,czi,zarr}"
+  - data_inner_zarr_path:
+      type: string
+      description: Optional relative inner path to a zarr group within data. Leave null or empty to use data directly.
+      pattern: "^(|[^/\\s][^\\s]*)$"
   - model:
       type: file
       description: Trained model checkpoint

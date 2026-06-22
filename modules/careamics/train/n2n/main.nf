@@ -1,3 +1,7 @@
+def zarr_group_uri(data_path, inner_zarr_path) {
+    inner_zarr_path ? "file://${data_path}/${inner_zarr_path}" : data_path
+}
+
 process CAREAMICS_TRAIN_N2N {
     tag "${meta.id}"
     label 'process_gpu_medium'
@@ -22,7 +26,7 @@ process CAREAMICS_TRAIN_N2N {
     }
 
     input:
-    tuple val(meta), path(train_data, name: "train_data"), path(target_data, name: "target_data"), path(val_data, name: "val_data"), path(val_target, name: "val_target")
+    tuple val(meta), path(train_data), val(train_inner_zarr_path), path(train_target), val(train_target_inner_zarr_path), path(val_data), val(val_inner_zarr_path), path(val_target), val(val_target_inner_zarr_path)
 
     output:
     tuple val(meta), path("*.yaml"), emit: config
@@ -38,11 +42,21 @@ process CAREAMICS_TRAIN_N2N {
     if ((val_data && !val_target) || (!val_data && val_target)) {
         error "Both val_data and val_target must be provided for ${task.process}, or neither."
     }
-    def val_args = val_data ? "--val_data ${val_data} --val_target ${val_target}" : ''
+    if (val_inner_zarr_path?.toString() && !val_data) {
+        error "val_inner_zarr_path requires val_data for ${task.process}."
+    }
+    if (val_target_inner_zarr_path?.toString() && !val_target) {
+        error "val_target_inner_zarr_path requires val_target for ${task.process}."
+    }
+    def train_data_arg = zarr_group_uri(train_data, train_inner_zarr_path)
+    def train_target_arg = zarr_group_uri(train_target, train_target_inner_zarr_path)
+    def val_data_arg = val_data ? zarr_group_uri(val_data, val_inner_zarr_path) : null
+    def val_target_arg = val_target ? zarr_group_uri(val_target, val_target_inner_zarr_path) : null
+    def val_args = val_data ? "--val_data \"${val_data_arg}\" --val_target \"${val_target_arg}\"" : ''
     """
     train_n2n.py \\
-        --train_data ${train_data} \\
-        --train_target ${target_data} \\
+        --train_data "${train_data_arg}" \\
+        --train_target "${train_target_arg}" \\
         ${val_args} \\
         --output_path . \\
         ${args}

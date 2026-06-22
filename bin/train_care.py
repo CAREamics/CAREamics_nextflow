@@ -51,11 +51,11 @@ def create_config(
 
 
 def train_model(
-    train_path: Path,
-    target_path: Path,
+    train_path: str,
+    target_path: str,
     config: Configuration[Any],
-    val_path: Path | None = None,
-    val_target_path: Path | None = None,
+    val_path: str | None = None,
+    val_target_path: str | None = None,
 ):
     """function to train a model"""
     careamist = CAREamist(config=config)
@@ -69,10 +69,10 @@ def train_model(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--train_data", type=Path, required=True, help="Path to train data.")
-    parser.add_argument("--train_target", type=Path, required=True, help="Path to target data.")
-    parser.add_argument("--val_data", type=Path, help="Path to validation data.")
-    parser.add_argument("--val_target", type=Path, help="Path to validation target data.")
+    parser.add_argument("--train_data", type=str, required=True, help="Path to train data.")
+    parser.add_argument("--train_target", type=str, required=True, help="Path to target data.")
+    parser.add_argument("--val_data", type=str, help="Path to validation data.")
+    parser.add_argument("--val_target", type=str, help="Path to validation target data.")
     parser.add_argument("--output_path", type=Path, required=True, help="Path to save the output files.")
     parser.add_argument("--experiment_name", type=str, required=True, help="name of the experiment.")
     parser.add_argument("--data_type", type=SupportedData, required=True)

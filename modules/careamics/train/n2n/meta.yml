@@ -21,21 +21,37 @@ input:
         Groovy Map containing sample information
         e.g. [ id: 'test' ]
   - train_data:
-      type: directory
-      description: Directory containing noisy training data
-      pattern: "*.{tif,tiff,zarr,czi}"
-  - target_data:
-      type: directory
-      description: Directory containing noisy target data from a different noise source
-      pattern: "*.{tif,tiff,zarr,czi}"
+      type: file
+      description: Noisy training data as a .tif, .tiff, or .czi file, .zarr store, or directory containing image files
+      pattern: "*.{tif,tiff,czi,zarr}"
+  - train_inner_zarr_path:
+      type: string
+      description: Optional relative inner path to a zarr group within train_data. Leave null or empty to use train_data directly.
+      pattern: "^(|[^/\\s][^\\s]*)$"
+  - train_target:
+      type: file
+      description: Noisy target data from a different noise source as a .tif, .tiff, or .czi file, .zarr store, or directory containing image files
+      pattern: "*.{tif,tiff,czi,zarr}"
+  - train_target_inner_zarr_path:
+      type: string
+      description: Optional relative inner path to a zarr group within train_target. Leave null or empty to use train_target directly.
+      pattern: "^(|[^/\\s][^\\s]*)$"
   - val_data:
-      type: directory
-      description: Optional directory containing validation data
-      pattern: "*.{tif,tiff,zarr,czi}"
+      type: file
+      description: Optional validation data as a .tif, .tiff, or .czi file, .zarr store, or directory containing image files
+      pattern: "*.{tif,tiff,czi,zarr}"
+  - val_inner_zarr_path:
+      type: string
+      description: Optional relative inner path to a zarr group within val_data. Leave null or empty to use val_data directly.
+      pattern: "^(|[^/\\s][^\\s]*)$"
   - val_target:
-      type: directory
-      description: Optional directory containing noisy validation target data from a different noise source
-      pattern: "*.{tif,tiff,zarr,czi}"
+      type: file
+      description: Optional noisy validation target data from a different noise source as a .tif, .tiff, or .czi file, .zarr store, or directory containing image files
+      pattern: "*.{tif,tiff,czi,zarr}"
+  - val_target_inner_zarr_path:
+      type: string
+      description: Optional relative inner path to a zarr group within val_target. Leave null or empty to use val_target directly.
+      pattern: "^(|[^/\\s][^\\s]*)$"
 output:
   - meta:
       type: map

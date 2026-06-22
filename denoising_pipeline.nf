@@ -24,14 +24,25 @@ include { CAREAMICS_TRAIN_N2N  } from './modules/careamics/train/n2n/main'
 include { CAREAMICS_PREDICT    } from './modules/careamics/predict/main'
 
 
-def validate_dir(data_path, param_name) {
-    def data_dir = data_path.toFile()
+def validate_data_input(data_path, param_name) {
+    def data_file = data_path.toFile()
+    def accepted_file_extensions = ['.tif', '.tiff', '.czi']
+    def accepted_store_extensions = ['.zarr']
+    def path_name = data_file.name.toLowerCase()
 
-    if (!data_dir.isDirectory()) {
-        error("${param_name} must point to a directory, but got: ${data_path}")
+    if (data_file.isFile() && accepted_file_extensions.any { path_name.endsWith(it) }) {
+        return data_path
     }
 
-    return data_path
+    if (data_file.isDirectory()) {
+        return data_path
+    }
+
+    if (accepted_store_extensions.any { path_name.endsWith(it) }) {
+        return data_path
+    }
+
+    error("${param_name} must point to a .tif, .tiff, or .czi file, a .zarr store, or a directory of image files, but got: ${data_path}")
 }
 
 
@@ -55,12 +66,17 @@ workflow {
         log.info("Training ${params.algorithm} algorithm and denoising prediction samples")
 
         def trainMeta = [id: params.experiment_name ?: 'training']
-        def trainData = validate_dir(file(params.train_data, checkIfExists: true), 'train_data')
-        def valData = params.val_data ? validate_dir(file(params.val_data, checkIfExists: true), 'val_data') : []
+        def trainData = validate_data_input(file(params.train_data, checkIfExists: true), 'train_data')
+        def trainInnerZarrPath = params.train_inner_zarr_path ?: ''
+        def valData = params.val_data ? validate_data_input(file(params.val_data, checkIfExists: true), 'val_data') : []
+        def valInnerZarrPath = params.val_inner_zarr_path ?: ''
+        if (valInnerZarrPath && !params.val_data) {
+            error("Please provide --val_data when using --val_inner_zarr_path")
+        }
 
         // Train based on algorithm
         if (params.algorithm == 'n2v') {
-            ch_training = channel.of([trainMeta, trainData, valData])
+            ch_training = channel.of([trainMeta, trainData, trainInnerZarrPath, valData, valInnerZarrPath])
             CAREAMICS_TRAIN_N2V(ch_training)
             ch_model = CAREAMICS_TRAIN_N2V.out.model
         }
@@ -68,12 +84,17 @@ workflow {
             if (!params.target_data) {
                 error("Please provide --target_data for algorithm: ${params.algorithm}")
             }
-            def targetData = validate_dir(file(params.target_data, checkIfExists: true), 'target_data')
+            def targetData = validate_data_input(file(params.target_data, checkIfExists: true), 'target_data')
             if ((params.val_data && !params.val_target) || (!params.val_data && params.val_target)) {
                 error("Please provide both --val_data and --val_target for algorithm: ${params.algorithm}, or neither.")
             }
-            def valTarget = params.val_target ? validate_dir(file(params.val_target, checkIfExists: true), 'val_target') : []
-            ch_training = channel.of([trainMeta, trainData, targetData, valData, valTarget])
+            def valTarget = params.val_target ? validate_data_input(file(params.val_target, checkIfExists: true), 'val_target') : []
+            def trainTargetInnerZarrPath = params.train_target_inner_zarr_path ?: ''
+            def valTargetInnerZarrPath = params.val_target_inner_zarr_path ?: ''
+            if (valTargetInnerZarrPath && !params.val_target) {
+                error("Please provide --val_target when using --val_target_inner_zarr_path")
+            }
+            ch_training = channel.of([trainMeta, trainData, trainInnerZarrPath, targetData, trainTargetInnerZarrPath, valData, valInnerZarrPath, valTarget, valTargetInnerZarrPath])
             CAREAMICS_TRAIN_CARE(ch_training)
             ch_model = CAREAMICS_TRAIN_CARE.out.model
         }
@@ -81,12 +102,17 @@ workflow {
             if (!params.target_data) {
                 error("Please provide --target_data for algorithm: ${params.algorithm}")
             }
-            def targetData = validate_dir(file(params.target_data, checkIfExists: true), 'target_data')
+            def targetData = validate_data_input(file(params.target_data, checkIfExists: true), 'target_data')
             if ((params.val_data && !params.val_target) || (!params.val_data && params.val_target)) {
                 error("Please provide both --val_data and --val_target for algorithm: ${params.algorithm}, or neither.")
             }
-            def valTarget = params.val_target ? validate_dir(file(params.val_target, checkIfExists: true), 'val_target') : []
-            ch_training = channel.of([trainMeta, trainData, targetData, valData, valTarget])
+            def valTarget = params.val_target ? validate_data_input(file(params.val_target, checkIfExists: true), 'val_target') : []
+            def trainTargetInnerZarrPath = params.train_target_inner_zarr_path ?: ''
+            def valTargetInnerZarrPath = params.val_target_inner_zarr_path ?: ''
+            if (valTargetInnerZarrPath && !params.val_target) {
+                error("Please provide --val_target when using --val_target_inner_zarr_path")
+            }
+            ch_training = channel.of([trainMeta, trainData, trainInnerZarrPath, targetData, trainTargetInnerZarrPath, valData, valInnerZarrPath, valTarget, valTargetInnerZarrPath])
             CAREAMICS_TRAIN_N2N(ch_training)
             ch_model = CAREAMICS_TRAIN_N2N.out.model
         }
@@ -111,15 +137,16 @@ workflow {
             if (!row.image) {
                 error("Prediction CSV must contain an 'image' column")
             }
-            def predictionPath = file(row.image, checkIfExists: true)
+            def predictionPath = validate_data_input(file(row.image, checkIfExists: true), 'prediction data')
             def meta = [id: row.sample ?: predictionPath.baseName]
-            return [meta, predictionPath]
+            def innerZarrPath = row.inner_zarr_path ?: ''
+            return [meta, predictionPath, innerZarrPath]
         }
     ch_predict_input = ch_prediction_data
         .combine(ch_model)
-        .map { prediction_meta, prediction_path, model_meta, model_file ->
+        .map { prediction_meta, prediction_path, data_inner_zarr_path, model_meta, model_file ->
             def merged_meta = prediction_meta + [model_id: model_meta.id]
-            return [merged_meta, prediction_path, model_file]
+            return [merged_meta, prediction_path, data_inner_zarr_path, model_file]
         }
     CAREAMICS_PREDICT(ch_predict_input)
     ch_denoised = CAREAMICS_PREDICT.out.predictions

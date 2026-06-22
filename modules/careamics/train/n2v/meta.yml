@@ -21,13 +21,21 @@ input:
         Groovy Map containing sample information
         e.g. [ id: 'test' ]
   - train_data:
-      type: directory
-      description: Directory containing training data
-      pattern: "*.{tif,tiff,zarr,czi}"
+      type: file
+      description: Training data as a .tif, .tiff, or .czi file, .zarr store, or directory containing image files
+      pattern: "*.{tif,tiff,czi,zarr}"
+  - train_inner_zarr_path:
+      type: string
+      description: Optional relative inner path to a zarr group within train_data. Leave null or empty to use train_data directly.
+      pattern: "^(|[^/\\s][^\\s]*)$"
   - val_data:
-      type: directory
-      description: Optional directory containing validation data
-      pattern: "*.{tif,tiff,zarr,czi}"
+      type: file
+      description: Optional validation data as a .tif, .tiff, or .czi file, .zarr store, or directory containing image files
+      pattern: "*.{tif,tiff,czi,zarr}"
+  - val_inner_zarr_path:
+      type: string
+      description: Optional relative inner path to a zarr group within val_data. Leave null or empty to use val_data directly.
+      pattern: "^(|[^/\\s][^\\s]*)$"
 output:
   - meta:
       type: map
