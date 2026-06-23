@@ -42,7 +42,7 @@ workflow {
 
         def train_meta = [id: params.experiment_name]
         if (params.algorithm == 'n2v') {
-            ch_training = channel.of([train_meta, params.train_data, params.val_data])
+            ch_training = channel.of([train_meta, file(params.train_data), file(params.val_data)])
             CAREAMICS_TRAIN_N2V(ch_training)
             ch_model = CAREAMICS_TRAIN_N2V.out.model
         }
@@ -51,10 +51,18 @@ workflow {
                 error("Please provide --target_data for algorithm: ${params.algorithm}")
             }
             if (params.val_data && !params.val_target) {
-                error("Please provide both --val_data and --val_target for algorithm: ${params.algorithm}, or neither.")
+                error(
+                    "Please provide both --val_data and --val_target for algorithm: ${params.algorithm}, or neither."
+                )
             }
             ch_training = channel.of(
-                [train_meta, params.train_data, params.target_data, params.val_data ?: [], params.val_target ?: []]
+                [
+                    train_meta,
+                    file(params.train_data),
+                    file(params.target_data),
+                    file(params.val_data) ?: [],
+                    file(params.val_target) ?: [],
+                ]
             )
             CAREAMICS_TRAIN_CARE(ch_training)
             ch_model = CAREAMICS_TRAIN_CARE.out.model
@@ -67,7 +75,13 @@ workflow {
                 error("Please provide both --val_data and --val_target for algorithm: ${params.algorithm}, or neither.")
             }
             ch_training = channel.of(
-                [train_meta, params.train_data, params.target_data, params.val_data ?: [], params.val_target ?: []]
+                [
+                    train_meta,
+                    file(params.train_data),
+                    file(params.target_data),
+                    file(params.val_data) ?: [],
+                    file(params.val_target) ?: [],
+                ]
             )
             CAREAMICS_TRAIN_N2N(ch_training)
             ch_model = CAREAMICS_TRAIN_N2N.out.model
