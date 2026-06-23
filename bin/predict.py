@@ -2,10 +2,14 @@
 
 import argparse
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 from careamics import CAREamist
 from careamics.config.support import SupportedData
+
+
+def without_none(kwargs: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in kwargs.items() if value is not None}
 
 
 def prediction_careamist(
@@ -24,12 +28,16 @@ def prediction_careamist(
     careamics_pretrained.predict_to_disk(
         pred_data=data_path,
         prediction_dir=output_path / "predictions",
-        batch_size=batch_size,
-        tile_size=tile_size,
-        tile_overlap=tile_overlap,
-        axes=axes,
-        data_type=data_type.value,
-        write_type=write_type,
+        **without_none(
+            {
+                "batch_size": batch_size,
+                "tile_size": tile_size,
+                "tile_overlap": tile_overlap,
+                "axes": axes,
+                "data_type": data_type if data_type is None else data_type.value,
+                "write_type": write_type,
+            }
+        ),
     )
 
 
