@@ -66,7 +66,7 @@
             "type": "string",
             "description": "Axes for training data, for example SYX."
         },
-        "test_axis": {
+        "pred_axes": {
             "type": "string",
             "description": "Axes for prediction data, for example YX."
         },

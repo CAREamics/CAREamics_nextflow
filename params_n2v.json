@@ -10,6 +10,6 @@
   "use_n2v2": false,
   "tile_size": "256 256",
   "tile_overlap": "48 48",
-  "test_axis": "YX",
+  "pred_axes": "YX",
   "write_type": "tiff"
 }
