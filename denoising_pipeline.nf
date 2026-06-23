@@ -1,5 +1,5 @@
 #!/usr/bin/env nextflow
-nextflow.enable.dsl=2
+nextflow.enable.dsl = 2
 
 /*
 ========================================================================================
@@ -29,95 +29,80 @@ include { CAREAMICS_PREDICT    } from './modules/careamics/predict/main'
 */
 
 workflow {
-    
-    //
-    // STEP 1: DENOISING
-    //
-    
     if (params.pretrained_model) {
-        // Use pre-trained model for denoising
-        log.info "Using pre-trained model: ${params.pretrained_model}"
-        
-        ch_input_images = channel
-            .fromPath(params.input, checkIfExists: true)
-            .map { file -> 
-                def meta = [id: file.baseName]
-                return [meta, file]
-            }
-        
-        ch_pretrained_model = channel
-            .fromPath(params.pretrained_model, checkIfExists: true)
+        // Use pre-trained model for restoration
+        log.info("Using pre-trained model: ${params.pretrained_model}")
+
+        ch_model = channel.fromPath(params.pretrained_model, checkIfExists: true)
             .map { model -> [[id: 'pretrained'], model] }
-        
-        ch_predict_input = ch_input_images
-            .combine(ch_pretrained_model)
-            .map { img_meta, img_file, _model_meta, model_file ->
-                [img_meta, img_file, model_file]
-            }
-        
-        CAREAMICS_PREDICT(ch_predict_input)
-        ch_denoised = CAREAMICS_PREDICT.out.predictions
-        
-    } else if (params.train_csv) {
-        // Train model first, then denoise
-        log.info "Training ${params.model} model from CSV and denoising"
-        
-        // Prepare training data from CSV
-        ch_training = channel
-            .fromPath(params.train_csv, checkIfExists: true)
-            .splitCsv(header: true)
-            .map { row ->
-                def meta = [id: row.sample, model: params.model]
-                def imagePath = file(row.image, checkIfExists: true)
-                
-                if (params.model == 'n2v') {
-                    // N2V only needs noisy images
-                    return [meta, imagePath]
-                } else {
-                    // CARE and N2N need paired data
-                    if (!row.target) {
-                        error "CSV must have 'target' column for model: ${params.model}"
-                    }
-                    def targetPath = file(row.image, checkIfExists: true)
-                    return [meta, imagePath, targetPath]
-                }
-            }
-        
-        // Train based on model type
-        if (params.model == 'n2v') {
-            CAREAMICS_TRAIN_N2V(ch_training)
-            ch_trained_model = CAREAMICS_TRAIN_N2V.out.model
-        } else if (params.model == 'care') {
-            CAREAMICS_TRAIN_CARE(ch_training)
-            ch_trained_model = CAREAMICS_TRAIN_CARE.out.model
-        } else if (params.model == 'n2n') {
-            CAREAMICS_TRAIN_N2N(ch_training)
-            ch_trained_model = CAREAMICS_TRAIN_N2N.out.model
-        } else {
-            error "Unknown model type: ${params.model}. Use 'n2v', 'care', or 'n2n'"
-        }
-        
-        // Prepare test images for denoising
-        ch_test_images = channel
-            .fromPath(params.input, checkIfExists: true)
-            .map { file -> [[id: file.baseName], file] }
-        
-        // Combine test images with trained model
-        ch_predict_input = ch_test_images
-            .combine(ch_trained_model)
-            .map { test_meta, test_file, model_meta, model_file ->
-                def merged_meta = test_meta + [model_id: model_meta.id]
-                return [merged_meta, test_file, model_file]
-            }
-        
-        CAREAMICS_PREDICT(ch_predict_input)
-        ch_denoised = CAREAMICS_PREDICT.out.predictions
-        
-    } else {
-        error """
-        Please provide either:
-        1. A pre-trained model: --pretrained_model path/to/model.ckpt
-        2. Training CSV: --train_csv path/to/training.csv
-        """
     }
+    else if (params.train_data) {
+        // Train model first
+        log.info("Training ${params.algorithm} algorithm and restoration prediction samples")
+
+        def train_meta = [id: params.experiment_name]
+        if (params.algorithm == 'n2v') {
+            ch_training = channel.of([train_meta, params.train_data, params.val_data])
+            CAREAMICS_TRAIN_N2V(ch_training)
+            ch_model = CAREAMICS_TRAIN_N2V.out.model
+        }
+        else if (params.algorithm == 'care') {
+            if (!params.target_data) {
+                error("Please provide --target_data for algorithm: ${params.algorithm}")
+            }
+            if (params.val_data && !params.val_target) {
+                error("Please provide both --val_data and --val_target for algorithm: ${params.algorithm}, or neither.")
+            }
+            ch_training = channel.of(
+                [train_meta, params.train_data, params.target_data, params.val_data ?: [], params.val_target ?: []]
+            )
+            CAREAMICS_TRAIN_CARE(ch_training)
+            ch_model = CAREAMICS_TRAIN_CARE.out.model
+        }
+        else if (params.algorithm == 'n2n') {
+            if (!params.target_data) {
+                error("Please provide --target_data for algorithm: ${params.algorithm}")
+            }
+            if (params.val_data && !params.val_target) {
+                error("Please provide both --val_data and --val_target for algorithm: ${params.algorithm}, or neither.")
+            }
+            ch_training = channel.of(
+                [train_meta, params.train_data, params.target_data, params.val_data ?: [], params.val_target ?: []]
+            )
+            CAREAMICS_TRAIN_N2N(ch_training)
+            ch_model = CAREAMICS_TRAIN_N2N.out.model
+        }
+        else {
+            error("Unknown algorithm: ${params.algorithm}. Use 'n2v', 'care', or 'n2n'")
+        }
+    }
+    else {
+        error(
+            """
+            Please provide either:
+            1. A pre-trained model: --pretrained_model path/to/model.ckpt
+            2. Training data (and target data for care & n2n): --train_data path/to/train --target_data path/to/target
+            """
+        )
+    }
+
+    // Run prediction
+    ch_prediction_data = channel.fromPath(params.prediction_csv, checkIfExists: true)
+        .splitCsv(header: true)
+        .map { row ->
+            if (!row.data_path) {
+                error("Prediction CSV must contain an 'data_path' column")
+            }
+            def predictionPath = file(row.data_path, checkIfExists: true)
+            def meta = [id: row.id ?: predictionPath.baseName]
+            return [meta, predictionPath]
+        }
+    ch_predict_input = ch_prediction_data
+        .combine(ch_model)
+        .map { prediction_meta, prediction_path, model_meta, model_file ->
+            def merged_meta = prediction_meta + [model_id: model_meta.id]
+            return [merged_meta, prediction_path, model_file]
+        }
+    CAREAMICS_PREDICT(ch_predict_input)
+    ch_prediction = CAREAMICS_PREDICT.out.predictions
 }
