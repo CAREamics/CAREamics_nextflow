@@ -144,9 +144,9 @@ workflow {
         }
     ch_predict_input = ch_prediction_data
         .combine(ch_model)
-        .map { prediction_meta, prediction_path, data_inner_zarr_path, model_meta, model_file ->
+        .map { prediction_meta, prediction_path, inner_zarr_path, model_meta, model_file ->
             def merged_meta = prediction_meta + [model_id: model_meta.id]
-            return [merged_meta, prediction_path, data_inner_zarr_path, model_file]
+            return [merged_meta, prediction_path, inner_zarr_path, model_file]
         }
     CAREAMICS_PREDICT(ch_predict_input)
     ch_denoised = CAREAMICS_PREDICT.out.predictions

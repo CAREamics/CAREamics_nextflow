@@ -9,7 +9,7 @@
         "prediction_csv": {
             "type": "string",
             "format": "file-path",
-            "description": "CSV file with prediction samples. Must contain an image column and may contain a sample column."
+            "description": "CSV file with prediction samples. Must contain an image column with the image path or zarr store root. May contain sample and inner_zarr_path columns."
         },
         "pretrained_model": {
             "type": "string",
@@ -47,10 +47,6 @@
         "val_target_inner_zarr_path": {
             "type": "string",
             "description": "Optional relative inner path to a zarr group within val_target. Requires val_target."
-        },
-        "data_inner_zarr_path": {
-            "type": "string",
-            "description": "Optional default relative inner path to a zarr group within prediction data. Prediction CSV rows may override this with inner_zarr_path or data_inner_zarr_path."
         },
         "algorithm": {
             "type": "string",

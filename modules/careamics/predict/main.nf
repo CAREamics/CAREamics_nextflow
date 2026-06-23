@@ -26,7 +26,7 @@ process CAREAMICS_PREDICT {
     }
 
     input:
-    tuple val(meta), path(data), val(data_inner_zarr_path), path(model)
+    tuple val(meta), path(data), val(inner_zarr_path), path(model)
 
     output:
     tuple val(meta), path("predictions/*"), emit: predictions
@@ -37,7 +37,7 @@ process CAREAMICS_PREDICT {
 
     script:
     def args = task.ext.args ?: ''
-    def data_arg = zarr_group_uri(data, data_inner_zarr_path)
+    def data_arg = zarr_group_uri(data, inner_zarr_path)
     """
     predict.py \\
         --ckpt_path ${model} \\
