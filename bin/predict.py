@@ -1,35 +1,74 @@
 #!/usr/bin/env python3
 
-from careamics import CAREamist
-from pathlib import Path
 import argparse
+from pathlib import Path
+from typing import Literal
+
+from careamics import CAREamist
+from careamics.config.support import SupportedData
 
 
-def prediction_careamist(testdata_path:Path,model_path:Path, tilesize:tuple, tileoverlap:tuple, ax:str, batchsize:int,writetype:str, datatype:str):
-    ''' function to denoised a dataset according to a pretrained model using careamics'''
-    data_path = Path(testdata_path)  
-    careamics_pretrained= CAREamist(model_path) 
-    careamics_pretrained.predict_to_disk(source=data_path, tile_size=tilesize, tile_overlap=tileoverlap, axes=ax, batch_size=batchsize, data_type=datatype, write_type=writetype)
+def prediction_careamist(
+    ckpt_path: Path,
+    data_path: str,
+    batch_size: int,
+    tile_size: tuple[int, ...],
+    tile_overlap: tuple[int, ...],
+    axes: str,
+    data_type: SupportedData,
+    write_type: Literal["tiff", "zarr", "custom"],
+    output_path: Path,
+):
+    """function to denoised a dataset according to a pretrained model using careamics"""
+    careamics_pretrained = CAREamist(checkpoint_path=ckpt_path)
+    careamics_pretrained.predict_to_disk(
+        pred_data=data_path,
+        prediction_dir=output_path / "predictions",
+        batch_size=batch_size,
+        tile_size=tile_size,
+        tile_overlap=tile_overlap,
+        axes=axes,
+        data_type=data_type.value,
+        write_type=write_type,
+    )
 
-def create_arguments():
-    '''function collecting the arguments according to nextflow'''
+
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--test_data",required=True, help="Path to folder with images")
-    parser.add_argument("--trained_model", required=True, help="Path to pretrained model")
-    parser.add_argument("--tile_size", help="tile size")
-    parser.add_argument("--tile_overlap", help="tile overlap")
-    parser.add_argument("--axes", help=" string to indicate the dimension of the dataset")
-    parser.add_argument("--batch_size", help=" int to indicate the batch_size")
-    parser.add_argument("--write_type")
-    parser.add_argument("--data_type")
-    return parser
+    parser.add_argument(
+        "--ckpt_path", type=Path, required=True, help="Path to pretrained model"
+    )
+    parser.add_argument(
+        "--data", type=str, required=True, help="Path to folder with images"
+    )
+    parser.add_argument(
+        "--output_path",
+        type=Path,
+        help="Path to save the output files.",
+        default=Path("."),
+    )
+    parser.add_argument("--batch_size", type=int, default=None)
+    parser.add_argument(
+        "--tile_size", nargs="+", type=int, default=None, help="2D or 3D"
+    )
+    parser.add_argument(
+        "--tile_overlap", nargs="+", type=int, default=None, help="2D or 3D"
+    )
+    parser.add_argument("--axes", type=str, default=None)
+    parser.add_argument("--data_type", type=SupportedData, default=None)
+    parser.add_argument(
+        "--write_type", choices=["tiff", "zarr", "custom"], default=None
+    )
+    args = parser.parse_args()
 
-
-if __name__=="__main__":
-    argparser = create_arguments()
-    argparser= argparser.parse_args()
-    test_data_path, model_path, tilesize, tileoverlap, ax, batch_size, writetype, datatype = argparser.test_data, argparser.trained_model, argparser.tile_size, argparser.tile_overlap, argparser.axes, argparser.batch_size,argparser.write_type, argparser.data_type
-    tuple_tilesize=tuple([int(x) for x in tilesize.split(" ")])
-    tuple_tileoverlap=tuple([int(x) for x in tileoverlap.split(" ")])
-    print(test_data_path,model_path, tuple_tilesize, tuple_tileoverlap, ax, int(batch_size), datatype, writetype)
-    prediction_careamist(test_data_path,model_path, tuple_tilesize, tuple_tileoverlap, ax, int(batch_size), datatype, writetype)
+    prediction_careamist(
+        args.ckpt_path,
+        args.data,
+        args.batch_size,
+        args.tile_size,
+        args.tile_overlap,
+        args.axes,
+        args.data_type,
+        args.write_type,
+        args.output_path,
+    )
