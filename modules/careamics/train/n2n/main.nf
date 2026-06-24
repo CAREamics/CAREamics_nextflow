@@ -54,13 +54,13 @@ process CAREAMICS_TRAIN_N2N {
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch "${prefix}_config.yaml"
-    mkdir -p checkpoints
-    touch checkpoints/last.ckpt
+    touch careamics.yaml
+    mkdir -p "checkpoints/${prefix}"
+    touch "checkpoints/${prefix}/last.ckpt"
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        careamics: \$(python -c "import careamics; print(careamics.__version__)")
+        careamics: "stub"
     END_VERSIONS
     """
 }
