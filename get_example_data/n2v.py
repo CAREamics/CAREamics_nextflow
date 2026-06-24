@@ -33,7 +33,11 @@ def main(work_dir: Path):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--work_dir", "-wd", type=Path, help="Nextflow working directory."
+        "--work_dir",
+        "-wd",
+        type=Path,
+        required=True,
+        help="Nextflow working directory.",
     )
     args = parser.parse_args()
     main(args.work_dir)
