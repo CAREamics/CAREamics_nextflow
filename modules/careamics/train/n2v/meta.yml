@@ -3,10 +3,13 @@ name: careamics_train_n2v
 description: Train a Noise2Void (N2V) denoising model using CAREamics
 keywords:
   - denoising
+  - image restoration
+  - image processing
   - microscopy
   - deep learning
   - careamics
   - noise2void
+  - n2v
 tools:
   - careamics:
       description: CAREamics is a library for content-aware image restoration in microscopy
@@ -17,32 +20,39 @@ tools:
 input:
   - meta:
       type: map
-      description: |
-        Groovy Map containing sample information
-        e.g. [ id: 'test', model: 'n2v' ]
+      description: Groovy Map containing sample information; passed through unchanged
   - train_data:
       type: file
-      description: Training data (images or array files)
-      pattern: "*.{tif,tiff,png,npy}"
+      description: Training data as a single TIFF file or a directory containing TIFF files
+      pattern: "*"
+  - val_data:
+      type: file
+      description: Optional validation data as a single TIFF file or a directory containing TIFF files
+      pattern: "*"
 output:
-  - meta:
-      type: map
-      description: |
-        Groovy Map containing sample information
-        e.g. [ id: 'test', model: 'n2v' ]
-  - versions:
-      type: file
-      description: File containing software versions
-      pattern: "versions.yml"
-  - model:
-      type: file
-      description: Trained model checkpoint
-      pattern: "*.pth"
-  - config:
-      type: file
-      description: Training configuration file
-      pattern: "config.yaml"
+  careamics_config:
+    - - meta:
+          type: map
+          description: Groovy Map containing sample information; passed through unchanged
+      - careamics.yaml:
+          type: file
+          description: CAREamics training configuration file
+          pattern: "careamics.yaml"
+  model:
+    - - meta:
+          type: map
+          description: Groovy Map containing sample information; passed through unchanged
+      - "checkpoints/*/*last.ckpt":
+          type: file
+          description: Trained model checkpoint
+          pattern: "checkpoints/*/*last.ckpt"
+  versions:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
 authors:
-  - "@yourusername"
+  - "@tatianawoller"
+  - "@melisande-c"
 maintainers:
-  - "@yourusername"
+  - "@melisande-c"

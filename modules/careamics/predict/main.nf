@@ -1,5 +1,5 @@
 process CAREAMICS_PREDICT {
-    tag "${meta.id}"
+    tag "${meta.id ?: task.process}"
     label 'process_medium'
     label 'process_gpu'
 

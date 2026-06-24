@@ -1,8 +1,9 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
 name: careamics_predict
-description: Apply a trained CAREamics model to denoise images
+description: Apply a trained CAREamics model to images
 keywords:
-  - denoising
+  - image restoration
+  - image processing
   - microscopy
   - deep learning
   - careamics
@@ -17,32 +18,31 @@ tools:
 input:
   - meta:
       type: map
-      description: |
-        Groovy Map containing sample information
-        e.g. [ id: 'test' ]
-  - test_data:
+      description: Groovy Map containing sample information; passed through unchanged
+  - data:
       type: file
-      description: Test data to denoise (images or array files)
-      pattern: "*.{tif,tiff,png,npy}"
+      description: Data to denoise as a single TIFF file or a directory containing TIFF files
+      pattern: "*"
   - model:
       type: file
       description: Trained model checkpoint
-      pattern: "*.pth"
+      pattern: "*.ckpt"
 output:
-  - meta:
-      type: map
-      description: |
-        Groovy Map containing sample information
-        e.g. [ id: 'test' ]
-  - versions:
-      type: file
-      description: File containing software versions
-      pattern: "versions.yml"
-  - predictions:
-      type: file
-      description: Denoised predictions
-      pattern: "predictions/*"
+  predictions:
+    - - meta:
+          type: map
+          description: Groovy Map containing sample information; passed through unchanged
+      - "predictions/*":
+          type: file
+          description: Denoised predictions
+          pattern: "predictions/*"
+  versions:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
 authors:
-  - "@yourusername"
+  - "@tatianawoller"
+  - "@melisande-c"
 maintainers:
-  - "@yourusername"
+  - "@melisande-c"

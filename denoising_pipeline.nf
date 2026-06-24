@@ -47,8 +47,8 @@ workflow {
             ch_model = CAREAMICS_TRAIN_N2V.out.model
         }
         else if (params.algorithm == 'care') {
-            if (!params.target_data) {
-                error("Please provide --target_data for algorithm: ${params.algorithm}")
+            if (!params.train_target) {
+                error("Please provide --train_target for algorithm: ${params.algorithm}")
             }
             if (params.val_data && !params.val_target) {
                 error(
@@ -59,7 +59,7 @@ workflow {
                 [
                     train_meta,
                     file(params.train_data),
-                    file(params.target_data),
+                    file(params.train_target),
                     file(params.val_data) ?: [],
                     file(params.val_target) ?: [],
                 ]
@@ -68,8 +68,8 @@ workflow {
             ch_model = CAREAMICS_TRAIN_CARE.out.model
         }
         else if (params.algorithm == 'n2n') {
-            if (!params.target_data) {
-                error("Please provide --target_data for algorithm: ${params.algorithm}")
+            if (!params.train_target) {
+                error("Please provide --train_target for algorithm: ${params.algorithm}")
             }
             if (params.val_data && !params.val_target) {
                 error("Please provide both --val_data and --val_target for algorithm: ${params.algorithm}, or neither.")
@@ -78,7 +78,7 @@ workflow {
                 [
                     train_meta,
                     file(params.train_data),
-                    file(params.target_data),
+                    file(params.train_target),
                     file(params.val_data) ?: [],
                     file(params.val_target) ?: [],
                 ]
@@ -95,7 +95,7 @@ workflow {
             """
             Please provide either:
             1. A pre-trained model: --pretrained_model path/to/model.ckpt
-            2. Training data (and target data for care & n2n): --train_data path/to/train --target_data path/to/target
+            2. Training data (and target data for care & n2n): --train_data path/to/train --train_target path/to/target
             """
         )
     }

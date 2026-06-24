@@ -1,5 +1,5 @@
 process CAREAMICS_TRAIN_N2N {
-    tag "${meta.id}"
+    tag "${meta.id ?: task.process}"
     label 'process_medium'
     label 'process_gpu'
 
@@ -23,7 +23,7 @@ process CAREAMICS_TRAIN_N2N {
     }
 
     input:
-    tuple val(meta), path(train_data), path(target_data), path(val_data), path(val_target)
+    tuple val(meta), path(train_data), path(train_target), path(val_data), path(val_target)
 
     output:
     tuple val(meta), path("careamics.yaml"), emit: careamics_config
@@ -40,7 +40,7 @@ process CAREAMICS_TRAIN_N2N {
     """
     train_n2n.py \\
         --train_data ${train_data} \\
-        --train_target ${target_data} \\
+        --train_target ${train_target} \\
         ${val_args} \\
         --output_path . \\
         ${args}
