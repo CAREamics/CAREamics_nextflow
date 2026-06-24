@@ -62,3 +62,5 @@ Images to perform inference on are provided through a sample sheet which must ha
      --outdir results \
      -params-file params_n2v.json \
     ```
+
+**Tip**: To run locally you might want to use the flag `-c local.config` that will reduce the resource requirements of the label `process_medium`.
