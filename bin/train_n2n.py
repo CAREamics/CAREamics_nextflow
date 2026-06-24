@@ -53,7 +53,7 @@ def create_config(
 def train_model(
     train_path: str,
     target_path: str,
-    config: Configuration[Any],
+    config: Configuration,
     val_path: str | None = None,
     val_target_path: str | None = None,
 ):

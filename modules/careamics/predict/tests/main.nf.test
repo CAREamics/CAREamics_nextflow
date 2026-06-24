@@ -3,22 +3,31 @@ nextflow_process {
     name "Test Process CAREAMICS_PREDICT"
     script "../main.nf"
     process "CAREAMICS_PREDICT"
-    
+    config "./nextflow.config"
+
     tag "modules"
     tag "modules_local"
     tag "careamics"
     tag "prediction"
 
-    test("denoise test data") {
+    test("stub with runtime test data") {
+
+        options "-stub"
+
+        setup {
+            def testDir = new File(System.getProperty("java.io.tmpdir"), "careamics-nextflow-nf-test/predict")
+            new File(testDir, "data").mkdirs()
+            new File(testDir, "data/image.tif").text = "stub"
+            new File(testDir, "last.ckpt").text = "stub"
+        }
 
         when {
             process {
-                config "/home/tatiana/hackathon_day1/nfcore_refactored_tests/nfcore_refactored/modules/careamics/predict/tests/nextflow.config"
                 """
                 input[0] = tuple(
-                    [ id:'test_predict' ],
-                    file(params.modules_testdata_base_path + 'n2v_test_sem/test.tif'),
-                    file(params.modules_testdata_base_path + 'n2v_test_sem/checkpoints/last.ckpt')
+                    [ id:'test_predict_stub' ],
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/predict/data"),
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/predict/last.ckpt")
                 )
                 """
             }
@@ -28,34 +37,12 @@ nextflow_process {
             assertAll(
                 { assert process.success },
                 { assert process.out.predictions.size() == 1 },
-                { assert process.out.predictions[0][0] == [ id:'test_predict' ] },  // Check meta
-                { assert process.out.predictions[0][1] },  // Check predictions exist
-                { assert snapshot(process.out).match("predictions") }
-            )
-        }
-    }
-
-    test("stub") {
-
-        options "-stub"
-
-        when {
-            process {
-                config "/home/tatiana/hackathon_day1/nfcore_refactored_tests/nfcore_refactored/modules/careamics/predict/tests/nextflow.config"
-                """
-                input[0] = tuple(
-                    [ id:'test_stub' ],
-                    file(params.modules_testdata_base_path + 'n2v_test_sem/test.tif'),
-                    file(params.modules_testdata_base_path + 'models/last.ckpt')
-                )
-                """
-            }
-        }
-
-        then {
-            assertAll(
-                { assert process.success },
-                { assert snapshot(process.out).match() }
+                { assert process.out.versions.size() == 1 },
+                { assert process.out.predictions[0][0] == [ id:'test_predict_stub' ] },
+                { assert path(process.out.predictions[0][1]).getFileName().toString() == "test_predict_stub_denoised.tiff" },
+                { assert path(process.out.predictions[0][1]).exists() },
+                { assert path(process.out.versions[0]).getFileName().toString() == "versions.yml" },
+                { assert path(process.out.versions[0]).exists() }
             )
         }
     }

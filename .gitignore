@@ -1,5 +1,8 @@
 # nextflow
 .nextflow*
+.nf-test/
+.nf-test.log
+.nf-test*.nf
 work/
 data/
 results/

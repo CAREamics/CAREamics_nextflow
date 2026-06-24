@@ -28,7 +28,7 @@ def create_config(
     n_val_patches: int | None = None,
     n_channels_in: int | None = None,
     n_channels_out: int | None = None,
-) -> Configuration[Any]:
+) -> Configuration:
     """create the config to train"""
     config = create_care_config(
         experiment_name=exp_name,
@@ -53,7 +53,7 @@ def create_config(
 def train_model(
     train_path: str,
     target_path: str,
-    config: Configuration[Any],
+    config: Configuration,
     val_path: str | None = None,
     val_target_path: str | None = None,
 ):
