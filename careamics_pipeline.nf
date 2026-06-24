@@ -6,12 +6,12 @@ nextflow.enable.dsl = 2
     CAREamics Denoising 
 ========================================================================================
     Example pipeline demonstrating:
-    1. Denoise microscopy images using CAREamics (N2V, CARE, or N2N)
+    1. Perform image restoration on microscopy images using CAREamics (N2V, CARE, or N2N)
     
     Usage:
         nextflow run example_denoising_segmentation_pipeline.nf \
-            -profile conda|singularity|docker \
-            -params-file params_n2v.json|params_n2n_care.json
+            -profile conda|singularity|docker,gpu|cpu \
+            -params-file params_n2v.json
 ========================================================================================
 */
 
@@ -38,7 +38,7 @@ workflow {
     }
     else if (params.train_data) {
         // Train model first
-        log.info("Training ${params.algorithm} algorithm and restoration prediction samples")
+        log.info("Training ${params.algorithm} algorithm.")
 
         def train_meta = [id: params.experiment_name]
         if (params.algorithm == 'n2v') {
@@ -101,6 +101,7 @@ workflow {
     }
 
     // Run prediction
+    log.info("Running inference on prediction csv sample sheet: ${params.prediction_csv}.")
     ch_prediction_data = channel.fromPath(params.prediction_csv, checkIfExists: true)
         .splitCsv(header: true)
         .map { row ->

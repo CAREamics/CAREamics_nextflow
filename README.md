@@ -54,7 +54,7 @@ Images to perform inference on are provided through a sample sheet which must ha
 3. Run the pipeline:
 
     ```console
-    nextflow run denoising_pipeline.nf \
+    nextflow run careamics_pipeline.nf \
      -profile conda|singularity|docker,gpu|cpu \
      --train_data data/denoising-N2V_SEM.unzip/SEM/train.tif \
      --val_data data/denoising-N2V_SEM.unzip/SEM/validation.tif \
