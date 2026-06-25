@@ -3,10 +3,15 @@ nextflow.enable.dsl = 2
 
 /*
 ========================================================================================
-    CAREamics Denoising 
+    CAREamics
 ========================================================================================
     Example pipeline demonstrating:
-    1. Perform image restoration on microscopy images using CAREamics (N2V, CARE, or N2N)
+    Perform image restoration on microscopy images using CAREamics (N2V, CARE, or N2N).
+    There are two modes:
+        1. Provide a pre-trained model and a prediction sample sheet of images to
+            perform inference on.
+        2. Provide training data (and CAREamics parameters) to first train a model and 
+            then perform inference on the prediction sample sheet.
     
     Usage:
         nextflow run example_denoising_segmentation_pipeline.nf \
