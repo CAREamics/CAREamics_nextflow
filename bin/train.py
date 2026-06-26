@@ -21,7 +21,7 @@ if __name__ == "__main__":
         "--train_data", type=str, required=True, help="Path to train data."
     )
     parser.add_argument(
-        "--train_target", type=str, required=True, help="Path to target data."
+        "--train_target", type=str, default=None, help="Path to target data."
     )
     parser.add_argument(
         "--val_data", type=str, default=None, help="Path to validation data."
