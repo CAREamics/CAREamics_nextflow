@@ -1,0 +1,48 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: image_train_predict_careamics
+description: Train a CAREamics model from a configuration file and use it for prediction.
+keywords:
+  - image restoration
+  - microscopy
+  - deep learning
+  - careamics
+  - training
+  - prediction
+components:
+  - careamics/train
+  - careamics/predict
+input:
+  - ch_train:
+      type: file
+      description: |
+        Training input channel.
+        Structure: [ val(meta), path(careamics_config), path(train_data), path(train_target), path(val_data), path(val_target) ]
+  - ch_predict:
+      type: file
+      description: |
+        Prediction data channel.
+        Structure: [ val(meta), path(data) ]
+output:
+  - model:
+      type: file
+      description: |
+        Trained model checkpoint.
+        Structure: [ val(meta), path(model) ]
+      pattern: "checkpoints/*/*last.ckpt"
+  - predictions:
+      type: file
+      description: |
+        Prediction output files.
+        Structure: [ val(meta), path(predictions) ]
+      pattern: "predictions/*"
+  - versions:
+      type: file
+      description: |
+        File containing software versions.
+        Structure: [ path(versions.yml) ]
+      pattern: "versions.yml"
+authors:
+  - "@tatianawoller"
+  - "@melisande-c"
+maintainers:
+  - "@melisande-c"
