@@ -1,7 +1,6 @@
 process CAREAMICS_PREDICT {
     tag "${meta.id ?: task.process}"
     label 'process_medium'
-    label 'process_gpu'
 
     conda "${moduleDir}/environment.yml"
     container {
@@ -27,7 +26,7 @@ process CAREAMICS_PREDICT {
 
     output:
     tuple val(meta), path("predictions/*"), emit: predictions
-    path "versions.yml", emit: versions
+    path "versions.yml", emit: versions, topic: versions
 
     when:
     task.ext.when == null || task.ext.when

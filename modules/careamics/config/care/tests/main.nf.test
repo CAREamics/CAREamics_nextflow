@@ -1,0 +1,77 @@
+nextflow_process {
+
+    name "Test Process CAREAMICS_CONFIG_CARE"
+    script "../main.nf"
+    process "CAREAMICS_CONFIG_CARE"
+    config "./nextflow.config"
+
+    tag "modules"
+    tag "modules_careamics"
+    tag "modules_local"
+    tag "careamics"
+    tag "config"
+    tag "config/care"
+    tag "training_care"
+
+    test("careamics_config_care") {
+
+        when {
+            process {
+                """
+                input[0] = tuple(
+                    [ id:'test_careamics_config_care', model:'care' ],
+                    'test_careamics_config_care',
+                    'tiff',
+                    'YX',
+                    '64 64',
+                    8
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert process.out.careamics_config.size() == 1 },
+                { assert process.out.careamics_config[0][0] == [ id:'test_careamics_config_care', model:'care' ] },
+                { assert path(process.out.careamics_config[0][1]).exists() },
+                { assert process.out.versions.size() == 1 },
+                { assert path(process.out.versions[0]).exists() },
+                { assert path(process.out.versions[0]).getFileName().toString() == "versions.yml" },
+            )
+        }
+    }
+
+    test("stub careamics_config_care") {
+
+        options "-stub"
+
+        when {
+            process {
+                """
+                input[0] = tuple(
+                    [ id:'test_careamics_config_care', model:'care' ],
+                    'test_careamics_config_care',
+                    'tiff',
+                    'YX',
+                    '64 64',
+                    8
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert process.out.careamics_config.size() == 1 },
+                { assert process.out.versions.size() == 1 },
+                { assert process.out.careamics_config[0][0] == [ id:'test_careamics_config_care', model:'care' ] },
+                { assert path(process.out.careamics_config[0][1]).exists() },
+                { assert path(process.out.versions[0]).getFileName().toString() == "versions.yml" },
+                { assert path(process.out.versions[0]).exists() },
+            )
+        }
+    }
+}

@@ -1,7 +1,6 @@
-process CAREAMICS_TRAIN_N2N {
+process CAREAMICS_CONFIG_CARE {
     tag "${meta.id ?: task.process}"
     label 'process_medium'
-    label 'process_gpu'
 
     conda "${moduleDir}/environment.yml"
     container {
@@ -23,26 +22,25 @@ process CAREAMICS_TRAIN_N2N {
     }
 
     input:
-    tuple val(meta), path(train_data, name: "train_data/*"), path(train_target, name: "train_target/*"), path(val_data, name: "val_data/*"), path(val_target, name: "val_target/*")
+    tuple val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size)
 
     output:
     tuple val(meta), path("careamics.yaml"), emit: careamics_config
-    // TODO: get real checkpoint name from CAREamist.get_checkpoints
-    tuple val(meta), path("checkpoints/*/*last.ckpt"), emit: model
-    path "versions.yml", emit: versions
+    path "versions.yml", emit: versions, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
     def args = task.ext.args ?: ''
-    def val_args = val_data ? "--val_data \"${val_data}\" --val_target \"${val_target}\"" : ''
     """
-    train_n2n.py \\
-        --train_data ${train_data} \\
-        --train_target ${train_target} \\
-        ${val_args} \\
+    create_config_care.py \\
         --output_path . \\
+        --experiment_name ${experiment_name} \\
+        --data_type ${data_type} \\
+        --axes ${axes} \\
+        --patch_size ${patch_size} \\
+        --batch_size ${batch_size} \\
         ${args}
 
     cat <<-END_VERSIONS > versions.yml
@@ -52,11 +50,8 @@ process CAREAMICS_TRAIN_N2N {
     """
 
     stub:
-    def prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch careamics.yaml
-    mkdir -p "checkpoints/${prefix}"
-    touch "checkpoints/${prefix}/last.ckpt"
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

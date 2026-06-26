@@ -59,7 +59,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     config = config = create_n2v_config(
-        experiment_name=args.exp_name,
+        experiment_name=args.experiment_name,
         data_type=args.data_type.value,
         axes=args.axes,
         patch_size=args.patch_size,

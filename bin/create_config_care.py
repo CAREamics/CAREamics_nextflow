@@ -44,7 +44,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     config = config = create_care_config(
-        experiment_name=args.exp_name,
+        experiment_name=args.experiment_name,
         data_type=args.data_type.value,
         axes=args.axes,
         patch_size=args.patch_size,
@@ -56,7 +56,7 @@ if __name__ == "__main__":
                 "augmentations": args.augmentations,
                 "n_val_patches": args.n_val_patches,
                 "n_channels_in": args.n_channels_in,
-                "n_channels_out": args._channels_out,
+                "n_channels_out": args.n_channels_out,
             }
         ),
     )

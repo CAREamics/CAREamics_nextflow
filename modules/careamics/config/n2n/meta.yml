@@ -1,13 +1,16 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
-name: careamics_predict
-description: Apply a trained CAREamics model to images
+name: careamics_config_n2n
+description: Create a Noise2Noise (N2N) training configuration using CAREamics. Optional task.ext.args may include num_epochs, num_steps, augmentations, n_val_patches, n_channels_in, and n_channels_out.
 keywords:
+  - configuration
+  - denoising
   - image restoration
   - image processing
   - microscopy
   - deep learning
   - careamics
-  - prediction
+  - noise2noise
+  - n2n
 tools:
   - careamics:
       description: CAREamics is a library for content-aware image restoration in microscopy
@@ -19,23 +22,30 @@ input:
   - - meta:
         type: map
         description: Groovy Map containing sample information; passed through unchanged
-    - data:
-        type: file
-        description: Data to denoise as a single TIFF file or a directory containing TIFF files
-        pattern: "*"
-    - model:
-        type: file
-        description: Trained model checkpoint
-        pattern: "*.ckpt"
+    - experiment_name:
+        type: string
+        description: Name of the experiment. A valid experiment name is a non-empty string that only contains letters, numbers, underscores, dashes and spaces.
+    - data_type:
+        type: string
+        description: Type of the data. One of array, tiff, zarr, czi, or custom.
+    - axes:
+        type: string
+        description: Axes of the data (e.g. SYX).
+    - patch_size:
+        type: string
+        description: Size of the patches along the spatial dimensions (e.g. 64 64).
+    - batch_size:
+        type: integer
+        description: Batch size.
 output:
-  predictions:
+  careamics_config:
     - - meta:
           type: map
           description: Groovy Map containing sample information; passed through unchanged
-      - "predictions/*":
+      - careamics.yaml:
           type: file
-          description: Denoised predictions
-          pattern: "predictions/*"
+          description: CAREamics configuration file
+          pattern: "careamics.yaml"
   versions:
     - versions.yml:
         type: file
