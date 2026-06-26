@@ -3,7 +3,7 @@
 from pathlib import Path
 import argparse
 import os
-from typing import Any, Sequence
+from typing import Any
 
 from careamics import CAREamist
 from careamics.config import create_n2v_config
@@ -14,40 +14,6 @@ from careamics.config.utils.configuration_io import save_configuration
 
 def without_none(kwargs: dict[str, Any]) -> dict[str, Any]:
     return {key: value for key, value in kwargs.items() if value is not None}
-
-
-def create_config(
-    exp_name: str,
-    data_type: SupportedData,
-    axes: str,
-    patch_size: tuple[int, ...],
-    batch_size: int,
-    num_epochs: int | None = None,
-    num_steps: int | None = None,
-    augmentations: Sequence[str] | None = None,
-    n_val_patches: int | None = None,
-    use_n2v2: bool | None = None,
-    n_channels: int | None = None,
-) -> Configuration:
-    """create the config to train"""
-    config = create_n2v_config(
-        experiment_name=exp_name,
-        data_type=data_type.value,
-        axes=axes,
-        patch_size=patch_size,
-        batch_size=batch_size,
-        **without_none(
-            {
-                "num_epochs": num_epochs,
-                "num_steps": num_steps,
-                "augmentations": augmentations,
-                "n_val_patches": n_val_patches,
-                "use_n2v2": use_n2v2,
-                "n_channels": n_channels,
-            }
-        ),
-    )
-    return config
 
 
 def train_model(
@@ -66,12 +32,6 @@ def train_model(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "--train_data", type=str, required=True, help="Path to train data."
-    )
-    parser.add_argument(
-        "--val_data", type=str, default=None, help="Path to validation data."
-    )
     parser.add_argument(
         "--output_path", type=Path, required=True, help="Path to save the output files."
     )
@@ -98,20 +58,21 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    config = create_config(
-        args.experiment_name,
-        args.data_type,
-        args.axes,
-        args.patch_size,
-        args.batch_size,
-        num_epochs=args.num_epochs,
-        num_steps=args.num_steps,
-        augmentations=args.augmentations,
-        n_val_patches=args.n_val_patches,
-        use_n2v2=args.use_n2v2,
-        n_channels=args.n_channels,
+    config = config = create_n2v_config(
+        experiment_name=args.exp_name,
+        data_type=args.data_type.value,
+        axes=args.axes,
+        patch_size=args.patch_size,
+        batch_size=args.batch_size,
+        **without_none(
+            {
+                "num_epochs": args.num_epochs,
+                "num_steps": args.num_steps,
+                "augmentations": args.augmentations,
+                "n_val_patches": args.n_val_patches,
+                "use_n2v2": args.use_n2v2,
+                "n_channels": args.n_channels,
+            }
+        ),
     )
     save_configuration(config, os.path.join(args.output_path, "careamics.yaml"))
-    train_model(
-        args.train_data, config, work_dir=args.output_path, val_path=args.val_data
-    )
