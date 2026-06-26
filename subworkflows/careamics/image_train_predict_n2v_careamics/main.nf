@@ -12,9 +12,9 @@ workflow IMAGE_TRAIN_PREDICT_N2V_CAREAMICS {
 
     ch_train = CAREAMICS_CONFIG_N2V.out.careamics_config
         .combine(ch_train_data)
-        .map { config_meta, careamics_config, train_meta, train_data, train_target ->
+        .map { config_meta, careamics_config, train_meta, train_data, val_data ->
             def meta = config_meta + train_meta
-            [meta, careamics_config, train_data, train_target, [], []]
+            [meta, careamics_config, train_data, [], val_data, []]
         }
 
     IMAGE_TRAIN_PREDICT_CAREAMICS(ch_train, ch_predict)
