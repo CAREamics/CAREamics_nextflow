@@ -9,8 +9,8 @@ keywords:
   - training
   - prediction
 components:
-  - careamics/train
-  - careamics/predict
+  - train
+  - predict
 input:
   - ch_train:
       type: file
