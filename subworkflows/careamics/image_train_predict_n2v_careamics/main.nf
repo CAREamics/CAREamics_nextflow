@@ -1,4 +1,4 @@
-include { CAREAMICS_CONFIG_N2V          } from '../../../modules/careamics/config/n2v/main'
+include { CAREAMICS_CONFIG_N2V          } from '../../../modules/careamics/careamics/config/n2v/main'
 include { IMAGE_TRAIN_PREDICT_CAREAMICS } from '../image_train_predict_careamics/main'
 
 workflow IMAGE_TRAIN_PREDICT_N2V_CAREAMICS {

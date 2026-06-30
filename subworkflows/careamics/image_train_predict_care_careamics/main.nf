@@ -1,4 +1,4 @@
-include { CAREAMICS_CONFIG_CARE         } from '../../../modules/careamics/config/care/main'
+include { CAREAMICS_CONFIG_CARE         } from '../../../modules/careamics/careamics/config/care/main'
 include { IMAGE_TRAIN_PREDICT_CAREAMICS } from '../image_train_predict_careamics/main'
 
 workflow IMAGE_TRAIN_PREDICT_CARE_CAREAMICS {

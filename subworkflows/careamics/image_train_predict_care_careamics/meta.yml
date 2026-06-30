@@ -8,7 +8,7 @@ keywords:
   - careamics
   - care
 components:
-  - config/care
+  - careamics/config/care
   - image_train_predict_careamics
 input:
   - ch_config:

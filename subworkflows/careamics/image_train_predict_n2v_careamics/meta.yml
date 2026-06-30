@@ -9,7 +9,7 @@ keywords:
   - careamics
   - n2v
 components:
-  - config/n2v
+  - careamics/config/n2v
   - image_train_predict_careamics
 input:
   - ch_config:

@@ -1,5 +1,5 @@
-include { CAREAMICS_TRAIN   } from '../../../modules/careamics/train/main'
-include { CAREAMICS_PREDICT } from '../../../modules/careamics/predict/main'
+include { CAREAMICS_TRAIN   } from '../../../modules/careamics/careamics/train/main'
+include { CAREAMICS_PREDICT } from '../../../modules/careamics/careamics/predict/main'
 
 workflow IMAGE_TRAIN_PREDICT_CAREAMICS {
     take:
