@@ -1,5 +1,7 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl = 2
+// This flag has to be true to use the python scripts stored in module resources
+nextflow.enable.moduleBinaries = true
 
 /*
 ========================================================================================
@@ -16,9 +18,9 @@ nextflow.enable.dsl = 2
 */
 
 // Import CAREamics subworkflows
-include { IMAGE_TRAIN_PREDICT_N2V_CAREAMICS  } from "./subworkflows/careamics/image_train_predict_n2v_careamics"
-include { IMAGE_TRAIN_PREDICT_N2N_CAREAMICS  } from "./subworkflows/careamics/image_train_predict_n2n_careamics"
-include { IMAGE_TRAIN_PREDICT_CARE_CAREAMICS } from "./subworkflows/careamics/image_train_predict_care_careamics"
+include { IMAGE_TRAIN_PREDICT_N2V_CAREAMICS  } from "../subworkflows/careamics/image_train_predict_n2v_careamics"
+include { IMAGE_TRAIN_PREDICT_N2N_CAREAMICS  } from "../subworkflows/careamics/image_train_predict_n2n_careamics"
+include { IMAGE_TRAIN_PREDICT_CARE_CAREAMICS } from "../subworkflows/careamics/image_train_predict_care_careamics"
 
 
 /*
