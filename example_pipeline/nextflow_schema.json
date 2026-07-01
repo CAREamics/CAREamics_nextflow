@@ -56,7 +56,7 @@
           "mimetype": "csv"
         }
       },
-      "required": ["train_data"],
+      "required": ["train_data", "prediction_csv"],
       "fa_icon": "fas fa-database"
     },
     "careamics_required": {
