@@ -289,7 +289,7 @@ Follow the instructions to input the required parameters, `train_data` and `pred
      -params-file params_n2v.json
    ```
 
-Use `-profile local,conda` for a local CPU run with reduced resources for
-the `process_medium` label. Swap `docker` for `conda`, `mamba`, `singularity`, or
+Use `-profile local,conda` for a local run with reduced resources for
+the `process_medium` label. Swap `conda` for `mamba`, `docker`, `singularity`, or
 `apptainer` depending on your environment, and use `gpu` instead of `cpu` for
 running with GPU-enabled containers.

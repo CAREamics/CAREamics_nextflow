@@ -1,6 +1,6 @@
 process CAREAMICS_CONFIG_N2V {
     tag "${meta.id ?: task.process}"
-    label 'process_medium'
+    label 'process_single'
 
     conda "${moduleDir}/environment.yml"
     container {
