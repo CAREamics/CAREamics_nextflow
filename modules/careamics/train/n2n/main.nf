@@ -1,33 +1,49 @@
 process CAREAMICS_TRAIN_N2N {
-    tag "$meta.id"
-    label 'process_gpu_medium'
+    tag "${meta.id ?: task.process}"
+    label 'process_medium'
+    label 'process_gpu'
 
     conda "${moduleDir}/environment.yml"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-    'oras://community.wave.seqera.io/library/careamics:0.0.21--5130b64e7194c8c6' :
-    'community.wave.seqera.io/library/careamics:0.0.21--300ee53ce7b54c00' }"
+    container {
+        def use_gpu = task.ext.use_gpu ?: false
+        def is_singularity = workflow.containerEngine in ['singularity', 'apptainer']
+
+        if (use_gpu && is_singularity) {
+            return 'oras://ghcr.io/careamics/careamics-gpu-sif:0.2.0'
+        }
+        else if (!use_gpu && is_singularity) {
+            return 'oras://ghcr.io/careamics/careamics-cpu-sif:0.2.0'
+        }
+        else if (use_gpu && !is_singularity) {
+            return 'ghcr.io/careamics/careamics-gpu:0.2.0'
+        }
+        else {
+            return 'ghcr.io/careamics/careamics-cpu:0.2.0'
+        }
+    }
 
     input:
-    tuple val(meta), path(train_data), path(target_data,name: "target/*")
+    tuple val(meta), path(train_data, name: "train_data/*"), path(train_target, name: "train_target/*"), path(val_data, name: "val_data/*"), path(val_target, name: "val_target/*")
 
     output:
-    tuple val(meta), path("*.yaml")             , emit: config
-    tuple val(meta), path("checkpoints/last.ckpt"), emit: model
-    path "versions.yml"                          , emit: versions
+    tuple val(meta), path("careamics.yaml"), emit: careamics_config
+    // TODO: get real checkpoint name from CAREamist.get_checkpoints
+    tuple val(meta), path("checkpoints/*/*last.ckpt"), emit: model
+    path "versions.yml", emit: versions
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
-    def args   = task.ext.args ?: ''
-    def model_type = meta.model ?: 'n2n'
+    def args = task.ext.args ?: ''
+    def val_args = val_data ? "--val_data \"${val_data}\" --val_target \"${val_target}\"" : ''
     """
     train_n2n.py \\
-        --train_data $train_data \\
-        --train_target $target_data \\
-        --model $model_type \\
+        --train_data ${train_data} \\
+        --train_target ${train_target} \\
+        ${val_args} \\
         --output_path . \\
-        $args
+        ${args}
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
@@ -38,13 +54,13 @@ process CAREAMICS_TRAIN_N2N {
     stub:
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
-    touch "${prefix}_config.yaml"
-    mkdir -p checkpoints
-    touch checkpoints/last.ckpt
+    touch careamics.yaml
+    mkdir -p "checkpoints/${prefix}"
+    touch "checkpoints/${prefix}/last.ckpt"
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
-        careamics: \$(python -c "import careamics; print(careamics.__version__)")
+        careamics: "stub"
     END_VERSIONS
     """
 }

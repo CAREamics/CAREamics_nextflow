@@ -1,73 +1,117 @@
 #!/usr/bin/env python3
 
 from pathlib import Path
-from careamics import CAREamist
-from careamics.config import create_n2v_configuration,  save_configuration
 import argparse
-#from careamics.config.transformations import XYFlipModel
 import os
+from typing import Any, Sequence
 
-def create_config(exp_name:str, datatype:str,ax:str, patchsize:tuple, batchsize:int, numepochs:int,n2v2:bool):
-    ''' create the config to train''' 
-    config = create_n2v_configuration(
-                experiment_name=exp_name,
-                data_type=datatype,
-                axes=ax,
-                patch_size=patchsize,
-                batch_size=batchsize,
-                num_epochs=numepochs,
-                use_n2v2=n2v2)
+from careamics import CAREamist
+from careamics.config import create_n2v_config
+from careamics.config.support import SupportedData
+from careamics.config.configuration import Configuration
+from careamics.config.utils.configuration_io import save_configuration
+
+
+def without_none(kwargs: dict[str, Any]) -> dict[str, Any]:
+    return {key: value for key, value in kwargs.items() if value is not None}
+
+
+def create_config(
+    exp_name: str,
+    data_type: SupportedData,
+    axes: str,
+    patch_size: tuple[int, ...],
+    batch_size: int,
+    num_epochs: int | None = None,
+    num_steps: int | None = None,
+    augmentations: Sequence[str] | None = None,
+    n_val_patches: int | None = None,
+    use_n2v2: bool | None = None,
+    n_channels: int | None = None,
+) -> Configuration:
+    """create the config to train"""
+    config = create_n2v_config(
+        experiment_name=exp_name,
+        data_type=data_type.value,
+        axes=axes,
+        patch_size=patch_size,
+        batch_size=batch_size,
+        **without_none(
+            {
+                "num_epochs": num_epochs,
+                "num_steps": num_steps,
+                "augmentations": augmentations,
+                "n_val_patches": n_val_patches,
+                "use_n2v2": use_n2v2,
+                "n_channels": n_channels,
+            }
+        ),
+    )
     return config
 
-#def create_config_strn2v(exp_name:str, datatype:str,ax:str, patchsize:tuple, batchsize:int, numepochs:int,structn2vaxis:str,structn2vspan:int):
-#    ''' create the config to train''' 
-#config = create_n2v_configuration(
-#                experiment_name=exp_name,
-#                data_type=datatype,
-#                axes=ax,
-#                patch_size=patchsize,
-#                batch_size=batchsize,
-#                num_epochs=numepochs,
-#                struct_n2v_axis=structn2vaxis,
-#                struct_n2v_span=structn2vspan,
-#                augmentations=[])
-#    config.data_config.transforms.insert(
-#    0,XYFlipModel(flip_x=True, flip_y=False))
-#    return config
+
+def train_model(
+    train_path: str,
+    config: Configuration,
+    work_dir: str,
+    val_path: str | None = None,
+):
+    """function to train a model"""
+    careamist = CAREamist(config=config, work_dir=work_dir)
+    careamist.train(
+        train_data=train_path,
+        **without_none({"val_data": val_path}),
+    )
 
 
-def train_model(trainpath:Path, valpath: Path, config):
-    ''' function to train a model'''
-    careamist = CAREamist(source=config)
-    careamist.train(train_source=trainpath,val_source=valpath)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--train_data", type=str, required=True, help="Path to train data."
+    )
+    parser.add_argument(
+        "--val_data", type=str, default=None, help="Path to validation data."
+    )
+    parser.add_argument(
+        "--output_path", type=Path, required=True, help="Path to save the output files."
+    )
+    parser.add_argument(
+        "--experiment_name", type=str, required=True, help="name of the experiment."
+    )
+    parser.add_argument("--data_type", type=SupportedData, required=True)
+    parser.add_argument("--axes", type=str, required=True)
+    parser.add_argument(
+        "--patch_size", nargs="+", type=int, required=True, help="2D or 3D"
+    )
+    parser.add_argument("--batch_size", type=int, required=True)
+    parser.add_argument("--num_epochs", type=int, default=None)
+    parser.add_argument("--num_steps", type=int, default=None)
+    parser.add_argument(
+        "--augmentations",
+        nargs="+",
+        choices=["x_flip", "y_flip", "rotate_90"],
+        default=None,
+    )
+    parser.add_argument("--n_val_patches", type=int, default=None)
+    parser.add_argument("--use_n2v2", action="store_true", default=None)
+    parser.add_argument("--n_channels", type=int, default=None)
 
-def create_argparser_path():
-    ''' function to gather arguments'''
-    parser= argparse.ArgumentParser()
-    parser.add_argument("--model")
-    parser.add_argument("--experiment_name",  type=str,help="name of the experiment")
-    parser.add_argument ("--batch_size", type=int)
-    parser.add_argument("--patch_size", help ="2D or 3D")
-    parser.add_argument("--num_epochs", type=int)
-    parser.add_argument ("--axes", type=str)
-    parser.add_argument("--data_type", type=str)
-    parser.add_argument("--output_path", help="Path to save the output files")
-    parser.add_argument("--use_n2v2", type=str, help="True or False")
-    parser.add_argument("--train_data", help="train_data")
-    parser.add_argument("--val_data",  help="val_data")
-    parser.add_argument("--struct_n2v_axis", type=str, help="structure n2v axis")
-    parser.add_argument("--struct_n2v_span", type=int,help="structure n2v span" )
-    return parser
+    args = parser.parse_args()
 
-if __name__=="__main__":
-    argparser = create_argparser_path()
-    args= argparser.parse_args()
-    axis,  batch, epoch, datatype, exp_name, output_path,  train_data, val_data, patch_size = args.axes, args.batch_size, args.num_epochs, args.data_type, args.experiment_name, args.output_path, args.train_data, args.val_data, args.patch_size
-    patch=tuple([int(x) for x in patch_size.split(" ")])
-    if args.model == "n2v":
-        use_n2v2=bool(args.use_n2v2)
-        config=create_config(exp_name, datatype,axis, patch, batch, epoch,use_n2v2)
- #   elif args.model == "structn2v":
- #       config=create_config_strn2v(exp_name, datatype,axis, patch,batch, epoch,args.struct_n2v_axis,args.struct_n2v_span)
-    save_configuration(config, os.path.join(output_path, "config.yaml"))
-    train_model(train_data, val_data,config)
+    config = create_config(
+        args.experiment_name,
+        args.data_type,
+        args.axes,
+        args.patch_size,
+        args.batch_size,
+        num_epochs=args.num_epochs,
+        num_steps=args.num_steps,
+        augmentations=args.augmentations,
+        n_val_patches=args.n_val_patches,
+        use_n2v2=args.use_n2v2,
+        n_channels=args.n_channels,
+    )
+    save_configuration(config, os.path.join(args.output_path, "careamics.yaml"))
+    train_model(
+        args.train_data, config, work_dir=args.output_path, val_path=args.val_data
+    )

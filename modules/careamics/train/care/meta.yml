@@ -1,8 +1,9 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
 name: careamics_train_care
-description: Train a CARE denoising model using CAREamics
+description: Train a CARE model using CAREamics
 keywords:
-  - denoising
+  - image restoration
+  - image processing
   - microscopy
   - deep learning
   - careamics
@@ -17,36 +18,47 @@ tools:
 input:
   - meta:
       type: map
-      description: |
-        Groovy Map containing sample information
-        e.g. [ id: 'test', model: 'care' ]
+      description: Groovy Map containing sample information; passed through unchanged
   - train_data:
       type: file
-      description: Training data (noisy images or array files)
-      pattern: "*.{tif,tiff,png,npy}"
-  - target_data:
+      description: Training data as a single TIFF file or a directory containing TIFF files
+      pattern: "*"
+  - train_target:
       type: file
-      description: Target data (clean images or array files)
-      pattern: "*.{tif,tiff,png,npy}"
+      description: Training target data as a single TIFF file or a directory containing TIFF files
+      pattern: "*"
+  - val_data:
+      type: file
+      description: Optional validation data as a single TIFF file or a directory containing TIFF files
+      pattern: "*"
+  - val_target:
+      type: file
+      description: Optional validation target data as a single TIFF file or a directory containing TIFF files
+      pattern: "*"
 output:
-  - meta:
-      type: map
-      description: |
-        Groovy Map containing sample information
-        e.g. [ id: 'test', model: 'care' ]
-  - versions:
-      type: file
-      description: File containing software versions
-      pattern: "versions.yml"
-  - model:
-      type: file
-      description: Trained model checkpoint
-      pattern: "*.pth"
-  - config:
-      type: file
-      description: Training configuration file
-      pattern: "config.yaml"
+  careamics_config:
+    - - meta:
+          type: map
+          description: Groovy Map containing sample information; passed through unchanged
+      - careamics.yaml:
+          type: file
+          description: CAREamics training configuration file
+          pattern: "careamics.yaml"
+  model:
+    - - meta:
+          type: map
+          description: Groovy Map containing sample information; passed through unchanged
+      - "checkpoints/*/*last.ckpt":
+          type: file
+          description: Trained model checkpoint
+          pattern: "checkpoints/*/*last.ckpt"
+  versions:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
 authors:
-  - "@yourusername"
+  - "@tatianawoller"
+  - "@melisande-c"
 maintainers:
-  - "@yourusername"
+  - "@melisande-c"
