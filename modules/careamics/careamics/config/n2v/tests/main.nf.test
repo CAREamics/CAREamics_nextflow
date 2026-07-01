@@ -9,9 +9,8 @@ nextflow_process {
     tag "modules_careamics"
     tag "modules_local"
     tag "careamics"
-    tag "config"
-    tag "config/n2v"
-    tag "training_n2v"
+    tag "careamics/config"
+    tag "careamics/config/n2v"
 
     test("careamics_config_n2v") {
 

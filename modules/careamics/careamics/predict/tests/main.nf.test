@@ -9,8 +9,7 @@ nextflow_process {
     tag "modules_careamics"
     tag "modules_local"
     tag "careamics"
-    tag "predict"
-    tag "prediction"
+    tag "careamics/predict"
 
     test("stub with runtime test data") {
 

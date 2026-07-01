@@ -293,3 +293,22 @@ Use `-profile local,conda` for a local run with reduced resources for
 the `process_medium` label. Swap `conda` for `mamba`, `docker`, `singularity`, or
 `apptainer` depending on your environment, and use `gpu` instead of `cpu` for
 running with GPU-enabled containers.
+
+## Development
+
+### Test modules
+
+This is a custom modules repository, so use the CAREamics repository as the nf-core modules remote when running module tests:
+
+```console
+nf-core modules \
+  -g https://github.com/CAREamics/CAREamics_nextflow.git \
+  -b main \
+  test careamics/predict
+```
+
+For local development on another branch, replace the remote and branch as needed.
+
+In non-interactive shells nf-core-tools defaults to the Docker profile. Use
+`--profile conda`, `--profile singularity`, or `--profile apptainer` when that
+matches your local runtime better. This can also be selected through the terminal
