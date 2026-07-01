@@ -17,8 +17,8 @@ To install a subworkflow:
 
 ```console
 nf-core subworkflows \
-  --g https://github.com/CAREamics/CAREamics_nextflow.git \
-  --b main \
+  -g https://github.com/CAREamics/CAREamics_nextflow.git \
+  -b main \
   install image_train_predict_n2v_careamics
 ```
 
@@ -26,8 +26,8 @@ To install a module:
 
 ```console
 nf-core modules \
-  --g https://github.com/CAREamics/CAREamics_nextflow.git \
-  --b main \
+  -g https://github.com/CAREamics/CAREamics_nextflow.git \
+  -b main \
   install careamics/predict
 ```
 
