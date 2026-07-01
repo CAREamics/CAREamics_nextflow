@@ -1,8 +1,8 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#     "careamics-portfolio",
 #     "pandas",
+#     "pooch",
 # ]
 # ///
 
@@ -10,7 +10,7 @@ import argparse
 import logging
 from pathlib import Path
 
-from careamics_portfolio import PortfolioManager
+import pooch
 import pandas as pd
 
 logger = logging.getLogger(__file__)
@@ -18,12 +18,22 @@ logger = logging.getLogger(__file__)
 
 def main(work_dir: Path):
 
-    # instantiate data portfolio manage
-    portfolio = PortfolioManager()
+    DATA_PATH = Path("data/N2V_SEM")
+    # download the data
+    train_image = pooch.retrieve(
+        "https://zenodo.org/records/21028053/files/train.tif",
+        known_hash="8be263564a12381bcc0fc69c4271728f3a794aeed78ef85be5fac95e78f5ff73",
+        fname="train.tif",
+        path=DATA_PATH
+    )
+    val_image = pooch.retrieve(
+        "https://zenodo.org/records/21028053/files/validation.tif",
+        known_hash="6f5cd80d4e7f086432458987ee09c7623b2f0c98568bdf2f05b747d804abfabb",
+        fname="validation.tif",
+        path=DATA_PATH
+    )
+    files = (train_image, val_image)
 
-    # and download the data
-    root_path = work_dir / "data"
-    files = portfolio.denoising.N2V_SEM.download(root_path)
     logger.info(f"N2V example data downloaded at: {files}")
 
     df = pd.DataFrame({"id": [0], "data_path": [files[0]]})

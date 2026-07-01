@@ -282,8 +282,8 @@ Follow the instructions to input the required parameters, `train_data` and `pred
    ```console
    nextflow run main.nf \
      -profile local,conda \
-     --train_data data/denoising-N2V_SEM.unzip/SEM/train.tif \
-     --val_data data/denoising-N2V_SEM.unzip/SEM/validation.tif \
+     --train_data data/N2V_SEM/train.tif \
+     --val_data data/N2V_SEM/validation.tif \
      --prediction_csv example_n2v_predict.csv \
      --outdir results \
      -params-file params_n2v.json
