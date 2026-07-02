@@ -57,8 +57,7 @@ Lower-level config and training modules are also available for custom workflows:
 
 ## Subworkflows
 
-All subworkflows emit `versions`, a channel containing `versions.yml` files from
-the processes they run. CAREamics processes use the `process_medium` label.
+All subworkflows emit `versions`, a channel containing `versions.yml` files from the processes they run. CAREamics config processes use the `process_single` label, while train and predict processes use the `process_medium` label.
 
 
 ### `image_train_predict_n2v_careamics`
