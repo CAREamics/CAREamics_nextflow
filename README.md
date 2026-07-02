@@ -242,9 +242,12 @@ that directory. Prediction inputs are provided with a CSV file containing a
 
 ### Profile options:
 
-- Containers/Environments: `conda`|`singularity`|`docker`
-- Available hardware (ignored for `conda`): `gpu`|`cpu`
+- Containers/Environments: `conda`|`mamba`|`docker`|`singularity`|`apptainer`
+- Available hardware (ignored for `conda` and `mamba`): `gpu`|`cpu`
 - Use the `local` profile to reduce the required memory of the label `process_medium`.
+
+> [!TIP]
+> For singularity containers you might want to set the [`NXF_SINGULARITY_CACHEDIR`](https://docs.seqera.io/nextflow/reference/env-vars#nxf_singularity_cachedir) environment variable to something appropriate for your system.
 
 ### Set-up
 
