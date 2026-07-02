@@ -1,0 +1,59 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: image_train_predict_n2v_careamics
+description: Create an N2V CAREamics configuration, train a model, and use it for prediction.
+keywords:
+  - denoising
+  - image restoration
+  - microscopy
+  - deep learning
+  - careamics
+  - n2v
+components:
+  - careamics/config/n2v
+  - image_train_predict_careamics
+input:
+  - ch_config:
+      type: file
+      description: |
+        Configuration input channel.
+        Structure: [ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]
+  - ch_train_data:
+      type: path
+      description: |
+        Training data input channel.
+        Structure: [ val(meta), path(train_data), path(val_data) ]
+  - ch_predict:
+      type: path
+      description: |
+        Prediction data channel.
+        Structure: [ val(meta), path(data) ]
+output:
+  - careamics_config:
+      type: file
+      description: |
+        CAREamics configuration file.
+        Structure: [ val(meta), path(careamics_config) ]
+      pattern: "careamics.yaml"
+  - model:
+      type: file
+      description: |
+        Trained model checkpoint.
+        Structure: [ val(meta), path(model) ]
+      pattern: "checkpoints/*/*last.ckpt"
+  - predictions:
+      type: file
+      description: |
+        Prediction output files.
+        Structure: [ val(meta), path(predictions) ]
+      pattern: "predictions/*"
+  - versions:
+      type: file
+      description: |
+        File containing software versions.
+        Structure: [ path(versions.yml) ]
+      pattern: "versions.yml"
+authors:
+  - "@tatianawoller"
+  - "@melisande-c"
+maintainers:
+  - "@melisande-c"

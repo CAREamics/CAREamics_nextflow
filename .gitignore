@@ -6,6 +6,7 @@
 work/
 data/
 results/
+test_results/
 .DS_Store
 testing/
 testing*

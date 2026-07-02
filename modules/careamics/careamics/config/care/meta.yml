@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
+name: careamics_config_care
+description: Create a CARE training configuration using CAREamics. Optional task.ext.args may include num_epochs, num_steps, augmentations, n_val_patches, n_channels_in, and n_channels_out.
+keywords:
+  - configuration
+  - image restoration
+  - image processing
+  - microscopy
+  - deep learning
+  - careamics
+  - care
+tools:
+  - careamics:
+      description: CAREamics is a library for content-aware image restoration in microscopy
+      homepage: https://careamics.github.io
+      documentation: https://careamics.github.io
+      tool_dev_url: https://github.com/CAREamics/careamics
+      licence: ["BSD-3-Clause"]
+input:
+  - - meta:
+        type: map
+        description: Groovy Map containing sample information; passed through unchanged
+    - experiment_name:
+        type: string
+        description: Name of the experiment. A valid experiment name is a non-empty string that only contains letters, numbers, underscores, dashes and spaces.
+    - data_type:
+        type: string
+        description: Type of the data. One of array, tiff, zarr, czi, or custom.
+    - axes:
+        type: string
+        description: Axes of the data (e.g. SYX).
+    - patch_size:
+        type: string
+        description: Size of the patches along the spatial dimensions (e.g. 64 64).
+    - batch_size:
+        type: integer
+        description: Batch size.
+output:
+  careamics_config:
+    - - meta:
+          type: map
+          description: Groovy Map containing sample information; passed through unchanged
+      - careamics.yaml:
+          type: file
+          description: CAREamics configuration file
+          pattern: "careamics.yaml"
+  versions:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+topics:
+  versions:
+    - versions.yml:
+        type: file
+        description: File containing software versions
+        pattern: "versions.yml"
+authors:
+  - "@tatianawoller"
+  - "@melisande-c"
+maintainers:
+  - "@melisande-c"

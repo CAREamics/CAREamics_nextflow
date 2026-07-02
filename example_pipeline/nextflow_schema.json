@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com///nextflow_schema.json",
+  "title": " pipeline parameters",
+  "description": "",
+  "type": "object",
+  "$defs": {
+    "input_output_options": {
+      "title": "Input/output options",
+      "type": "object",
+      "fa_icon": "fas fa-save",
+      "description": "Where outputs will be saved.",
+      "required": ["outdir"],
+      "properties": {
+        "outdir": {
+          "type": "string",
+          "format": "directory-path",
+          "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
+          "fa_icon": "fas fa-folder-open",
+          "default": "results"
+        },
+        "trace_report_prefix": {
+          "type": "string"
+        }
+      }
+    },
+    "data_input": {
+      "title": "Data input",
+      "type": "object",
+      "description": "Training, validation and prediction inputs.",
+      "default": "",
+      "properties": {
+        "train_data": {
+          "type": "string",
+          "format": "path"
+        },
+        "train_target": {
+          "type": "string",
+          "default": "[]",
+          "format": "path"
+        },
+        "val_data": {
+          "type": "string",
+          "default": "[]",
+          "format": "path"
+        },
+        "val_target": {
+          "type": "string",
+          "default": "[]",
+          "format": "path"
+        },
+        "prediction_csv": {
+          "type": "string",
+          "pattern": "^\\S+\\.csv$",
+          "format": "file-path",
+          "mimetype": "csv"
+        }
+      },
+      "required": ["train_data", "prediction_csv"],
+      "fa_icon": "fas fa-database"
+    },
+    "careamics_required": {
+      "title": "CAREamics required",
+      "type": "object",
+      "description": "Parameters required to run CAREamics algorithms.",
+      "default": "",
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "enum": ["n2v", "n2n", "care"]
+        },
+        "experiment_name": {
+          "type": "string"
+        },
+        "data_type": {
+          "type": "string",
+          "default": "tiff",
+          "enum": ["tiff"]
+        },
+        "axes": {
+          "type": "string",
+          "pattern": "^(?!.*(.).*\\1)[STCZYX]+$"
+        },
+        "patch_size": {
+          "type": "string",
+          "pattern": "^\\d+\\s+\\d+(?:\\s+\\d+)?$"
+        },
+        "batch_size": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "algorithm",
+        "experiment_name",
+        "data_type",
+        "axes",
+        "patch_size",
+        "batch_size"
+      ]
+    },
+    "careamics": {
+      "title": "CAREamics",
+      "type": "object",
+      "description": "Optional CAREamics parameters.",
+      "default": "",
+      "properties": {
+        "num_epochs": {
+          "type": "integer"
+        },
+        "num_steps": {
+          "type": "integer"
+        },
+        "augmentations": {
+          "type": "array",
+          "enum": ["x_filp", "y_flip", "rotate_90"]
+        },
+        "n_val_patches": {
+          "type": "integer"
+        }
+      }
+    },
+    "n2v": {
+      "title": "N2V",
+      "type": "object",
+      "description": "Optional N2V parameters.",
+      "default": "",
+      "properties": {
+        "use_n2v2": {
+          "type": "boolean"
+        },
+        "n_channels": {
+          "type": "integer"
+        }
+      }
+    },
+    "n2n_care": {
+      "title": "N2N & CARE",
+      "type": "object",
+      "description": "Optional N2N and CARE parameters.",
+      "default": "",
+      "properties": {
+        "n_channels_in": {
+          "type": "integer"
+        },
+        "n_channels_out": {
+          "type": "integer"
+        }
+      }
+    },
+    "prediction": {
+      "title": "Prediction",
+      "type": "object",
+      "description": "Optional prediction parametes.",
+      "default": "",
+      "properties": {
+        "pred_batch_size": {
+          "type": "integer"
+        },
+        "tile_size": {
+          "type": "string",
+          "pattern": "^\\d+\\s+\\d+(?:\\s+\\d+)?$"
+        },
+        "tile_overlap": {
+          "type": "string",
+          "pattern": "^\\d+\\s+\\d+(?:\\s+\\d+)?$"
+        },
+        "pred_axes": {
+          "type": "string",
+          "pattern": "^(?!.*(.).*\\1)[STCZYX]+$"
+        },
+        "pred_data_type": {
+          "type": "string",
+          "enum": ["tiff"]
+        },
+        "write_type": {
+          "type": "string",
+          "enum": ["tiff", "zarr"]
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "$ref": "#/$defs/input_output_options"
+    },
+    {
+      "$ref": "#/$defs/data_input"
+    },
+    {
+      "$ref": "#/$defs/careamics_required"
+    },
+    {
+      "$ref": "#/$defs/careamics"
+    },
+    {
+      "$ref": "#/$defs/n2v"
+    },
+    {
+      "$ref": "#/$defs/n2n_care"
+    },
+    {
+      "$ref": "#/$defs/prediction"
+    }
+  ]
+}
