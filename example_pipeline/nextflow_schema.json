@@ -153,12 +153,12 @@
       "description": "Optional prediction parametes.",
       "default": "",
       "properties": {
+        "pred_batch_size": {
+          "type": "integer"
+        },
         "tile_size": {
           "type": "string",
           "pattern": "^\\d+\\s+\\d+(?:\\s+\\d+)?$"
-        },
-        "pred_batch_size": {
-          "type": "integer"
         },
         "tile_overlap": {
           "type": "string",
