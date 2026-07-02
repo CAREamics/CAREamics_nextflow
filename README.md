@@ -69,7 +69,7 @@ Process components:
 - `careamics/config/n2v`
 - `image_train_predict_careamics`
 
-Labels: all component processes use `process_medium`.
+Labels: `process_single`, `process_medium`
 
 Inputs:
 
@@ -102,7 +102,7 @@ Process components:
 - `careamics/config/n2n`
 - `image_train_predict_careamics`
 
-Labels: all component processes use `process_medium`.
+Labels: `process_single`, `process_medium`
 
 Inputs:
 
@@ -136,7 +136,7 @@ Process components:
 - `careamics/config/care`
 - `image_train_predict_careamics`
 
-Labels: all component processes use `process_medium`.
+Labels: `process_single`, `process_medium`
 
 Inputs:
 
@@ -219,9 +219,9 @@ directly when needed.
 
 | Module | Process | Label | Input | Output | Notes |
 | --- | --- | --- | --- | --- | --- |
-| `careamics/config/n2v` | `CAREAMICS_CONFIG_N2V` | `process_medium` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml` | Creates a Noise2Void configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--use_n2v2`, and `--n_channels`. |
-| `careamics/config/n2n` | `CAREAMICS_CONFIG_N2N` | `process_medium` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml` | Creates a Noise2Noise configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`. |
-| `careamics/config/care` | `CAREAMICS_CONFIG_CARE` | `process_medium` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml` | Creates a CARE configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`. |
+| `careamics/config/n2v` | `CAREAMICS_CONFIG_N2V` | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml` | Creates a Noise2Void configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--use_n2v2`, and `--n_channels`. |
+| `careamics/config/n2n` | `CAREAMICS_CONFIG_N2N` | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml` | Creates a Noise2Noise configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`. |
+| `careamics/config/care` | `CAREAMICS_CONFIG_CARE` | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml` | Creates a CARE configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`. |
 | `careamics/train` | `CAREAMICS_TRAIN` | `process_medium` | `[ val(meta), path(careamics_config), path(train_data), path(train_target), path(val_data), path(val_target) ]` | `model`: `[ val(meta), path("checkpoints/*/*last.ckpt") ]`; `versions`: `versions.yml` | Trains from an existing CAREamics configuration. `train_target`, `val_data`, and `val_target` are optional for algorithms that do not need them; use `[]` for missing paths. |
 
 All modules support conda environments and CAREamics CPU/GPU containers. Set
