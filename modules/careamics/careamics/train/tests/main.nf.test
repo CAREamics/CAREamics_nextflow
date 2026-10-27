@@ -1,0 +1,99 @@
+nextflow_process {
+
+    name "Test Process CAREAMICS_TRAIN"
+    script "../main.nf"
+    process "CAREAMICS_TRAIN"
+    config "./nextflow.config"
+
+    tag "modules"
+    tag "modules_careamics"
+    tag "modules_local"
+    tag "careamics"
+    tag "careamics/train"
+
+    test("stub careamics_train with validation data") {
+
+        options "-stub"
+
+        setup {
+            def testDir = new File(System.getProperty("java.io.tmpdir"), "careamics-nextflow-nf-test/train")
+            testDir.mkdirs()
+            new File(testDir, "careamics.yaml").text = "stub"
+            new File(testDir, "train.tif").text = "stub"
+            new File(testDir, "train_target").mkdirs()
+            new File(testDir, "train_target/image.tiff").text = "stub"
+            new File(testDir, "val.tif").text = "stub"
+            new File(testDir, "val_target").mkdirs()
+            new File(testDir, "val_target/image.tif").text = "stub"
+        }
+
+        when {
+            process {
+                """
+                input[0] = tuple(
+                    [ id:'test_careamics_train_with_val' ],
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/train/careamics.yaml"),
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/train/train.tif"),
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/train/train_target"),
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/train/val.tif"),
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/train/val_target")
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert process.out.model.size() == 1 },
+                { assert process.out.versions.size() == 1 },
+                { assert process.out.model[0][0] == [ id:'test_careamics_train_with_val' ] },
+                { assert path(process.out.model[0][1]).getFileName().toString() == "last.ckpt" },
+                { assert path(process.out.model[0][1]).exists() },
+                { assert path(process.out.versions[0]).getFileName().toString() == "versions.yml" },
+                { assert path(process.out.versions[0]).exists() },
+            )
+        }
+    }
+
+    test("stub careamics_train self-supervised validation data") {
+
+        options "-stub"
+
+        setup {
+            def testDir = new File(System.getProperty("java.io.tmpdir"), "careamics-nextflow-nf-test/train-self-supervised")
+            testDir.mkdirs()
+            new File(testDir, "careamics.yaml").text = "stub"
+            new File(testDir, "train.tif").text = "stub"
+            new File(testDir, "val.tif").text = "stub"
+        }
+
+        when {
+            process {
+                """
+                input[0] = tuple(
+                    [ id:'test_careamics_train_self_supervised' ],
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/train-self-supervised/careamics.yaml"),
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/train-self-supervised/train.tif"),
+                    [],
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/train-self-supervised/val.tif"),
+                    []
+                )
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert process.success },
+                { assert process.out.model.size() == 1 },
+                { assert process.out.versions.size() == 1 },
+                { assert process.out.model[0][0] == [ id:'test_careamics_train_self_supervised' ] },
+                { assert path(process.out.model[0][1]).getFileName().toString() == "last.ckpt" },
+                { assert path(process.out.model[0][1]).exists() },
+                { assert path(process.out.versions[0]).getFileName().toString() == "versions.yml" },
+                { assert path(process.out.versions[0]).exists() },
+            )
+        }
+    }
+}
