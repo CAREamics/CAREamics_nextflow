@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 
-from pathlib import Path
 import argparse
 import os
+from pathlib import Path
 from typing import Any
 
 from careamics.config import create_n2n_config
 from careamics.config.support import SupportedData
-from careamics.config.configuration import Configuration
 from careamics.config.utils.configuration_io import save_configuration
 
 

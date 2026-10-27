@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
-from pathlib import Path
 import argparse
 import os
+from pathlib import Path
 from typing import Any
 
 from careamics import CAREamist
 from careamics.config import create_n2v_config
-from careamics.config.support import SupportedData
 from careamics.config.configuration import Configuration
+from careamics.config.support import SupportedData
 from careamics.config.utils.configuration_io import save_configuration
 
 
@@ -58,7 +58,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    config = config = create_n2v_config(
+    config = create_n2v_config(
         experiment_name=args.experiment_name,
         data_type=args.data_type.value,
         axes=args.axes,

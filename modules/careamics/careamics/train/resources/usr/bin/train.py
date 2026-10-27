@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from pathlib import Path
 import argparse
+from pathlib import Path
 
 from careamics import CAREamist
 from careamics.config.utils.configuration_io import load_configuration
