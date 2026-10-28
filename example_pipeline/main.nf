@@ -62,7 +62,9 @@ workflow {
 
     // Self-supervised algorithms
     if (params.algorithm == 'n2v') {
-        ch_training = channel.of([meta, file(params.train_data), file(params.val_data) ?: []])
+        ch_training = channel.of(
+            [meta, file(params.train_data), params.val_data ? file(params.val_data) : []]
+        )
         IMAGE_TRAIN_PREDICT_N2V_CAREAMICS(ch_config, ch_training, ch_prediction_data)
     }
     else if ((params.algorithm == 'care') || (params.algorithm == 'n2n')) {
@@ -79,8 +81,8 @@ workflow {
                 meta,
                 file(params.train_data),
                 file(params.train_target),
-                file(params.val_data) ?: [],
-                file(params.val_target) ?: [],
+                params.val_data ? file(params.val_data) : [],
+                params.val_target ? file(params.val_target) : [],
             ]
         )
         if (params.algorithm == 'care') {

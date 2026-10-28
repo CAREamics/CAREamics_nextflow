@@ -256,14 +256,15 @@ that directory. Prediction inputs are provided with a CSV file containing a
     cd CAREamics_nextflow/example_pipeline
     ```
 
-2. Example data for N2V is available for download through a script, we recommend using uv to run it.
+2. Example data for N2V and CARE are available for download through scripts; we recommend using uv to run them.
 
    ```console
    uv run get_example_data/n2v.py -wd .
+   uv run get_example_data/care.py -wd .
    ```
 
-   This writes the example data under `data/` and creates
-   `example_n2v_predict.csv`.
+   These write the example data under `data/` and create
+   `example_n2v_predict.csv` and `example_care_predict.csv`, respectively.
 
 ### Run with `nf-core`
 
@@ -294,6 +295,18 @@ Use `-profile local,conda` for a local run with reduced resources for
 the `process_medium` label. Swap `conda` for `mamba`, `docker`, `singularity`, or
 `apptainer` depending on your environment. Add `cpu` to the profile list when
 running without a GPU, for example `-profile local,docker,cpu`.
+
+To run the CARE U2OS example after downloading its data:
+
+```console
+nextflow run main.nf \
+  -profile local,conda \
+  --train_data data/denoising-CARE_U2OS.unzip/data/U2OS/train/low \
+  --train_target data/denoising-CARE_U2OS.unzip/data/U2OS/train/GT \
+  --prediction_csv example_care_predict.csv \
+  --outdir results \
+  -params-file params_care.json
+```
 
 ## Development
 

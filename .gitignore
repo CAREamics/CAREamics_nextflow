@@ -22,3 +22,4 @@ __pycache__
 
 # example pipeline
 example_pipeline/example_n2v_predict.csv
+example_pipeline/example_care_predict.csv
