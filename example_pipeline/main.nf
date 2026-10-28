@@ -68,7 +68,9 @@ workflow {
             [meta, file(params.train_data), params.val_data ? file(params.val_data) : []]
         )
         IMAGE_TRAIN_PREDICT_N2V_CAREAMICS(ch_config, ch_training, ch_prediction_data)
-        ch_selected_model = IMAGE_TRAIN_PREDICT_N2V_CAREAMICS.out.model
+        ch_careamics_config = IMAGE_TRAIN_PREDICT_N2V_CAREAMICS.out.careamics_config
+        ch_selected_model   = IMAGE_TRAIN_PREDICT_N2V_CAREAMICS.out.model
+        ch_predictions      = IMAGE_TRAIN_PREDICT_N2V_CAREAMICS.out.predictions
     }
     else if ((params.algorithm == 'care') || (params.algorithm == 'n2n')) {
         if (!params.train_target) {
@@ -90,12 +92,16 @@ workflow {
         )
         if (params.algorithm == 'care') {
             IMAGE_TRAIN_PREDICT_CARE_CAREAMICS(ch_config, ch_training, ch_prediction_data)
-            ch_selected_model = IMAGE_TRAIN_PREDICT_CARE_CAREAMICS.out.model
+            ch_careamics_config = IMAGE_TRAIN_PREDICT_CARE_CAREAMICS.out.careamics_config
+            ch_selected_model   = IMAGE_TRAIN_PREDICT_CARE_CAREAMICS.out.model
+            ch_predictions      = IMAGE_TRAIN_PREDICT_CARE_CAREAMICS.out.predictions
         }
         else {
             // n2n
             IMAGE_TRAIN_PREDICT_N2N_CAREAMICS(ch_config, ch_training, ch_prediction_data)
-            ch_selected_model = IMAGE_TRAIN_PREDICT_N2N_CAREAMICS.out.model
+            ch_careamics_config = IMAGE_TRAIN_PREDICT_N2N_CAREAMICS.out.careamics_config
+            ch_selected_model   = IMAGE_TRAIN_PREDICT_N2N_CAREAMICS.out.model
+            ch_predictions      = IMAGE_TRAIN_PREDICT_N2N_CAREAMICS.out.predictions
         }
     }
     else {
@@ -103,12 +109,21 @@ workflow {
     }
 
     publish:
+    careamics_config    = ch_careamics_config
     selected_checkpoint = ch_selected_model
+    predictions         = ch_predictions
 }
 
 output {
+    careamics_config {
+        path "${workflow.runName}"
+    }
+
     selected_checkpoint {
         path "${workflow.runName}/train_${params.algorithm}"
-        mode 'copy'
+    }
+
+    predictions {
+        path "${workflow.runName}/predictions"
     }
 }

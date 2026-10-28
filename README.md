@@ -281,13 +281,17 @@ Follow the instructions to input the required parameters, `train_data` and `pred
 
 ### Run with Nextflow
 
+Use Nextflow's `-output-dir` option to choose the results directory. If it is
+omitted, the pipeline writes to `results`. Execution reports are written to
+`pipeline_info` in the directory where Nextflow is launched.
+
    ```console
    nextflow run main.nf \
      -profile local,conda \
      --train_data data/N2V_SEM/train.tif \
      --val_data data/N2V_SEM/validation.tif \
      --prediction_csv example_n2v_predict.csv \
-     --outdir results \
+     -output-dir results \
      -params-file params_n2v.json
    ```
 
@@ -304,7 +308,7 @@ nextflow run main.nf \
   --train_data data/denoising-CARE_U2OS.unzip/data/U2OS/train/low \
   --train_target data/denoising-CARE_U2OS.unzip/data/U2OS/train/GT \
   --prediction_csv example_care_predict.csv \
-  --outdir results \
+  -output-dir results \
   -params-file params_care.json
 ```
 
