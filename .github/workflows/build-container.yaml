@@ -15,10 +15,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        variant: [cpu, gpu]
-
     env:
       VERSION: ${{ github.event.inputs.careamics_version }}
       OWNER: ${{ github.repository_owner }}
@@ -30,9 +26,9 @@ jobs:
       - name: Set image names
         # NOTE: ${OWNER,,} makes the variable lower case
         run: |
-          echo "DOCKER_IMAGE=ghcr.io/${OWNER,,}/careamics-${{ matrix.variant }}:${VERSION}" >> "$GITHUB_ENV"
-          echo "SIF_IMAGE=oras://ghcr.io/${OWNER,,}/careamics-${{ matrix.variant }}-sif:${VERSION}" >> "$GITHUB_ENV"
-          echo "SIF_FILE=careamics-${{ matrix.variant }}-${VERSION}.sif" >> "$GITHUB_ENV"
+          echo "DOCKER_IMAGE=ghcr.io/${OWNER,,}/careamics:${VERSION}-cuda11.8" >> "$GITHUB_ENV"
+          echo "SIF_IMAGE=oras://ghcr.io/${OWNER,,}/careamics-sif:${VERSION}-cuda11.8" >> "$GITHUB_ENV"
+          echo "SIF_FILE=careamics-${VERSION}-cuda11.8.sif" >> "$GITHUB_ENV"
 
       - name: Log in to GHCR
         uses: docker/login-action@v4
@@ -46,7 +42,6 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          target: ${{ matrix.variant }}
           push: true
           build-args: |
             CAREAMICS_VERSION=${{ env.VERSION }}
