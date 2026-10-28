@@ -9,8 +9,14 @@ workflow IMAGE_TRAIN_PREDICT_CAREAMICS {
     main:
     CAREAMICS_TRAIN(ch_train)
 
+    ch_model = CAREAMICS_TRAIN.out.model
+        .map { model_meta, checkpoints, selected_checkpoint ->
+            def model = selected_checkpoint.parent.resolve(selected_checkpoint.text.trim())
+            [model_meta, model]
+        }
+
     ch_predict_input = ch_predict
-        .combine(CAREAMICS_TRAIN.out.model)
+        .combine(ch_model)
         .map { predict_meta, data, model_meta, model ->
             def meta = predict_meta + [model_id: model_meta.id]
             [meta, data, model]
@@ -19,7 +25,7 @@ workflow IMAGE_TRAIN_PREDICT_CAREAMICS {
     CAREAMICS_PREDICT(ch_predict_input)
 
     emit:
-    model       = CAREAMICS_TRAIN.out.model // [ val(meta), path(model) ]
+    model       = ch_model // [ val(meta), path(model) ]
     predictions = CAREAMICS_PREDICT.out.predictions // [ val(meta), path(predictions) ]
     versions    = CAREAMICS_TRAIN.out.versions.mix(CAREAMICS_PREDICT.out.versions) // [ path(versions.yml) ]
 }

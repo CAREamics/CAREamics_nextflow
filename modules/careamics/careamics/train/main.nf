@@ -18,7 +18,7 @@ process CAREAMICS_TRAIN {
     tuple val(meta), path(careamics_config), path(train_data), path(train_target), path(val_data), path(val_target)
 
     output:
-    tuple val(meta), path("checkpoints/*/*last.ckpt"), emit: model
+    tuple val(meta), path("checkpoints"), path("selected_checkpoint.txt"), emit: model
     path "versions.yml", emit: versions, topic: versions
 
     when:
@@ -53,6 +53,7 @@ process CAREAMICS_TRAIN {
     """
     mkdir -p "checkpoints/${prefix}"
     touch "checkpoints/${prefix}/last.ckpt"
+    echo "checkpoints/${prefix}/last.ckpt" > selected_checkpoint.txt
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

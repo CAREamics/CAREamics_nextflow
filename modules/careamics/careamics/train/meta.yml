@@ -44,10 +44,14 @@ output:
     - - meta:
           type: map
           description: Groovy Map containing sample information; passed through unchanged
-      - "checkpoints/*/*last.ckpt":
+      - checkpoints:
           type: file
-          description: Trained model checkpoint
-          pattern: "checkpoints/*/*last.ckpt"
+          description: Directory containing trained model checkpoints
+          pattern: "checkpoints"
+      - selected_checkpoint.txt:
+          type: file
+          description: File containing the path of the checkpoint selected for prediction
+          pattern: "selected_checkpoint.txt"
   versions:
     - versions.yml:
         type: file

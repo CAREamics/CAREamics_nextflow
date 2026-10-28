@@ -28,7 +28,7 @@ output:
       description: |
         Trained model checkpoint.
         Structure: [ val(meta), path(model) ]
-      pattern: "checkpoints/*/*last.ckpt"
+      pattern: "checkpoints/**/*.ckpt"
   - predictions:
       type: file
       description: |
