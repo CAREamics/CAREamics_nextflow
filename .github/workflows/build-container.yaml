@@ -25,9 +25,6 @@ jobs:
       docker_image: ${{ steps.set_image_name.outputs.docker_image }}
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Set Docker image name
         id: set_image_name
         # NOTE: ${OWNER,,} makes the variable lower case
@@ -45,8 +42,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
-          context: .
-          file: ./Dockerfile
           push: true
           build-args: |
             CAREAMICS_VERSION=${{ env.VERSION }}
