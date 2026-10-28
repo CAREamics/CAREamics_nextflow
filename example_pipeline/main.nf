@@ -12,7 +12,7 @@ nextflow.enable.moduleBinaries = true
     
     Usage:
         nextflow run careamics_pipeline.nf \
-            -profile conda|singularity|docker,gpu|cpu \
+            -profile conda|mamba|docker|singularity|apptainer[,cpu] \
             -params-file params_n2v.json
 ========================================================================================
 */

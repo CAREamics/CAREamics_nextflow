@@ -224,8 +224,7 @@ directly when needed.
 | `careamics/config/care` | `CAREAMICS_CONFIG_CARE` | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml` | Creates a CARE configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`. |
 | `careamics/train` | `CAREAMICS_TRAIN` | `process_medium` | `[ val(meta), path(careamics_config), path(train_data), path(train_target), path(val_data), path(val_target) ]` | `model`: `[ val(meta), path("checkpoints/*/*last.ckpt") ]`; `versions`: `versions.yml` | Trains from an existing CAREamics configuration. `train_target`, `val_data`, and `val_target` are optional for algorithms that do not need them; use `[]` for missing paths. |
 
-All modules support conda environments and CAREamics CPU/GPU containers. Set
-`task.ext.use_gpu = true` to select the GPU container in containerized profiles. GPU is recommended.
+All modules support conda environments and CAREamics containers.
 
 ## Example pipeline
 
@@ -242,7 +241,7 @@ that directory. Prediction inputs are provided with a CSV file containing a
 ### Profile options:
 
 - Containers/Environments: `conda`|`mamba`|`docker`|`singularity`|`apptainer`
-- Available hardware (ignored for `conda` and `mamba`): `gpu`|`cpu`
+- Hardware: GPU execution is enabled by default; add `cpu` on systems without a GPU.
 - Use the `local` profile to reduce the required memory of the label `process_medium`.
 
 > [!TIP]
@@ -293,8 +292,8 @@ Follow the instructions to input the required parameters, `train_data` and `pred
 
 Use `-profile local,conda` for a local run with reduced resources for
 the `process_medium` label. Swap `conda` for `mamba`, `docker`, `singularity`, or
-`apptainer` depending on your environment, and use `gpu` instead of `cpu` for
-running with GPU-enabled containers.
+`apptainer` depending on your environment. Add `cpu` to the profile list when
+running without a GPU, for example `-profile local,docker,cpu`.
 
 ## Development
 

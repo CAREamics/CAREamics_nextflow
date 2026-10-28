@@ -5,5 +5,5 @@ channels:
   - bioconda
   - defaults
 dependencies:
-  - careamics=0.2.0
+  - careamics=0.3.5
   - python=3.11
