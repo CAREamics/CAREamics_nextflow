@@ -30,6 +30,8 @@ include { IMAGE_TRAIN_PREDICT_CARE_CAREAMICS } from "../subworkflows/careamics/i
 */
 
 workflow {
+    main:
+
     // Train model first
     log.info("Training ${params.algorithm} algorithm.")
 
@@ -66,6 +68,7 @@ workflow {
             [meta, file(params.train_data), params.val_data ? file(params.val_data) : []]
         )
         IMAGE_TRAIN_PREDICT_N2V_CAREAMICS(ch_config, ch_training, ch_prediction_data)
+        ch_selected_model = IMAGE_TRAIN_PREDICT_N2V_CAREAMICS.out.model
     }
     else if ((params.algorithm == 'care') || (params.algorithm == 'n2n')) {
         if (!params.train_target) {
@@ -87,13 +90,25 @@ workflow {
         )
         if (params.algorithm == 'care') {
             IMAGE_TRAIN_PREDICT_CARE_CAREAMICS(ch_config, ch_training, ch_prediction_data)
+            ch_selected_model = IMAGE_TRAIN_PREDICT_CARE_CAREAMICS.out.model
         }
         else {
             // n2n
             IMAGE_TRAIN_PREDICT_N2N_CAREAMICS(ch_config, ch_training, ch_prediction_data)
+            ch_selected_model = IMAGE_TRAIN_PREDICT_N2N_CAREAMICS.out.model
         }
     }
     else {
         error("Unknown algorithm: ${params.algorithm}. Use 'n2v', 'care', or 'n2n'")
+    }
+
+    publish:
+    selected_checkpoint = ch_selected_model
+}
+
+output {
+    selected_checkpoint {
+        path "${workflow.runName}/train_${params.algorithm}"
+        mode 'copy'
     }
 }
