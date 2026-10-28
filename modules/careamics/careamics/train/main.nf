@@ -8,13 +8,13 @@ process CAREAMICS_TRAIN {
         def is_singularity = workflow.containerEngine in ['singularity', 'apptainer']
 
         if (use_gpu && is_singularity) {
-            return 'oras://ghcr.io/careamics/careamics-gpu-sif:0.2.0'
+            return 'oras://ghcr.io/careamics/careamics-sif:0.2.0-cuda11.8'
         }
         else if (!use_gpu && is_singularity) {
             return 'oras://ghcr.io/careamics/careamics-cpu-sif:0.2.0'
         }
         else if (use_gpu && !is_singularity) {
-            return 'ghcr.io/careamics/careamics-gpu:0.2.0'
+            return 'ghcr.io/careamics/careamics:0.2.0-cuda11.8'
         }
         else {
             return 'ghcr.io/careamics/careamics-cpu:0.2.0'
