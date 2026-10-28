@@ -11,6 +11,7 @@ workflow IMAGE_TRAIN_PREDICT_CAREAMICS {
 
     ch_model = CAREAMICS_TRAIN.out.model
         .map { model_meta, checkpoints, selected_checkpoint ->
+            // reads selected_checkpoint.txt file and passes on the stored checkpoint path
             def model = selected_checkpoint.parent.resolve(selected_checkpoint.text.trim())
             [model_meta, model]
         }
