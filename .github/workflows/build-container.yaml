@@ -25,10 +25,12 @@ jobs:
 
       - name: Set image names
         # NOTE: ${OWNER,,} makes the variable lower case
+        # NOTE: DO NOTE CHANGE CUDA_VERSION WITHOUT UPDATING Dockerfile
         run: |
-          echo "DOCKER_IMAGE=ghcr.io/${OWNER,,}/careamics:${VERSION}-cuda11.8" >> "$GITHUB_ENV"
-          echo "SIF_IMAGE=oras://ghcr.io/${OWNER,,}/careamics-sif:${VERSION}-cuda11.8" >> "$GITHUB_ENV"
-          echo "SIF_FILE=careamics-${VERSION}-cuda11.8.sif" >> "$GITHUB_ENV"
+          CUDA_VERSION="11.8"
+          echo "DOCKER_IMAGE=ghcr.io/${OWNER,,}/careamics:${VERSION}-cuda${CUDA_VERSION}" >> "$GITHUB_ENV"
+          echo "SIF_IMAGE=oras://ghcr.io/${OWNER,,}/careamics-sif:${VERSION}-cuda${CUDA_VERSION}" >> "$GITHUB_ENV"
+          echo "SIF_FILE=careamics-${VERSION}-cuda${CUDA_VERSION}.sif" >> "$GITHUB_ENV"
 
       - name: Log in to GHCR
         uses: docker/login-action@v4
