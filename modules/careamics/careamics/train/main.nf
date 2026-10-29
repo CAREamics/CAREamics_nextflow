@@ -22,9 +22,6 @@ process CAREAMICS_TRAIN {
     tuple val(meta), path("csv_logs/*/version_*/metrics.csv", arity: '1'), emit: metrics
     path "versions.yml", emit: versions, topic: versions
 
-    when:
-    task.ext.when == null || task.ext.when
-
     script:
     def args = task.ext.args ?: ''
     if (!val_data && val_target) {

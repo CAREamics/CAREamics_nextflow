@@ -21,9 +21,6 @@ process CAREAMICS_PREDICT {
     tuple val(meta), path("predictions/*"), emit: predictions
     path "versions.yml", emit: versions, topic: versions
 
-    when:
-    task.ext.when == null || task.ext.when
-
     script:
     def args = task.ext.args ?: ''
     """

@@ -21,9 +21,6 @@ process CAREAMICS_CONFIGN2V {
     tuple val(meta), path("careamics.yaml"), emit: careamics_config
     path "versions.yml", emit: versions, topic: versions
 
-    when:
-    task.ext.when == null || task.ext.when
-
     script:
     def args = task.ext.args ?: ''
     """
