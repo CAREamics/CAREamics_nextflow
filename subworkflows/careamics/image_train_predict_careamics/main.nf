@@ -9,10 +9,14 @@ workflow IMAGE_TRAIN_PREDICT_CAREAMICS {
     main:
     CAREAMICS_TRAIN(ch_train)
 
+    // extract selected checkpoint from checkpoints record
     ch_model = CAREAMICS_TRAIN.out.model
-        .map { model_meta, checkpoints, selected_checkpoint ->
-            // reads selected_checkpoint.txt file and passes on the stored checkpoint path
-            def model = selected_checkpoint.parent.resolve(selected_checkpoint.text.trim())
+        .map { model_meta, checkpoints, checkpoint_record ->
+            def record = new groovy.json.JsonSlurper().parseText(checkpoint_record.text)
+            def model = checkpoints.find { checkpoint -> checkpoint.name == record.selected }
+            if (!model) {
+                error("Cannot locate selected checkpoint '${record.selected}' in checkpoints emitted by CAREAMICS_TRAIN")
+            }
             [model_meta, model]
         }
 

@@ -46,12 +46,12 @@ output:
           description: Groovy Map containing sample information; passed through unchanged
       - checkpoints:
           type: file
-          description: Directory containing trained model checkpoints
-          pattern: "checkpoints"
-      - selected_checkpoint.txt:
+          description: Trained model checkpoint files
+          pattern: "checkpoints/*/*.ckpt"
+      - checkpoint_record.json:
           type: file
-          description: File containing the path of the checkpoint selected for prediction
-          pattern: "selected_checkpoint.txt"
+          description: Record of the saved checkpoints and the checkpoint selected for prediction
+          pattern: "checkpoints/*/checkpoint_record.json"
   versions:
     - versions.yml:
         type: file
