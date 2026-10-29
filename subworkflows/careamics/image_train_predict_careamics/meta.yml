@@ -48,11 +48,10 @@ output:
         Structure: [ val(meta), path(predictions) ]
       pattern: "predictions/*"
   - versions:
-      type: file
+      type: string
       description: |
-        File containing software versions.
-        Structure: [ path(versions.yml) ]
-      pattern: "versions.yml"
+        Software version information.
+        Structure: [ val(process), val(tool), val(version) ]
 authors:
   - "@tatianawoller"
   - "@melisande-c"

@@ -56,7 +56,7 @@ Lower-level config and training modules are also available for custom workflows:
 
 ## Subworkflows
 
-All subworkflows emit `checkpoints`, containing every trained checkpoint; `model`, containing only the checkpoint selected for prediction; and `metrics`, containing the CSV log of training and validation losses and additional metrics. They also emit `versions`, a channel containing `versions.yml` files from the processes they run. CAREamics config processes use the `process_single` label, while train and predict processes use the `process_medium` label.
+All subworkflows emit `checkpoints`, containing every trained checkpoint; `model`, containing only the checkpoint selected for prediction; and `metrics`, containing the CSV log of training and validation losses and additional metrics. They also emit `versions`, a channel containing process, tool, and version strings from the processes they run. CAREamics config processes use the `process_single` label, while train and predict processes use the `process_medium` label.
 
 ### `image_train_predict_n2v_careamics`
 
@@ -207,7 +207,7 @@ want to add prediction to a pipeline.
 - Label: `process_medium`
 - Input: `[ val(meta), path(data), path(model) ]`
 - Output `predictions`: `[ val(meta), path("predictions/*") ]`
-- Output `versions`: `versions.yml`
+- Output `versions_careamics`: `[ val(process), val(tool), val(version) ]`
 
 `data` can be a TIFF file or a directory containing TIFF files. `model` is a
 trained `.ckpt` checkpoint. Additional CAREamics prediction options can be passed

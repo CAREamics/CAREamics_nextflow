@@ -19,7 +19,7 @@ process CAREAMICS_PREDICT {
 
     output:
     tuple val(meta), path("predictions/*"), emit: predictions
-    path "versions.yml", emit: versions, topic: versions
+    tuple val("${task.process}"), val('careamics'), eval('python -c "import careamics; print(careamics.__version__)"'), emit: versions_careamics, topic: versions
 
     script:
     def args = task.ext.args ?: ''
@@ -29,10 +29,6 @@ process CAREAMICS_PREDICT {
         --data ${data} \\
         ${args}
 
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        careamics: \$(python -c "import careamics; print(careamics.__version__)")
-    END_VERSIONS
     """
 
     stub:
@@ -41,9 +37,5 @@ process CAREAMICS_PREDICT {
     mkdir -p predictions
     touch predictions/${prefix}_denoised.tiff
 
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        careamics: "stub"
-    END_VERSIONS
     """
 }

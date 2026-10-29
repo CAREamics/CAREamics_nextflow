@@ -20,7 +20,7 @@ process CAREAMICS_TRAIN {
     output:
     tuple val(meta), path("checkpoints/*/*.ckpt", arity: '1..*'), path("checkpoints/*/checkpoint_record.json", arity: '1'), emit: model
     tuple val(meta), path("csv_logs/*/version_*/metrics.csv", arity: '1'), emit: metrics
-    path "versions.yml", emit: versions, topic: versions
+    tuple val("${task.process}"), val('careamics'), eval('python -c "import careamics; print(careamics.__version__)"'), emit: versions_careamics, topic: versions
 
     script:
     def args = task.ext.args ?: ''
@@ -40,10 +40,6 @@ process CAREAMICS_TRAIN {
         ${val_target_args} \\
         ${args}
 
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        careamics: \$(python -c "import careamics; print(careamics.__version__)")
-    END_VERSIONS
     """
 
     stub:
@@ -69,10 +65,5 @@ process CAREAMICS_TRAIN {
     epoch,step,train_loss,val_loss
     0,0,0.2,0.1
     END_METRICS
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        careamics: "stub"
-    END_VERSIONS
     """
 }

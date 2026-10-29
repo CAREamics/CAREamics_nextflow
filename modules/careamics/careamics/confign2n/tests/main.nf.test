@@ -34,9 +34,9 @@ nextflow_process {
                 { assert process.out.careamics_config.size() == 1 },
                 { assert process.out.careamics_config[0][0] == [ id:'test_careamics_confign2n', model:'n2n' ] },
                 { assert path(process.out.careamics_config[0][1]).exists() },
-                { assert process.out.versions.size() == 1 },
-                { assert path(process.out.versions[0]).exists() },
-                { assert path(process.out.versions[0]).getFileName().toString() == "versions.yml" },
+                { assert process.out.versions_careamics.size() == 1 },
+                { assert process.out.versions_careamics[0][1] == "careamics" },
+                { assert process.out.versions_careamics[0][2] instanceof String },
             )
         }
     }
@@ -64,11 +64,11 @@ nextflow_process {
             assertAll(
                 { assert process.success },
                 { assert process.out.careamics_config.size() == 1 },
-                { assert process.out.versions.size() == 1 },
+                { assert process.out.versions_careamics.size() == 1 },
                 { assert process.out.careamics_config[0][0] == [ id:'test_careamics_confign2n', model:'n2n' ] },
                 { assert path(process.out.careamics_config[0][1]).exists() },
-                { assert path(process.out.versions[0]).getFileName().toString() == "versions.yml" },
-                { assert path(process.out.versions[0]).exists() },
+                { assert process.out.versions_careamics[0][1] == "careamics" },
+                { assert process.out.versions_careamics[0][2] instanceof String },
             )
         }
     }

@@ -19,7 +19,7 @@ process CAREAMICS_CONFIGN2N {
 
     output:
     tuple val(meta), path("careamics.yaml"), emit: careamics_config
-    path "versions.yml", emit: versions, topic: versions
+    tuple val("${task.process}"), val('careamics'), eval('python -c "import careamics; print(careamics.__version__)"'), emit: versions_careamics, topic: versions
 
     script:
     def args = task.ext.args ?: ''
@@ -32,20 +32,10 @@ process CAREAMICS_CONFIGN2N {
         --patch_size ${patch_size} \\
         --batch_size ${batch_size} \\
         ${args}
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        careamics: \$(python -c "import careamics; print(careamics.__version__)")
-    END_VERSIONS
     """
 
     stub:
     """
     touch careamics.yaml
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        careamics: "stub"
-    END_VERSIONS
     """
 }
