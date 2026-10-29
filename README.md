@@ -281,9 +281,10 @@ Follow the instructions to input the required parameters, `train_data` and `pred
 
 ### Run with Nextflow
 
-Use Nextflow's `-output-dir` option to choose the results directory. If it is
-omitted, the pipeline writes to `results`. Execution reports are written to
-`pipeline_info` in the directory where Nextflow is launched.
+Use Nextflow's `-output-dir` option to choose the results directory. 
+If it is omitted, the pipeline writes to `results`. 
+The outputs for each run are written to a subdirectory named after the run name, this can be chosen with Nextflow's `-name` option, otherwise Nextflow assigns a random name.
+Execution reports are written to `pipeline_info` in the results directory.
 
    ```console
    nextflow run main.nf \
