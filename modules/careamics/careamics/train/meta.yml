@@ -31,24 +31,27 @@ input:
         type: file
         description: Optional training target data as a TIFF file or a directory containing TIFF files; passed directly to the training script. This is not required for self-supervised algorithms such as N2V.
         pattern: "*"
+        optional: true
     - val_data:
         type: file
         description: Optional validation data as a TIFF file or a directory containing TIFF files; passed directly to the training script.
         pattern: "*"
+        optional: true
     - val_target:
         type: file
         description: Optional validation target data as a TIFF file or a directory containing TIFF files; passed directly to the training script. This is not required for self-supervised algorithms such as N2V.
         pattern: "*"
+        optional: true
 output:
   model:
     - - meta:
           type: map
           description: Groovy Map containing sample information; passed through unchanged
-      - checkpoints:
+      - "checkpoints/*/*.ckpt":
           type: file
           description: Trained model checkpoint files
           pattern: "checkpoints/*/*.ckpt"
-      - checkpoint_record.json:
+      - "checkpoints/*/checkpoint_record.json":
           type: file
           description: Record of the saved checkpoints and the checkpoint selected for prediction
           pattern: "checkpoints/*/checkpoint_record.json"
