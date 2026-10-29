@@ -4,7 +4,7 @@ process CAREAMICS_CONFIG_N2N {
 
     conda "${moduleDir}/environment.yml"
     container {
-        def is_singularity = workflow.containerEngine in ['singularity', 'apptainer']
+        def is_singularity = workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container
 
         if (is_singularity) {
             return 'oras://ghcr.io/careamics/careamics-sif:0.3.5-cuda11.8'
