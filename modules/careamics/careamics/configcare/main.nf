@@ -4,12 +4,12 @@ process CAREAMICS_CONFIGCARE {
 
     conda "${moduleDir}/environment.yml"
     container {
-        def is_singularity = workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container
+        def active_profiles = workflow.profile ? workflow.profile.tokenize(',') : []
+        def is_oras_profile = active_profiles.any { it in ['singularity_oras', 'apptainer_oras'] }
 
-        if (is_singularity) {
+        if (is_oras_profile) {
             return 'oras://ghcr.io/careamics/careamics-sif:0.3.5-cuda11.8'
-        }
-        else {
+        } else {
             return 'ghcr.io/careamics/careamics:0.3.5-cuda11.8'
         }
     }

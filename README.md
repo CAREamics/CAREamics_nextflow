@@ -84,14 +84,14 @@ Inputs:
 
 Outputs:
 
-| Name               | Structure                               | Pattern                            |
-| ------------------ | --------------------------------------- | ---------------------------------- |
-| `careamics_config` | `[ val(meta), path(careamics_config) ]` | `careamics.yaml`                   |
-| `checkpoints`      | `[ val(meta), path(checkpoints) ]`      | `checkpoints/*/*.ckpt`             |
-| `metrics`          | `[ val(meta), path(metrics.csv) ]`      | `csv_logs/*/version_*/metrics.csv` |
-| `model`            | `[ val(meta), path(model) ]`            | `checkpoints/*/*.ckpt`             |
-| `predictions`      | `[ val(meta), path(predictions) ]`      | `predictions/*`                    |
-| `versions`         | `[ path(versions.yml) ]`                | `versions.yml`                     |
+| Name               | Structure                                   | Pattern                            |
+| ------------------ | ------------------------------------------- | ---------------------------------- |
+| `careamics_config` | `[ val(meta), path(careamics_config) ]`     | `careamics.yaml`                   |
+| `checkpoints`      | `[ val(meta), path(checkpoints) ]`          | `checkpoints/*/*.ckpt`             |
+| `metrics`          | `[ val(meta), path(metrics.csv) ]`          | `csv_logs/*/version_*/metrics.csv` |
+| `model`            | `[ val(meta), path(model) ]`                | `checkpoints/*/*.ckpt`             |
+| `predictions`      | `[ val(meta), path(predictions) ]`          | `predictions/*`                    |
+| `versions`         | `[ val(process), val(tool), val(version) ]` | Software version information.      |
 
 ### `image_train_predict_n2n_careamics`
 
@@ -120,14 +120,14 @@ Inputs:
 
 Outputs:
 
-| Name               | Structure                               | Pattern                            |
-| ------------------ | --------------------------------------- | ---------------------------------- |
-| `careamics_config` | `[ val(meta), path(careamics_config) ]` | `careamics.yaml`                   |
-| `checkpoints`      | `[ val(meta), path(checkpoints) ]`      | `checkpoints/*/*.ckpt`             |
-| `metrics`          | `[ val(meta), path(metrics.csv) ]`      | `csv_logs/*/version_*/metrics.csv` |
-| `model`            | `[ val(meta), path(model) ]`            | `checkpoints/*/*.ckpt`             |
-| `predictions`      | `[ val(meta), path(predictions) ]`      | `predictions/*`                    |
-| `versions`         | `[ path(versions.yml) ]`                | `versions.yml`                     |
+| Name               | Structure                                   | Pattern                            |
+| ------------------ | ------------------------------------------- | ---------------------------------- |
+| `careamics_config` | `[ val(meta), path(careamics_config) ]`     | `careamics.yaml`                   |
+| `checkpoints`      | `[ val(meta), path(checkpoints) ]`          | `checkpoints/*/*.ckpt`             |
+| `metrics`          | `[ val(meta), path(metrics.csv) ]`          | `csv_logs/*/version_*/metrics.csv` |
+| `model`            | `[ val(meta), path(model) ]`                | `checkpoints/*/*.ckpt`             |
+| `predictions`      | `[ val(meta), path(predictions) ]`          | `predictions/*`                    |
+| `versions`         | `[ val(process), val(tool), val(version) ]` | Software version information.      |
 
 ### `image_train_predict_care_careamics`
 
@@ -156,14 +156,14 @@ Inputs:
 
 Outputs:
 
-| Name               | Structure                               | Pattern                            |
-| ------------------ | --------------------------------------- | ---------------------------------- |
-| `careamics_config` | `[ val(meta), path(careamics_config) ]` | `careamics.yaml`                   |
-| `checkpoints`      | `[ val(meta), path(checkpoints) ]`      | `checkpoints/*/*.ckpt`             |
-| `metrics`          | `[ val(meta), path(metrics.csv) ]`      | `csv_logs/*/version_*/metrics.csv` |
-| `model`            | `[ val(meta), path(model) ]`            | `checkpoints/*/*.ckpt`             |
-| `predictions`      | `[ val(meta), path(predictions) ]`      | `predictions/*`                    |
-| `versions`         | `[ path(versions.yml) ]`                | `versions.yml`                     |
+| Name               | Structure                                   | Pattern                            |
+| ------------------ | ------------------------------------------- | ---------------------------------- |
+| `careamics_config` | `[ val(meta), path(careamics_config) ]`     | `careamics.yaml`                   |
+| `checkpoints`      | `[ val(meta), path(checkpoints) ]`          | `checkpoints/*/*.ckpt`             |
+| `metrics`          | `[ val(meta), path(metrics.csv) ]`          | `csv_logs/*/version_*/metrics.csv` |
+| `model`            | `[ val(meta), path(model) ]`                | `checkpoints/*/*.ckpt`             |
+| `predictions`      | `[ val(meta), path(predictions) ]`          | `predictions/*`                    |
+| `versions`         | `[ val(process), val(tool), val(version) ]` | Software version information.      |
 
 ### `image_train_predict_careamics`
 
@@ -188,13 +188,13 @@ Inputs:
 
 Outputs:
 
-| Name          | Structure                          | Pattern                            |
-| ------------- | ---------------------------------- | ---------------------------------- |
-| `checkpoints` | `[ val(meta), path(checkpoints) ]` | `checkpoints/*/*.ckpt`             |
-| `metrics`     | `[ val(meta), path(metrics.csv) ]` | `csv_logs/*/version_*/metrics.csv` |
-| `model`       | `[ val(meta), path(model) ]`       | `checkpoints/*/*.ckpt`             |
-| `predictions` | `[ val(meta), path(predictions) ]` | `predictions/*`                    |
-| `versions`    | `[ path(versions.yml) ]`           | `versions.yml`                     |
+| Name          | Structure                                   | Pattern                            |
+| ------------- | ------------------------------------------- | ---------------------------------- |
+| `checkpoints` | `[ val(meta), path(checkpoints) ]`          | `checkpoints/*/*.ckpt`             |
+| `metrics`     | `[ val(meta), path(metrics.csv) ]`          | `csv_logs/*/version_*/metrics.csv` |
+| `model`       | `[ val(meta), path(model) ]`                | `checkpoints/*/*.ckpt`             |
+| `predictions` | `[ val(meta), path(predictions) ]`          | `predictions/*`                    |
+| `versions`    | `[ val(process), val(tool), val(version) ]` | Software version information.      |
 
 ## Modules
 
@@ -223,12 +223,12 @@ through `task.ext.args`.
 These modules are mainly used by the subworkflows, but can be installed and used
 directly when needed.
 
-| Module                  | Process                 | Label            | Input                                                                                                           | Output                                                                                                                                                                                                 | Notes                                                                                                                                                                            |
-| ----------------------- | ----------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `careamics/config/n2v`  | `CAREAMICS_CONFIG_N2V`  | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]`              | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml`                                                                                                                | Creates a Noise2Void configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--use_n2v2`, and `--n_channels`.           |
-| `careamics/config/n2n`  | `CAREAMICS_CONFIG_N2N`  | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]`              | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml`                                                                                                                | Creates a Noise2Noise configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`. |
-| `careamics/config/care` | `CAREAMICS_CONFIG_CARE` | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]`              | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml`                                                                                                                | Creates a CARE configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`.        |
-| `careamics/train`       | `CAREAMICS_TRAIN`       | `process_medium` | `[ val(meta), path(careamics_config), path(train_data), path(train_target), path(val_data), path(val_target) ]` | `model`: `[ val(meta), path("checkpoints/*/*.ckpt"), path("checkpoints/*/checkpoint_record.json") ]`; `metrics`: `[ val(meta), path("csv_logs/*/version_*/metrics.csv") ]`; `versions`: `versions.yml` | Trains from an existing CAREamics configuration. `train_target`, `val_data`, and `val_target` are optional for algorithms that do not need them; use `[]` for missing paths.     |
+| Module                 | Process                | Label            | Input                                                                                                           | Output                                                                                                                                                                                                                                        | Notes                                                                                                                                                                            |
+| ---------------------- | ---------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `careamics/confign2v`  | `CAREAMICS_CONFIGN2V`  | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]`              | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions_careamics`: `[ val(process), val(tool), val(version) ]`                                                                                                                | Creates a Noise2Void configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--use_n2v2`, and `--n_channels`.           |
+| `careamics/confign2n`  | `CAREAMICS_CONFIGN2N`  | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]`              | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions_careamics`: `[ val(process), val(tool), val(version) ]`                                                                                                                | Creates a Noise2Noise configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`. |
+| `careamics/configcare` | `CAREAMICS_CONFIGCARE` | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]`              | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions_careamics`: `[ val(process), val(tool), val(version) ]`                                                                                                                | Creates a CARE configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`.        |
+| `careamics/train`      | `CAREAMICS_TRAIN`      | `process_medium` | `[ val(meta), path(careamics_config), path(train_data), path(train_target), path(val_data), path(val_target) ]` | `model`: `[ val(meta), path("checkpoints/*/*.ckpt"), path("checkpoints/*/checkpoint_record.json") ]`; `metrics`: `[ val(meta), path("csv_logs/*/version_*/metrics.csv") ]`; `versions_careamics`: `[ val(process), val(tool), val(version) ]` | Trains from an existing CAREamics configuration. `train_target`, `val_data`, and `val_target` are optional for algorithms that do not need them; use `[]` for missing paths.     |
 
 All modules support conda environments and CAREamics containers.
 
@@ -246,9 +246,10 @@ that directory. Prediction inputs are provided with a CSV file containing a
 
 ### Profile options:
 
-- Containers/Environments: `conda`|`mamba`|`docker`|`singularity`|`apptainer`
+- Containers/Environments: `conda`|`mamba`|`docker`|`singularity`|`singularity_oras`|`apptainer`|`apptainer_oras`
 - Hardware: GPU execution is enabled by default; add `cpu` on systems without a GPU.
 - Use the `local` profile to reduce the required memory of the label `process_medium`.
+- If you have a modern singularity install, use `singularity_oras` which will allow the pipeline to use a pre-built image. Otherwise it relies on building the container from a docker image which can be slow.
 
 > [!TIP]
 > For singularity containers you might want to set the [`NXF_SINGULARITY_CACHEDIR`](https://docs.seqera.io/nextflow/reference/env-vars#nxf_singularity_cachedir) environment variable to something appropriate for your system.
