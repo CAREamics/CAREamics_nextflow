@@ -1,25 +1,24 @@
 nextflow_process {
 
-    name "Test Process CAREAMICS_CONFIG_CARE"
+    name "Test Process CAREAMICS_CONFIGCARE"
     script "../main.nf"
-    process "CAREAMICS_CONFIG_CARE"
+    process "CAREAMICS_CONFIGCARE"
     config "./nextflow.config"
 
     tag "modules"
     tag "modules_careamics"
     tag "modules_local"
     tag "careamics"
-    tag "careamics/config"
-    tag "careamics/config/care"
+    tag "careamics/configcare"
 
-    test("careamics_config_care") {
+    test("careamics_configcare") {
 
         when {
             process {
                 """
                 input[0] = tuple(
-                    [ id:'test_careamics_config_care', model:'care' ],
-                    'test_careamics_config_care',
+                    [ id:'test_careamics_configcare', model:'care' ],
+                    'test_careamics_configcare',
                     'tiff',
                     'YX',
                     '64 64',
@@ -33,7 +32,7 @@ nextflow_process {
             assertAll(
                 { assert process.success },
                 { assert process.out.careamics_config.size() == 1 },
-                { assert process.out.careamics_config[0][0] == [ id:'test_careamics_config_care', model:'care' ] },
+                { assert process.out.careamics_config[0][0] == [ id:'test_careamics_configcare', model:'care' ] },
                 { assert path(process.out.careamics_config[0][1]).exists() },
                 { assert process.out.versions.size() == 1 },
                 { assert path(process.out.versions[0]).exists() },
@@ -42,7 +41,7 @@ nextflow_process {
         }
     }
 
-    test("stub careamics_config_care") {
+    test("stub careamics_configcare") {
 
         options "-stub"
 
@@ -50,8 +49,8 @@ nextflow_process {
             process {
                 """
                 input[0] = tuple(
-                    [ id:'test_careamics_config_care', model:'care' ],
-                    'test_careamics_config_care',
+                    [ id:'test_careamics_configcare', model:'care' ],
+                    'test_careamics_configcare',
                     'tiff',
                     'YX',
                     '64 64',
@@ -66,7 +65,7 @@ nextflow_process {
                 { assert process.success },
                 { assert process.out.careamics_config.size() == 1 },
                 { assert process.out.versions.size() == 1 },
-                { assert process.out.careamics_config[0][0] == [ id:'test_careamics_config_care', model:'care' ] },
+                { assert process.out.careamics_config[0][0] == [ id:'test_careamics_configcare', model:'care' ] },
                 { assert path(process.out.careamics_config[0][1]).exists() },
                 { assert path(process.out.versions[0]).getFileName().toString() == "versions.yml" },
                 { assert path(process.out.versions[0]).exists() },

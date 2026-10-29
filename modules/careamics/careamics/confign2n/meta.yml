@@ -1,6 +1,6 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
-name: careamics_config_n2v
-description: Create a Noise2Void (N2V) training configuration using CAREamics. Optional task.ext.args may include num_epochs, num_steps, augmentations, n_val_patches, use_n2v2, and n_channels.
+name: careamics_confign2n
+description: Create a Noise2Noise (N2N) training configuration using CAREamics. Optional task.ext.args may include num_epochs, num_steps, augmentations, n_val_patches, n_channels_in, and n_channels_out.
 keywords:
   - configuration
   - denoising
@@ -9,8 +9,8 @@ keywords:
   - microscopy
   - deep learning
   - careamics
-  - noise2void
-  - n2v
+  - noise2noise
+  - n2n
 tools:
   - careamics:
       description: CAREamics is a library for content-aware image restoration in microscopy

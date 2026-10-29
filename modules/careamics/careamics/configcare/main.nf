@@ -1,4 +1,4 @@
-process CAREAMICS_CONFIG_N2V {
+process CAREAMICS_CONFIGCARE {
     tag "${meta.id ?: task.process}"
     label 'process_single'
 
@@ -27,7 +27,7 @@ process CAREAMICS_CONFIG_N2V {
     script:
     def args = task.ext.args ?: ''
     """
-    create_config_n2v.py \\
+    create_config_care.py \\
         --output_path . \\
         --experiment_name ${experiment_name} \\
         --data_type ${data_type} \\

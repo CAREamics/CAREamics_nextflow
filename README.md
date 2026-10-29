@@ -51,7 +51,7 @@ nf-core modules \
 | Module      | [`careamics/predict`](#careamicspredict)                                    | Prediction with a pre-trained CAREamics checkpoint.                                                          |
 
 Lower-level config and training modules are also available for custom workflows:
-`careamics/config/n2v`, `careamics/config/n2n`, `careamics/config/care`, and
+`careamics/confign2v`, `careamics/confign2n`, `careamics/configcare`, and
 `careamics/train`.
 
 ## Subworkflows
@@ -64,7 +64,7 @@ Use this subworkflow to train and run prediction with Noise2Void (N2V); simple c
 
 Process components:
 
-- `careamics/config/n2v`
+- `careamics/confign2v`
 - `image_train_predict_careamics`
 
 Labels: `process_single`, `process_medium`
@@ -78,7 +78,7 @@ Inputs:
 | `ch_predict`    | `[ val(meta), path(data) ]`                                                                        | Data to predict on. Can be a file or directory.                                                     |
 
 > [!NOTE]
-> Additional N2V configuration options can be passed to the `CAREAMICS_CONFIG_N2V`
+> Additional N2V configuration options can be passed to the `CAREAMICS_CONFIGN2V`
 > process with `task.ext.args`, including `--num_epochs`, `--num_steps`,
 > `--augmentations`, `--n_val_patches`, `--use_n2v2`, and `--n_channels`.
 
@@ -99,7 +99,7 @@ Use this subworkflow to train and run prediction with Noise2Noise (N2N); simple 
 
 Process components:
 
-- `careamics/config/n2n`
+- `careamics/confign2n`
 - `image_train_predict_careamics`
 
 Labels: `process_single`, `process_medium`
@@ -113,7 +113,7 @@ Inputs:
 | `ch_predict`    | `[ val(meta), path(data) ]`                                                                        | Data to predict on. Can be a file or a directory.                                                                                                                     |
 
 > [!NOTE]
-> Additional N2N configuration options can be passed to the `CAREAMICS_CONFIG_N2N`
+> Additional N2N configuration options can be passed to the `CAREAMICS_CONFIGN2N`
 > process with `task.ext.args`, including `--num_epochs`, `--num_steps`,
 > `--augmentations`, `--n_val_patches`, `--n_channels_in`, and
 > `--n_channels_out`.
@@ -135,7 +135,7 @@ Use this subworkflow to train and run prediction with CARE; simple configuration
 
 Process components:
 
-- `careamics/config/care`
+- `careamics/configcare`
 - `image_train_predict_careamics`
 
 Labels: `process_single`, `process_medium`
@@ -149,7 +149,7 @@ Inputs:
 | `ch_predict`    | `[ val(meta), path(data) ]`                                                                        | Data to predict on. Can be a file or directory.                                                                                                                     |
 
 > [!NOTE]
-> Additional CARE configuration options can be passed to the `CAREAMICS_CONFIG_CARE`
+> Additional CARE configuration options can be passed to the `CAREAMICS_CONFIGCARE`
 > process with `task.ext.args`, including `--num_epochs`, `--num_steps`,
 > `--augmentations`, `--n_val_patches`, `--n_channels_in`, and
 > `--n_channels_out`.

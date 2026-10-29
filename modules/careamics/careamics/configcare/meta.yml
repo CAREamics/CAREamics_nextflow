@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json
-name: careamics_config_care
+name: careamics_configcare
 description: Create a CARE training configuration using CAREamics. Optional task.ext.args may include num_epochs, num_steps, augmentations, n_val_patches, n_channels_in, and n_channels_out.
 keywords:
   - configuration
