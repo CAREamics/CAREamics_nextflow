@@ -1,7 +1,7 @@
 {
   "algorithm": "n2v",
   "pretrained_model": null,
-  "experiment_name": "example",
+  "experiment_name": "n2v_SEM_example",
   "data_type": "tiff",
   "axes": "YX",
   "patch_size": "64 64",

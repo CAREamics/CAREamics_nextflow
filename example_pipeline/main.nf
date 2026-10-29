@@ -120,10 +120,12 @@ output {
     }
 
     selected_checkpoint {
-        path "${workflow.runName}/train_${params.algorithm}"
+        path { meta, model ->
+            model >> "${workflow.runName}/${params.algorithm}_model.ckpt"
+        }
     }
 
     predictions {
-        path "${workflow.runName}/predictions"
+        path "${workflow.runName}"
     }
 }

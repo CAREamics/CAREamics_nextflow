@@ -1,6 +1,6 @@
 {
   "algorithm": "care",
-  "experiment_name": "care_U20S",
+  "experiment_name": "care_U20S_example",
   "data_type": "tiff",
   "axes": "YX",
   "patch_size": "128 128",
