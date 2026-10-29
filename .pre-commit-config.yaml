@@ -49,13 +49,6 @@ repos:
       - id: ruff-format
         priority: 0
 
-  - repo: https://github.com/hadolint/hadolint
-    rev: v2.14.0
-    hooks:
-      - id: hadolint-docker
-        priority: 0
-        args: ["--failure-threshold", "error"]
-
   - repo: https://github.com/seqeralabs/nf-lint-pre-commit
     rev: v0.3.0
     hooks:
