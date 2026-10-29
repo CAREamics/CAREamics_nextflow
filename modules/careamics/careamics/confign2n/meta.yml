@@ -18,6 +18,7 @@ tools:
       documentation: https://careamics.github.io
       tool_dev_url: https://github.com/CAREamics/careamics
       licence: ["BSD-3-Clause"]
+      args_id: "$args"
 input:
   - - meta:
         type: map
