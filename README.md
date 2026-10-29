@@ -57,7 +57,7 @@ Lower-level config and training modules are also available for custom workflows:
 
 ## Subworkflows
 
-All subworkflows emit `versions`, a channel containing `versions.yml` files from the processes they run. CAREamics config processes use the `process_single` label, while train and predict processes use the `process_medium` label.
+All subworkflows emit `checkpoints`, containing every trained checkpoint, and `model`, containing only the checkpoint selected for prediction. They also emit `versions`, a channel containing `versions.yml` files from the processes they run. CAREamics config processes use the `process_single` label, while train and predict processes use the `process_medium` label.
 
 
 ### `image_train_predict_n2v_careamics`
@@ -89,6 +89,7 @@ Outputs:
 | Name | Structure | Pattern |
 | --- | --- | --- |
 | `careamics_config` | `[ val(meta), path(careamics_config) ]` | `careamics.yaml` |
+| `checkpoints` | `[ val(meta), path(checkpoints) ]` | `checkpoints/*/*.ckpt` |
 | `model` | `[ val(meta), path(model) ]` | `checkpoints/*/*.ckpt` |
 | `predictions` | `[ val(meta), path(predictions) ]` | `predictions/*` |
 | `versions` | `[ path(versions.yml) ]` | `versions.yml` |
@@ -123,6 +124,7 @@ Outputs:
 | Name | Structure | Pattern |
 | --- | --- | --- |
 | `careamics_config` | `[ val(meta), path(careamics_config) ]` | `careamics.yaml` |
+| `checkpoints` | `[ val(meta), path(checkpoints) ]` | `checkpoints/*/*.ckpt` |
 | `model` | `[ val(meta), path(model) ]` | `checkpoints/*/*.ckpt` |
 | `predictions` | `[ val(meta), path(predictions) ]` | `predictions/*` |
 | `versions` | `[ path(versions.yml) ]` | `versions.yml` |
@@ -157,6 +159,7 @@ Outputs:
 | Name | Structure | Pattern |
 | --- | --- | --- |
 | `careamics_config` | `[ val(meta), path(careamics_config) ]` | `careamics.yaml` |
+| `checkpoints` | `[ val(meta), path(checkpoints) ]` | `checkpoints/*/*.ckpt` |
 | `model` | `[ val(meta), path(model) ]` | `checkpoints/*/*.ckpt` |
 | `predictions` | `[ val(meta), path(predictions) ]` | `predictions/*` |
 | `versions` | `[ path(versions.yml) ]` | `versions.yml` |
@@ -186,6 +189,7 @@ Outputs:
 
 | Name | Structure | Pattern |
 | --- | --- | --- |
+| `checkpoints` | `[ val(meta), path(checkpoints) ]` | `checkpoints/*/*.ckpt` |
 | `model` | `[ val(meta), path(model) ]` | `checkpoints/*/*.ckpt` |
 | `predictions` | `[ val(meta), path(predictions) ]` | `predictions/*` |
 | `versions` | `[ path(versions.yml) ]` | `versions.yml` |

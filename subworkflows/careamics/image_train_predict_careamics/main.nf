@@ -9,6 +9,12 @@ workflow IMAGE_TRAIN_PREDICT_CAREAMICS {
     main:
     CAREAMICS_TRAIN(ch_train)
 
+    // expose all trained checkpoints without the checkpoint record
+    ch_checkpoints = CAREAMICS_TRAIN.out.model
+        .map { model_meta, checkpoints, checkpoint_record ->
+            [model_meta, checkpoints]
+        }
+
     // extract selected checkpoint from checkpoints record
     ch_model = CAREAMICS_TRAIN.out.model
         .map { model_meta, checkpoints, checkpoint_record ->
@@ -30,6 +36,7 @@ workflow IMAGE_TRAIN_PREDICT_CAREAMICS {
     CAREAMICS_PREDICT(ch_predict_input)
 
     emit:
+    checkpoints = ch_checkpoints // [ val(meta), path(checkpoints) ]
     model       = ch_model // [ val(meta), path(model) ]
     predictions = CAREAMICS_PREDICT.out.predictions // [ val(meta), path(predictions) ]
     versions    = CAREAMICS_TRAIN.out.versions.mix(CAREAMICS_PREDICT.out.versions) // [ path(versions.yml) ]

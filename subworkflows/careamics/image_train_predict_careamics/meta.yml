@@ -23,10 +23,16 @@ input:
         Prediction data channel.
         Structure: [ val(meta), path(data) ]
 output:
+  - checkpoints:
+      type: file
+      description: |
+        All trained model checkpoints.
+        Structure: [ val(meta), path(checkpoints) ]
+      pattern: "checkpoints/*/*.ckpt"
   - model:
       type: file
       description: |
-        Trained model checkpoint.
+        Checkpoint selected for prediction.
         Structure: [ val(meta), path(model) ]
       pattern: "checkpoints/*/*.ckpt"
   - predictions:
