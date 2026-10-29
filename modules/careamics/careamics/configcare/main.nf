@@ -21,6 +21,9 @@ process CAREAMICS_CONFIGCARE {
     tuple val(meta), path("careamics.yaml"), emit: careamics_config
     tuple val("${task.process}"), val('careamics'), eval('python -c "import careamics; print(careamics.__version__)"'), emit: versions_careamics, topic: versions
 
+    when:
+    task.ext.when == null || task.ext.when
+
     script:
     def args = task.ext.args ?: ''
     """
