@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://raw.githubusercontent.com///nextflow_schema.json",
-  "title": " pipeline parameters",
-  "description": "",
+  "$id": "https://raw.githubusercontent.com/CAREamics/CAREamics_nextflow/main/example_pipeline/nextflow_schema.json",
+  "title": "CAREamics example pipeline parameters",
+  "description": "Parameters for training and running prediction with CAREamics.",
   "type": "object",
   "$defs": {
     "reporting_options": {
@@ -20,7 +20,6 @@
       "title": "Data input",
       "type": "object",
       "description": "Training, validation and prediction inputs.",
-      "default": "",
       "properties": {
         "train_data": {
           "type": "string",
@@ -28,17 +27,14 @@
         },
         "train_target": {
           "type": "string",
-          "default": "[]",
           "format": "path"
         },
         "val_data": {
           "type": "string",
-          "default": "[]",
           "format": "path"
         },
         "val_target": {
           "type": "string",
-          "default": "[]",
           "format": "path"
         },
         "prediction_csv": {
@@ -55,7 +51,6 @@
       "title": "CAREamics required",
       "type": "object",
       "description": "Parameters required to run CAREamics algorithms.",
-      "default": "",
       "properties": {
         "algorithm": {
           "type": "string",
@@ -94,7 +89,6 @@
       "title": "CAREamics",
       "type": "object",
       "description": "Optional CAREamics parameters.",
-      "default": "",
       "properties": {
         "num_epochs": {
           "type": "integer"
@@ -104,7 +98,11 @@
         },
         "augmentations": {
           "type": "array",
-          "enum": ["x_filp", "y_flip", "rotate_90"]
+          "items": {
+            "type": "string",
+            "enum": ["x_flip", "y_flip", "rotate_90"]
+          },
+          "uniqueItems": true
         },
         "n_val_patches": {
           "type": "integer"
@@ -115,7 +113,6 @@
       "title": "N2V",
       "type": "object",
       "description": "Optional N2V parameters.",
-      "default": "",
       "properties": {
         "use_n2v2": {
           "type": "boolean"
@@ -129,7 +126,6 @@
       "title": "N2N & CARE",
       "type": "object",
       "description": "Optional N2N and CARE parameters.",
-      "default": "",
       "properties": {
         "n_channels_in": {
           "type": "integer"
@@ -142,8 +138,7 @@
     "prediction": {
       "title": "Prediction",
       "type": "object",
-      "description": "Optional prediction parametes.",
-      "default": "",
+      "description": "Optional prediction parameters.",
       "properties": {
         "pred_batch_size": {
           "type": "integer"
@@ -166,7 +161,7 @@
         },
         "write_type": {
           "type": "string",
-          "enum": ["tiff", "zarr"]
+          "enum": ["tiff", "zarr", "custom"]
         }
       }
     }
