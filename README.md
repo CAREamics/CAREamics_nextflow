@@ -343,7 +343,7 @@ interface.
 
 The hooks mirror the applicable checks from the current nf-core/modules
 pre-commit configuration: Nextflow strict-syntax linting, Prettier, basic file
-hygiene, GitHub Actions validation, Hadolint, and Ruff linting and formatting
+hygiene, GitHub Actions validation, and Ruff linting and formatting
 for Python files. The workflow and hooks support Nextflow 25.10.4 or newer,
 matching the current nf-core minimum, and Nextflow must be available on `PATH`.
 When running the workflow with Nextflow 25.10, enable the v2 parser by setting
