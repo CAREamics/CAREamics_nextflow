@@ -46,12 +46,16 @@ nextflow_process {
             assertAll(
                 { assert process.success },
                 { assert process.out.model.size() == 1 },
+                { assert process.out.metrics.size() == 1 },
                 { assert process.out.versions.size() == 1 },
                 { assert process.out.model[0][0] == [ id:'test_careamics_train_with_val' ] },
                 { assert process.out.model[0][1].collect { path(it).getFileName().toString() }.sort() == ["best.ckpt", "last.ckpt"] },
                 { assert process.out.model[0][1].every { path(it).exists() } },
                 { assert path(process.out.model[0][2]).getFileName().toString() == "checkpoint_record.json" },
                 { assert new groovy.json.JsonSlurper().parse(path(process.out.model[0][2]).toFile()).selected == "last.ckpt" },
+                { assert process.out.metrics[0][0] == [ id:'test_careamics_train_with_val' ] },
+                { assert path(process.out.metrics[0][1]).getFileName().toString() == "metrics.csv" },
+                { assert path(process.out.metrics[0][1]).exists() },
                 { assert path(process.out.versions[0]).getFileName().toString() == "versions.yml" },
                 { assert path(process.out.versions[0]).exists() },
             )
@@ -89,12 +93,16 @@ nextflow_process {
             assertAll(
                 { assert process.success },
                 { assert process.out.model.size() == 1 },
+                { assert process.out.metrics.size() == 1 },
                 { assert process.out.versions.size() == 1 },
                 { assert process.out.model[0][0] == [ id:'test_careamics_train_self_supervised' ] },
                 { assert process.out.model[0][1].collect { path(it).getFileName().toString() }.sort() == ["best.ckpt", "last.ckpt"] },
                 { assert process.out.model[0][1].every { path(it).exists() } },
                 { assert path(process.out.model[0][2]).getFileName().toString() == "checkpoint_record.json" },
                 { assert new groovy.json.JsonSlurper().parse(path(process.out.model[0][2]).toFile()).selected == "last.ckpt" },
+                { assert process.out.metrics[0][0] == [ id:'test_careamics_train_self_supervised' ] },
+                { assert path(process.out.metrics[0][1]).getFileName().toString() == "metrics.csv" },
+                { assert path(process.out.metrics[0][1]).exists() },
                 { assert path(process.out.versions[0]).getFileName().toString() == "versions.yml" },
                 { assert path(process.out.versions[0]).exists() },
             )

@@ -29,6 +29,12 @@ output:
         All trained model checkpoints.
         Structure: [ val(meta), path(checkpoints) ]
       pattern: "checkpoints/*/*.ckpt"
+  - metrics:
+      type: file
+      description: |
+        Training and validation losses and additional logged metrics.
+        Structure: [ val(meta), path(metrics.csv) ]
+      pattern: "csv_logs/*/version_*/metrics.csv"
   - model:
       type: file
       description: |

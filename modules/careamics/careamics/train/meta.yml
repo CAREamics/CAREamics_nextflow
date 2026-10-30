@@ -52,6 +52,14 @@ output:
           type: file
           description: Record of the saved checkpoints and the checkpoint selected for prediction
           pattern: "checkpoints/*/checkpoint_record.json"
+  metrics:
+    - - meta:
+          type: map
+          description: Groovy Map containing sample information; passed through unchanged
+      - metrics.csv:
+          type: file
+          description: Training and validation losses and additional logged metrics
+          pattern: "csv_logs/*/version_*/metrics.csv"
   versions:
     - versions.yml:
         type: file

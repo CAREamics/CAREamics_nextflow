@@ -19,6 +19,7 @@ process CAREAMICS_TRAIN {
 
     output:
     tuple val(meta), path("checkpoints/*/*.ckpt", arity: '1..*'), path("checkpoints/*/checkpoint_record.json", arity: '1'), emit: model
+    tuple val(meta), path("csv_logs/*/version_*/metrics.csv", arity: '1'), emit: metrics
     path "versions.yml", emit: versions, topic: versions
 
     when:
@@ -65,6 +66,12 @@ process CAREAMICS_TRAIN {
         "selected": "last.ckpt"
     }
     END_RECORD
+
+    mkdir -p "csv_logs/${prefix}/version_0"
+    cat <<-END_METRICS > "csv_logs/${prefix}/version_0/metrics.csv"
+    epoch,step,train_loss,val_loss
+    0,0,0.2,0.1
+    END_METRICS
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":

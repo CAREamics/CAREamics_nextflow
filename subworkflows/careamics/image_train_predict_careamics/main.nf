@@ -37,6 +37,7 @@ workflow IMAGE_TRAIN_PREDICT_CAREAMICS {
 
     emit:
     checkpoints = ch_checkpoints // [ val(meta), path(checkpoints) ]
+    metrics     = CAREAMICS_TRAIN.out.metrics // [ val(meta), path(metrics.csv) ]
     model       = ch_model // [ val(meta), path(model) ]
     predictions = CAREAMICS_PREDICT.out.predictions // [ val(meta), path(predictions) ]
     versions    = CAREAMICS_TRAIN.out.versions.mix(CAREAMICS_PREDICT.out.versions) // [ path(versions.yml) ]
