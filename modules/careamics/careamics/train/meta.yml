@@ -60,7 +60,7 @@ output:
     - - meta:
           type: map
           description: Groovy Map containing sample information; passed through unchanged
-      - metrics.csv:
+      - csv_logs/*/version_*/metrics.csv:
           type: file
           description: Training and validation losses and additional logged metrics
           pattern: "csv_logs/*/version_*/metrics.csv"
