@@ -40,5 +40,5 @@ workflow IMAGE_TRAIN_PREDICT_CAREAMICS {
     metrics     = CAREAMICS_TRAIN.out.metrics // [ val(meta), path(metrics.csv) ]
     model       = ch_model // [ val(meta), path(model) ]
     predictions = CAREAMICS_PREDICT.out.predictions // [ val(meta), path(predictions) ]
-    versions    = CAREAMICS_TRAIN.out.versions.mix(CAREAMICS_PREDICT.out.versions) // [ path(versions.yml) ]
+    versions    = CAREAMICS_TRAIN.out.versions_careamics.mix(CAREAMICS_PREDICT.out.versions_careamics) // [ val(process), val(tool), val(version) ]
 }

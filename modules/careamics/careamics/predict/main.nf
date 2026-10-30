@@ -4,12 +4,12 @@ process CAREAMICS_PREDICT {
 
     conda "${moduleDir}/environment.yml"
     container {
-        def is_singularity = workflow.containerEngine in ['singularity', 'apptainer']
+        def active_profiles = workflow.profile ? workflow.profile.tokenize(',') : []
+        def is_oras_profile = active_profiles.any { it in ['singularity_oras', 'apptainer_oras'] }
 
-        if (is_singularity) {
+        if (is_oras_profile) {
             return 'oras://ghcr.io/careamics/careamics-sif:0.3.5-cuda11.8'
-        }
-        else {
+        } else {
             return 'ghcr.io/careamics/careamics:0.3.5-cuda11.8'
         }
     }
@@ -19,7 +19,7 @@ process CAREAMICS_PREDICT {
 
     output:
     tuple val(meta), path("predictions/*"), emit: predictions
-    path "versions.yml", emit: versions, topic: versions
+    tuple val("${task.process}"), val('careamics'), eval('python -c "import careamics; print(careamics.__version__)"'), emit: versions_careamics, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -32,10 +32,6 @@ process CAREAMICS_PREDICT {
         --data ${data} \\
         ${args}
 
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        careamics: \$(python -c "import careamics; print(careamics.__version__)")
-    END_VERSIONS
     """
 
     stub:
@@ -44,9 +40,5 @@ process CAREAMICS_PREDICT {
     mkdir -p predictions
     touch predictions/${prefix}_denoised.tiff
 
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        careamics: "stub"
-    END_VERSIONS
     """
 }

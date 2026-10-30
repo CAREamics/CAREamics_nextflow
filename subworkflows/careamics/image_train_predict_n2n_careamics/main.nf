@@ -1,4 +1,4 @@
-include { CAREAMICS_CONFIG_N2N          } from '../../../modules/careamics/careamics/config/n2n/main'
+include { CAREAMICS_CONFIGN2N          } from '../../../modules/careamics/careamics/confign2n/main'
 include { IMAGE_TRAIN_PREDICT_CAREAMICS } from '../image_train_predict_careamics/main'
 
 workflow IMAGE_TRAIN_PREDICT_N2N_CAREAMICS {
@@ -9,9 +9,9 @@ workflow IMAGE_TRAIN_PREDICT_N2N_CAREAMICS {
     ch_predict // [ val(meta), path(data) ]
 
     main:
-    CAREAMICS_CONFIG_N2N(ch_config)
+    CAREAMICS_CONFIGN2N(ch_config)
 
-    ch_train = CAREAMICS_CONFIG_N2N.out.careamics_config
+    ch_train = CAREAMICS_CONFIGN2N.out.careamics_config
         .combine(ch_train_data)
         .map { config_meta, careamics_config, train_meta, train_data, train_target, val_data, val_target ->
             def meta = config_meta + train_meta
@@ -21,10 +21,10 @@ workflow IMAGE_TRAIN_PREDICT_N2N_CAREAMICS {
     IMAGE_TRAIN_PREDICT_CAREAMICS(ch_train, ch_predict)
 
     emit:
-    careamics_config = CAREAMICS_CONFIG_N2N.out.careamics_config // [ val(meta), path(careamics_config) ]
+    careamics_config = CAREAMICS_CONFIGN2N.out.careamics_config // [ val(meta), path(careamics_config) ]
     checkpoints      = IMAGE_TRAIN_PREDICT_CAREAMICS.out.checkpoints // [ val(meta), path(checkpoints) ]
     metrics          = IMAGE_TRAIN_PREDICT_CAREAMICS.out.metrics // [ val(meta), path(metrics.csv) ]
     model            = IMAGE_TRAIN_PREDICT_CAREAMICS.out.model // [ val(meta), path(model) ]
     predictions      = IMAGE_TRAIN_PREDICT_CAREAMICS.out.predictions // [ val(meta), path(predictions) ]
-    versions         = CAREAMICS_CONFIG_N2N.out.versions.mix(IMAGE_TRAIN_PREDICT_CAREAMICS.out.versions) // [ path(versions.yml) ]
+    versions         = CAREAMICS_CONFIGN2N.out.versions_careamics.mix(IMAGE_TRAIN_PREDICT_CAREAMICS.out.versions) // [ val(process), val(tool), val(version) ]
 }

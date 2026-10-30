@@ -15,6 +15,7 @@ tools:
       documentation: https://careamics.github.io
       tool_dev_url: https://github.com/CAREamics/careamics
       licence: ["BSD-3-Clause"]
+      args_id: "$args"
 input:
   - - meta:
         type: map
@@ -31,24 +32,27 @@ input:
         type: file
         description: Optional training target data as a TIFF file or a directory containing TIFF files; passed directly to the training script. This is not required for self-supervised algorithms such as N2V.
         pattern: "*"
+        optional: true
     - val_data:
         type: file
         description: Optional validation data as a TIFF file or a directory containing TIFF files; passed directly to the training script.
         pattern: "*"
+        optional: true
     - val_target:
         type: file
         description: Optional validation target data as a TIFF file or a directory containing TIFF files; passed directly to the training script. This is not required for self-supervised algorithms such as N2V.
         pattern: "*"
+        optional: true
 output:
   model:
     - - meta:
           type: map
           description: Groovy Map containing sample information; passed through unchanged
-      - checkpoints:
+      - "checkpoints/*/*.ckpt":
           type: file
           description: Trained model checkpoint files
           pattern: "checkpoints/*/*.ckpt"
-      - checkpoint_record.json:
+      - "checkpoints/*/checkpoint_record.json":
           type: file
           description: Record of the saved checkpoints and the checkpoint selected for prediction
           pattern: "checkpoints/*/checkpoint_record.json"
@@ -56,21 +60,31 @@ output:
     - - meta:
           type: map
           description: Groovy Map containing sample information; passed through unchanged
-      - metrics.csv:
+      - csv_logs/*/version_*/metrics.csv:
           type: file
           description: Training and validation losses and additional logged metrics
           pattern: "csv_logs/*/version_*/metrics.csv"
-  versions:
-    - versions.yml:
-        type: file
-        description: File containing software versions
-        pattern: "versions.yml"
+  versions_careamics:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - careamics:
+          type: string
+          description: The name of the tool
+      - python -c "import careamics; print(careamics.__version__)":
+          type: eval
+          description: The expression to obtain the version of CAREamics
 topics:
   versions:
-    - versions.yml:
-        type: file
-        description: File containing software versions
-        pattern: "versions.yml"
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - careamics:
+          type: string
+          description: The name of the tool
+      - python -c "import careamics; print(careamics.__version__)":
+          type: eval
+          description: The expression to obtain the version of CAREamics
 authors:
   - "@tatianawoller"
   - "@melisande-c"

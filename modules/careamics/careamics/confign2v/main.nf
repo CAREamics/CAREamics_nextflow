@@ -1,15 +1,15 @@
-process CAREAMICS_CONFIG_N2N {
+process CAREAMICS_CONFIGN2V {
     tag "${meta.id ?: task.process}"
     label 'process_single'
 
     conda "${moduleDir}/environment.yml"
     container {
-        def is_singularity = workflow.containerEngine in ['singularity', 'apptainer']
+        def active_profiles = workflow.profile ? workflow.profile.tokenize(',') : []
+        def is_oras_profile = active_profiles.any { it in ['singularity_oras', 'apptainer_oras'] }
 
-        if (is_singularity) {
+        if (is_oras_profile) {
             return 'oras://ghcr.io/careamics/careamics-sif:0.3.5-cuda11.8'
-        }
-        else {
+        } else {
             return 'ghcr.io/careamics/careamics:0.3.5-cuda11.8'
         }
     }
@@ -19,7 +19,7 @@ process CAREAMICS_CONFIG_N2N {
 
     output:
     tuple val(meta), path("careamics.yaml"), emit: careamics_config
-    path "versions.yml", emit: versions, topic: versions
+    tuple val("${task.process}"), val('careamics'), eval('python -c "import careamics; print(careamics.__version__)"'), emit: versions_careamics, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
@@ -27,7 +27,7 @@ process CAREAMICS_CONFIG_N2N {
     script:
     def args = task.ext.args ?: ''
     """
-    create_config_n2n.py \\
+    create_config_n2v.py \\
         --output_path . \\
         --experiment_name ${experiment_name} \\
         --data_type ${data_type} \\
@@ -35,20 +35,10 @@ process CAREAMICS_CONFIG_N2N {
         --patch_size ${patch_size} \\
         --batch_size ${batch_size} \\
         ${args}
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        careamics: \$(python -c "import careamics; print(careamics.__version__)")
-    END_VERSIONS
     """
 
     stub:
     """
     touch careamics.yaml
-
-    cat <<-END_VERSIONS > versions.yml
-    "${task.process}":
-        careamics: "stub"
-    END_VERSIONS
     """
 }

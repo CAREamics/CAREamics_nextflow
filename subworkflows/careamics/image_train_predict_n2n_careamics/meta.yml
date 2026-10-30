@@ -9,7 +9,7 @@ keywords:
   - careamics
   - n2n
 components:
-  - careamics/config/n2n
+  - careamics/confign2n
   - image_train_predict_careamics
 input:
   - ch_config:
@@ -59,11 +59,10 @@ output:
         Structure: [ val(meta), path(predictions) ]
       pattern: "predictions/*"
   - versions:
-      type: file
+      type: string
       description: |
-        File containing software versions.
-        Structure: [ path(versions.yml) ]
-      pattern: "versions.yml"
+        Software version information.
+        Structure: [ val(process), val(tool), val(version) ]
 authors:
   - "@tatianawoller"
   - "@melisande-c"
