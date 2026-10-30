@@ -14,6 +14,10 @@ nextflow_process {
     test("careamics_confign2v") {
 
         when {
+            params {
+                module_args = '--seed 42'
+            }
+
             process {
                 """
                 input[0] = tuple(
@@ -34,9 +38,11 @@ nextflow_process {
                 { assert process.out.careamics_config.size() == 1 },
                 { assert process.out.careamics_config[0][0] == [ id:'test_careamics_confign2v', model:'n2v' ] },
                 { assert path(process.out.careamics_config[0][1]).exists() },
+                { assert path(process.out.careamics_config[0][1]).text.contains('seed: 42') },
                 { assert process.out.versions_careamics.size() == 1 },
                 { assert process.out.versions_careamics[0][1] == "careamics" },
                 { assert process.out.versions_careamics[0][2] instanceof String },
+                { assert snapshot(process.out).match() },
             )
         }
     }
@@ -46,6 +52,10 @@ nextflow_process {
         options "-stub"
 
         when {
+            params {
+                module_args = ''
+            }
+
             process {
                 """
                 input[0] = tuple(
@@ -69,6 +79,7 @@ nextflow_process {
                 { assert path(process.out.careamics_config[0][1]).exists() },
                 { assert process.out.versions_careamics[0][1] == "careamics" },
                 { assert process.out.versions_careamics[0][2] instanceof String },
+                { assert snapshot(process.out).match() },
             )
         }
     }
