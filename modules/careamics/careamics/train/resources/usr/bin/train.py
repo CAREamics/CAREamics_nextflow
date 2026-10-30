@@ -44,11 +44,16 @@ def get_checkpoint_record_data(careamist: CAREamist) -> dict[str, Any]:
 
     # all checkpoints
     data["checkpoints"] = [ckpt_path.name for ckpt_path in careamist.get_checkpoints()]
+    if len(data["checkpoints"]) == 0:
+        raise ValueError(
+            "No checkpoints found. Ensure that model checkpointing has been configured "
+            "correctly."
+        )
 
     # select checkpoint that should be used
     select = careamist._get_default_ckpt(None)  # will only return "best" or "last"
     if select == "last":
-        selected = data["checkpoints"][-1] # last saved
+        selected = data["checkpoints"][-1]  # last saved
     else:
         selected = data[str(select)]
     data["selected"] = selected
