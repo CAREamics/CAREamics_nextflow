@@ -17,8 +17,7 @@ import pooch
 logger = logging.getLogger(__file__)
 
 DATA_URL = (
-    "https://dl-at-mbl-2023-data.s3.us-east-2.amazonaws.com/"
-    "image_restoration_data.zip"
+    "https://dl-at-mbl-2023-data.s3.us-east-2.amazonaws.com/image_restoration_data.zip"
 )
 DATA_SHA256 = "4112d3666a4f419bbd51ab0b7853c12e16c904f89481cbe7f1a90e48f3241f72"
 

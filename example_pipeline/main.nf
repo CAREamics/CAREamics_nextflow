@@ -9,7 +9,7 @@ nextflow.enable.moduleBinaries = true
 ========================================================================================
     Example pipeline demonstrating:
     Perform image restoration on microscopy images using CAREamics (N2V, CARE, or N2N).
-    
+
     Usage:
         nextflow run careamics_pipeline.nf \
             -profile conda|mamba|docker|singularity|apptainer[,cpu] \

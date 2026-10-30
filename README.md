@@ -34,22 +34,21 @@ nf-core modules \
 > [!IMPORTANT]
 > These modules use helper scripts stored in module `resources`, so the pipeline that imports them must enable module binaries:
 >
->```nextflow
->nextflow.enable.moduleBinaries = true
->```
+> ```nextflow
+> nextflow.enable.moduleBinaries = true
+> ```
 >
 > CAREamics will work on integrating the scripts into a CLI for future versions so that this will no longer be necessary.
 
-
 ## What's included
 
-| Type | Component | Use-case |
-| --- | --- | --- |
-| Subworkflow | [`image_train_predict_n2v_careamics`](#image_train_predict_n2v_careamics) | Easy N2V training and prediction. |
-| Subworkflow | [`image_train_predict_n2n_careamics`](#image_train_predict_n2n_careamics) | Easy N2N training and prediction. |
-| Subworkflow | [`image_train_predict_care_careamics`](#image_train_predict_care_careamics) | Easy CARE training and prediction. |
-| Subworkflow | [`image_train_predict_careamics`](#image_train_predict_careamics) | Provide a CAREamics configuration file to have access to more advanced features for training and prediction. |
-| Module | [`careamics/predict`](#careamicspredict) | Prediction with a pre-trained CAREamics checkpoint. |
+| Type        | Component                                                                   | Use-case                                                                                                     |
+| ----------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Subworkflow | [`image_train_predict_n2v_careamics`](#image_train_predict_n2v_careamics)   | Easy N2V training and prediction.                                                                            |
+| Subworkflow | [`image_train_predict_n2n_careamics`](#image_train_predict_n2n_careamics)   | Easy N2N training and prediction.                                                                            |
+| Subworkflow | [`image_train_predict_care_careamics`](#image_train_predict_care_careamics) | Easy CARE training and prediction.                                                                           |
+| Subworkflow | [`image_train_predict_careamics`](#image_train_predict_careamics)           | Provide a CAREamics configuration file to have access to more advanced features for training and prediction. |
+| Module      | [`careamics/predict`](#careamicspredict)                                    | Prediction with a pre-trained CAREamics checkpoint.                                                          |
 
 Lower-level config and training modules are also available for custom workflows:
 `careamics/config/n2v`, `careamics/config/n2n`, `careamics/config/care`, and
@@ -58,7 +57,6 @@ Lower-level config and training modules are also available for custom workflows:
 ## Subworkflows
 
 All subworkflows emit `checkpoints`, containing every trained checkpoint; `model`, containing only the checkpoint selected for prediction; and `metrics`, containing the CSV log of training and validation losses and additional metrics. They also emit `versions`, a channel containing `versions.yml` files from the processes they run. CAREamics config processes use the `process_single` label, while train and predict processes use the `process_medium` label.
-
 
 ### `image_train_predict_n2v_careamics`
 
@@ -73,11 +71,11 @@ Labels: `process_single`, `process_medium`
 
 Inputs:
 
-| Channel | Structure | Notes |
-| --- | --- | --- |
-| `ch_config` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | `patch_size` is a space-separated spatial size, for example `"64 64"`. |
-| `ch_train_data` | `[ val(meta), path(train_data), path(val_data) ]` | `train_data` is required. `val_data` is optional; use `[]` when absent. Can be a file or directory. |
-| `ch_predict` | `[ val(meta), path(data) ]` | Data to predict on. Can be a file or directory. |
+| Channel         | Structure                                                                                          | Notes                                                                                               |
+| --------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `ch_config`     | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | `patch_size` is a space-separated spatial size, for example `"64 64"`.                              |
+| `ch_train_data` | `[ val(meta), path(train_data), path(val_data) ]`                                                  | `train_data` is required. `val_data` is optional; use `[]` when absent. Can be a file or directory. |
+| `ch_predict`    | `[ val(meta), path(data) ]`                                                                        | Data to predict on. Can be a file or directory.                                                     |
 
 > [!NOTE]
 > Additional N2V configuration options can be passed to the `CAREAMICS_CONFIG_N2V`
@@ -86,14 +84,14 @@ Inputs:
 
 Outputs:
 
-| Name | Structure | Pattern |
-| --- | --- | --- |
-| `careamics_config` | `[ val(meta), path(careamics_config) ]` | `careamics.yaml` |
-| `checkpoints` | `[ val(meta), path(checkpoints) ]` | `checkpoints/*/*.ckpt` |
-| `metrics` | `[ val(meta), path(metrics.csv) ]` | `csv_logs/*/version_*/metrics.csv` |
-| `model` | `[ val(meta), path(model) ]` | `checkpoints/*/*.ckpt` |
-| `predictions` | `[ val(meta), path(predictions) ]` | `predictions/*` |
-| `versions` | `[ path(versions.yml) ]` | `versions.yml` |
+| Name               | Structure                               | Pattern                            |
+| ------------------ | --------------------------------------- | ---------------------------------- |
+| `careamics_config` | `[ val(meta), path(careamics_config) ]` | `careamics.yaml`                   |
+| `checkpoints`      | `[ val(meta), path(checkpoints) ]`      | `checkpoints/*/*.ckpt`             |
+| `metrics`          | `[ val(meta), path(metrics.csv) ]`      | `csv_logs/*/version_*/metrics.csv` |
+| `model`            | `[ val(meta), path(model) ]`            | `checkpoints/*/*.ckpt`             |
+| `predictions`      | `[ val(meta), path(predictions) ]`      | `predictions/*`                    |
+| `versions`         | `[ path(versions.yml) ]`                | `versions.yml`                     |
 
 ### `image_train_predict_n2n_careamics`
 
@@ -108,11 +106,11 @@ Labels: `process_single`, `process_medium`
 
 Inputs:
 
-| Channel | Structure | Notes |
-| --- | --- | --- |
-| `ch_config` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | Shared simple CAREamics configuration fields. |
-| `ch_train_data` | `[ val(meta), path(train_data), path(train_target), path(val_data), path(val_target) ]` | `train_data` and `train_target` are required. Validation data and targets are optional, but provide both together or use `[]` for both. Can be a file or a directory. |
-| `ch_predict` | `[ val(meta), path(data) ]` | Data to predict on. Can be a file or a directory. |
+| Channel         | Structure                                                                                          | Notes                                                                                                                                                                 |
+| --------------- | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ch_config`     | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | Shared simple CAREamics configuration fields.                                                                                                                         |
+| `ch_train_data` | `[ val(meta), path(train_data), path(train_target), path(val_data), path(val_target) ]`            | `train_data` and `train_target` are required. Validation data and targets are optional, but provide both together or use `[]` for both. Can be a file or a directory. |
+| `ch_predict`    | `[ val(meta), path(data) ]`                                                                        | Data to predict on. Can be a file or a directory.                                                                                                                     |
 
 > [!NOTE]
 > Additional N2N configuration options can be passed to the `CAREAMICS_CONFIG_N2N`
@@ -122,14 +120,14 @@ Inputs:
 
 Outputs:
 
-| Name | Structure | Pattern |
-| --- | --- | --- |
-| `careamics_config` | `[ val(meta), path(careamics_config) ]` | `careamics.yaml` |
-| `checkpoints` | `[ val(meta), path(checkpoints) ]` | `checkpoints/*/*.ckpt` |
-| `metrics` | `[ val(meta), path(metrics.csv) ]` | `csv_logs/*/version_*/metrics.csv` |
-| `model` | `[ val(meta), path(model) ]` | `checkpoints/*/*.ckpt` |
-| `predictions` | `[ val(meta), path(predictions) ]` | `predictions/*` |
-| `versions` | `[ path(versions.yml) ]` | `versions.yml` |
+| Name               | Structure                               | Pattern                            |
+| ------------------ | --------------------------------------- | ---------------------------------- |
+| `careamics_config` | `[ val(meta), path(careamics_config) ]` | `careamics.yaml`                   |
+| `checkpoints`      | `[ val(meta), path(checkpoints) ]`      | `checkpoints/*/*.ckpt`             |
+| `metrics`          | `[ val(meta), path(metrics.csv) ]`      | `csv_logs/*/version_*/metrics.csv` |
+| `model`            | `[ val(meta), path(model) ]`            | `checkpoints/*/*.ckpt`             |
+| `predictions`      | `[ val(meta), path(predictions) ]`      | `predictions/*`                    |
+| `versions`         | `[ path(versions.yml) ]`                | `versions.yml`                     |
 
 ### `image_train_predict_care_careamics`
 
@@ -144,11 +142,11 @@ Labels: `process_single`, `process_medium`
 
 Inputs:
 
-| Channel | Structure | Notes |
-| --- | --- | --- |
-| `ch_config` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | Shared simple CAREamics configuration fields. |
-| `ch_train_data` | `[ val(meta), path(train_data), path(train_target), path(val_data), path(val_target) ]` | `train_data` and `train_target` are required. Validation data and targets are optional, but provide both together or use `[]` for both. Can be a file or directory. |
-| `ch_predict` | `[ val(meta), path(data) ]` | Data to predict on. Can be a file or directory. |
+| Channel         | Structure                                                                                          | Notes                                                                                                                                                               |
+| --------------- | -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ch_config`     | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | Shared simple CAREamics configuration fields.                                                                                                                       |
+| `ch_train_data` | `[ val(meta), path(train_data), path(train_target), path(val_data), path(val_target) ]`            | `train_data` and `train_target` are required. Validation data and targets are optional, but provide both together or use `[]` for both. Can be a file or directory. |
+| `ch_predict`    | `[ val(meta), path(data) ]`                                                                        | Data to predict on. Can be a file or directory.                                                                                                                     |
 
 > [!NOTE]
 > Additional CARE configuration options can be passed to the `CAREAMICS_CONFIG_CARE`
@@ -158,14 +156,14 @@ Inputs:
 
 Outputs:
 
-| Name | Structure | Pattern |
-| --- | --- | --- |
-| `careamics_config` | `[ val(meta), path(careamics_config) ]` | `careamics.yaml` |
-| `checkpoints` | `[ val(meta), path(checkpoints) ]` | `checkpoints/*/*.ckpt` |
-| `metrics` | `[ val(meta), path(metrics.csv) ]` | `csv_logs/*/version_*/metrics.csv` |
-| `model` | `[ val(meta), path(model) ]` | `checkpoints/*/*.ckpt` |
-| `predictions` | `[ val(meta), path(predictions) ]` | `predictions/*` |
-| `versions` | `[ path(versions.yml) ]` | `versions.yml` |
+| Name               | Structure                               | Pattern                            |
+| ------------------ | --------------------------------------- | ---------------------------------- |
+| `careamics_config` | `[ val(meta), path(careamics_config) ]` | `careamics.yaml`                   |
+| `checkpoints`      | `[ val(meta), path(checkpoints) ]`      | `checkpoints/*/*.ckpt`             |
+| `metrics`          | `[ val(meta), path(metrics.csv) ]`      | `csv_logs/*/version_*/metrics.csv` |
+| `model`            | `[ val(meta), path(model) ]`            | `checkpoints/*/*.ckpt`             |
+| `predictions`      | `[ val(meta), path(predictions) ]`      | `predictions/*`                    |
+| `versions`         | `[ path(versions.yml) ]`                | `versions.yml`                     |
 
 ### `image_train_predict_careamics`
 
@@ -183,20 +181,20 @@ Labels: all component processes use `process_medium`.
 
 Inputs:
 
-| Channel | Structure | Notes |
-| --- | --- | --- |
-| `ch_train` | `[ val(meta), path(careamics_config), path(train_data), path(train_target), path(val_data), path(val_target) ]` | `train_data` is required. `val_data` is optional. `train_target` and `val_target` are only needed for supervised algorithms. Use `[]` for missing optional paths. |
-| `ch_predict` | `[ val(meta), path(data) ]` | Data to predict on. |
+| Channel      | Structure                                                                                                       | Notes                                                                                                                                                             |
+| ------------ | --------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ch_train`   | `[ val(meta), path(careamics_config), path(train_data), path(train_target), path(val_data), path(val_target) ]` | `train_data` is required. `val_data` is optional. `train_target` and `val_target` are only needed for supervised algorithms. Use `[]` for missing optional paths. |
+| `ch_predict` | `[ val(meta), path(data) ]`                                                                                     | Data to predict on.                                                                                                                                               |
 
 Outputs:
 
-| Name | Structure | Pattern |
-| --- | --- | --- |
-| `checkpoints` | `[ val(meta), path(checkpoints) ]` | `checkpoints/*/*.ckpt` |
-| `metrics` | `[ val(meta), path(metrics.csv) ]` | `csv_logs/*/version_*/metrics.csv` |
-| `model` | `[ val(meta), path(model) ]` | `checkpoints/*/*.ckpt` |
-| `predictions` | `[ val(meta), path(predictions) ]` | `predictions/*` |
-| `versions` | `[ path(versions.yml) ]` | `versions.yml` |
+| Name          | Structure                          | Pattern                            |
+| ------------- | ---------------------------------- | ---------------------------------- |
+| `checkpoints` | `[ val(meta), path(checkpoints) ]` | `checkpoints/*/*.ckpt`             |
+| `metrics`     | `[ val(meta), path(metrics.csv) ]` | `csv_logs/*/version_*/metrics.csv` |
+| `model`       | `[ val(meta), path(model) ]`       | `checkpoints/*/*.ckpt`             |
+| `predictions` | `[ val(meta), path(predictions) ]` | `predictions/*`                    |
+| `versions`    | `[ path(versions.yml) ]`           | `versions.yml`                     |
 
 ## Modules
 
@@ -225,12 +223,12 @@ through `task.ext.args`.
 These modules are mainly used by the subworkflows, but can be installed and used
 directly when needed.
 
-| Module | Process | Label | Input | Output | Notes |
-| --- | --- | --- | --- | --- | --- |
-| `careamics/config/n2v` | `CAREAMICS_CONFIG_N2V` | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml` | Creates a Noise2Void configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--use_n2v2`, and `--n_channels`. |
-| `careamics/config/n2n` | `CAREAMICS_CONFIG_N2N` | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml` | Creates a Noise2Noise configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`. |
-| `careamics/config/care` | `CAREAMICS_CONFIG_CARE` | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]` | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml` | Creates a CARE configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`. |
-| `careamics/train` | `CAREAMICS_TRAIN` | `process_medium` | `[ val(meta), path(careamics_config), path(train_data), path(train_target), path(val_data), path(val_target) ]` | `model`: `[ val(meta), path("checkpoints/*/*.ckpt"), path("checkpoints/*/checkpoint_record.json") ]`; `metrics`: `[ val(meta), path("csv_logs/*/version_*/metrics.csv") ]`; `versions`: `versions.yml` | Trains from an existing CAREamics configuration. `train_target`, `val_data`, and `val_target` are optional for algorithms that do not need them; use `[]` for missing paths. |
+| Module                  | Process                 | Label            | Input                                                                                                           | Output                                                                                                                                                                                                 | Notes                                                                                                                                                                            |
+| ----------------------- | ----------------------- | ---------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `careamics/config/n2v`  | `CAREAMICS_CONFIG_N2V`  | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]`              | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml`                                                                                                                | Creates a Noise2Void configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--use_n2v2`, and `--n_channels`.           |
+| `careamics/config/n2n`  | `CAREAMICS_CONFIG_N2N`  | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]`              | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml`                                                                                                                | Creates a Noise2Noise configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`. |
+| `careamics/config/care` | `CAREAMICS_CONFIG_CARE` | `process_single` | `[ val(meta), val(experiment_name), val(data_type), val(axes), val(patch_size), val(batch_size) ]`              | `careamics_config`: `[ val(meta), path("careamics.yaml") ]`; `versions`: `versions.yml`                                                                                                                | Creates a CARE configuration. `task.ext.args` may include `--num_epochs`, `--num_steps`, `--augmentations`, `--n_val_patches`, `--n_channels_in`, and `--n_channels_out`.        |
+| `careamics/train`       | `CAREAMICS_TRAIN`       | `process_medium` | `[ val(meta), path(careamics_config), path(train_data), path(train_target), path(val_data), path(val_target) ]` | `model`: `[ val(meta), path("checkpoints/*/*.ckpt"), path("checkpoints/*/checkpoint_record.json") ]`; `metrics`: `[ val(meta), path("csv_logs/*/version_*/metrics.csv") ]`; `versions`: `versions.yml` | Trains from an existing CAREamics configuration. `train_target`, `val_data`, and `val_target` are optional for algorithms that do not need them; use `[]` for missing paths.     |
 
 All modules support conda environments and CAREamics containers.
 
@@ -259,10 +257,10 @@ that directory. Prediction inputs are provided with a CSV file containing a
 
 1. Because the pipeline is in a subdirectory it cannot be run directly from github; first clone the repo to run it locally.
 
-    ```console
-    git clone https://github.com/CAREamics/CAREamics_nextflow.git
-    cd CAREamics_nextflow/example_pipeline
-    ```
+   ```console
+   git clone https://github.com/CAREamics/CAREamics_nextflow.git
+   cd CAREamics_nextflow/example_pipeline
+   ```
 
 2. Example data for N2V and CARE are available for download through scripts; we recommend using uv to run them.
 
@@ -289,20 +287,20 @@ Follow the instructions to input the required parameters, `train_data` and `pred
 
 ### Run with Nextflow
 
-Use Nextflow's `-output-dir` option to choose the results directory. 
-If it is omitted, the pipeline writes to `results`. 
+Use Nextflow's `-output-dir` option to choose the results directory.
+If it is omitted, the pipeline writes to `results`.
 The outputs for each run are written to a subdirectory named after the run name, this can be chosen with Nextflow's `-name` option, otherwise Nextflow assigns a random name.
 Execution reports are written to `pipeline_info` in the results directory.
 
-   ```console
-   nextflow run main.nf \
-     -profile local,conda \
-     --train_data data/N2V_SEM/train.tif \
-     --val_data data/N2V_SEM/validation.tif \
-     --prediction_csv example_n2v_predict.csv \
-     -output-dir results \
-     -params-file params_n2v.json
-   ```
+```console
+nextflow run main.nf \
+  -profile local,conda \
+  --train_data data/N2V_SEM/train.tif \
+  --val_data data/N2V_SEM/validation.tif \
+  --prediction_csv example_n2v_predict.csv \
+  -output-dir results \
+  -params-file params_n2v.json
+```
 
 Use `-profile local,conda` for a local run with reduced resources for
 the `process_medium` label. Swap `conda` for `mamba`, `docker`, `singularity`, or
@@ -339,3 +337,26 @@ For local development on another branch, replace the remote and branch as needed
 In non-interactive shells nf-core-tools defaults to the Docker profile. Use
 `--profile conda`, `--profile singularity`, or `--profile apptainer` when that
 matches your local runtime better. This can also be selected through the terminal
+interface.
+
+### Lint before committing
+
+The hooks mirror the applicable checks from the current nf-core/modules
+pre-commit configuration: Nextflow strict-syntax linting, Prettier, basic file
+hygiene, GitHub Actions validation, Hadolint, and Ruff linting and formatting
+for Python files. The workflow and hooks support Nextflow 25.10.4 or newer,
+matching the current nf-core minimum, and Nextflow must be available on `PATH`.
+When running the workflow with Nextflow 25.10, enable the v2 parser by setting
+`NXF_SYNTAX_PARSER=v2`.
+
+Enable the hooks:
+
+```console
+uvx prek install --install-hooks
+```
+
+Run every check across the repository at any time with:
+
+```console
+uvx prek run --all-files
+```
