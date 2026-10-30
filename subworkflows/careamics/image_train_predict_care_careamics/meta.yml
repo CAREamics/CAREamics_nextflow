@@ -33,12 +33,24 @@ output:
         CAREamics configuration file.
         Structure: [ val(meta), path(careamics_config) ]
       pattern: "careamics.yaml"
+  - checkpoints:
+      type: file
+      description: |
+        All trained model checkpoints.
+        Structure: [ val(meta), path(checkpoints) ]
+      pattern: "checkpoints/*/*.ckpt"
+  - metrics:
+      type: file
+      description: |
+        Training and validation losses and additional logged metrics.
+        Structure: [ val(meta), path(metrics.csv) ]
+      pattern: "csv_logs/*/version_*/metrics.csv"
   - model:
       type: file
       description: |
-        Trained model checkpoint.
+        Checkpoint selected for prediction.
         Structure: [ val(meta), path(model) ]
-      pattern: "checkpoints/*/*last.ckpt"
+      pattern: "checkpoints/*/*.ckpt"
   - predictions:
       type: file
       description: |

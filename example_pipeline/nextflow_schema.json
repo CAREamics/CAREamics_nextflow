@@ -5,20 +5,12 @@
   "description": "",
   "type": "object",
   "$defs": {
-    "input_output_options": {
-      "title": "Input/output options",
+    "reporting_options": {
+      "title": "Reporting options",
       "type": "object",
       "fa_icon": "fas fa-save",
-      "description": "Where outputs will be saved.",
-      "required": ["outdir"],
+      "description": "Options for pipeline execution reports.",
       "properties": {
-        "outdir": {
-          "type": "string",
-          "format": "directory-path",
-          "description": "The output directory where the results will be saved. You have to use absolute paths to storage on Cloud infrastructure.",
-          "fa_icon": "fas fa-folder-open",
-          "default": "results"
-        },
         "trace_report_prefix": {
           "type": "string"
         }
@@ -181,7 +173,7 @@
   },
   "allOf": [
     {
-      "$ref": "#/$defs/input_output_options"
+      "$ref": "#/$defs/reporting_options"
     },
     {
       "$ref": "#/$defs/data_input"

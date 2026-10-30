@@ -1,0 +1,10 @@
+{
+  "algorithm": "care",
+  "experiment_name": "care_U20S_example",
+  "data_type": "tiff",
+  "axes": "YX",
+  "patch_size": "128 128",
+  "batch_size": 32,
+  "num_epochs": 20,
+  "n_val_patches": 20
+}

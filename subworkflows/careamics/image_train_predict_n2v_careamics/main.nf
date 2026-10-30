@@ -21,6 +21,8 @@ workflow IMAGE_TRAIN_PREDICT_N2V_CAREAMICS {
 
     emit:
     careamics_config = CAREAMICS_CONFIG_N2V.out.careamics_config // [ val(meta), path(careamics_config) ]
+    checkpoints      = IMAGE_TRAIN_PREDICT_CAREAMICS.out.checkpoints // [ val(meta), path(checkpoints) ]
+    metrics          = IMAGE_TRAIN_PREDICT_CAREAMICS.out.metrics // [ val(meta), path(metrics.csv) ]
     model            = IMAGE_TRAIN_PREDICT_CAREAMICS.out.model // [ val(meta), path(model) ]
     predictions      = IMAGE_TRAIN_PREDICT_CAREAMICS.out.predictions // [ val(meta), path(predictions) ]
     versions         = CAREAMICS_CONFIG_N2V.out.versions.mix(IMAGE_TRAIN_PREDICT_CAREAMICS.out.versions) // [ path(versions.yml) ]

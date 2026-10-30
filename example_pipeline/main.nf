@@ -30,6 +30,8 @@ include { IMAGE_TRAIN_PREDICT_CARE_CAREAMICS } from "../subworkflows/careamics/i
 */
 
 workflow {
+    main:
+
     // Train model first
     log.info("Training ${params.algorithm} algorithm.")
 
@@ -62,8 +64,13 @@ workflow {
 
     // Self-supervised algorithms
     if (params.algorithm == 'n2v') {
-        ch_training = channel.of([meta, file(params.train_data), file(params.val_data) ?: []])
+        ch_training = channel.of(
+            [meta, file(params.train_data), params.val_data ? file(params.val_data) : []]
+        )
         IMAGE_TRAIN_PREDICT_N2V_CAREAMICS(ch_config, ch_training, ch_prediction_data)
+        ch_careamics_config = IMAGE_TRAIN_PREDICT_N2V_CAREAMICS.out.careamics_config
+        ch_selected_model   = IMAGE_TRAIN_PREDICT_N2V_CAREAMICS.out.model
+        ch_predictions      = IMAGE_TRAIN_PREDICT_N2V_CAREAMICS.out.predictions
     }
     else if ((params.algorithm == 'care') || (params.algorithm == 'n2n')) {
         if (!params.train_target) {
@@ -79,19 +86,46 @@ workflow {
                 meta,
                 file(params.train_data),
                 file(params.train_target),
-                file(params.val_data) ?: [],
-                file(params.val_target) ?: [],
+                params.val_data ? file(params.val_data) : [],
+                params.val_target ? file(params.val_target) : [],
             ]
         )
         if (params.algorithm == 'care') {
             IMAGE_TRAIN_PREDICT_CARE_CAREAMICS(ch_config, ch_training, ch_prediction_data)
+            ch_careamics_config = IMAGE_TRAIN_PREDICT_CARE_CAREAMICS.out.careamics_config
+            ch_selected_model   = IMAGE_TRAIN_PREDICT_CARE_CAREAMICS.out.model
+            ch_predictions      = IMAGE_TRAIN_PREDICT_CARE_CAREAMICS.out.predictions
         }
         else {
             // n2n
             IMAGE_TRAIN_PREDICT_N2N_CAREAMICS(ch_config, ch_training, ch_prediction_data)
+            ch_careamics_config = IMAGE_TRAIN_PREDICT_N2N_CAREAMICS.out.careamics_config
+            ch_selected_model   = IMAGE_TRAIN_PREDICT_N2N_CAREAMICS.out.model
+            ch_predictions      = IMAGE_TRAIN_PREDICT_N2N_CAREAMICS.out.predictions
         }
     }
     else {
         error("Unknown algorithm: ${params.algorithm}. Use 'n2v', 'care', or 'n2n'")
+    }
+
+    publish:
+    careamics_config    = ch_careamics_config
+    selected_checkpoint = ch_selected_model
+    predictions         = ch_predictions
+}
+
+output {
+    careamics_config {
+        path "${workflow.runName}"
+    }
+
+    selected_checkpoint {
+        path { meta, model ->
+            model >> "${workflow.runName}/${params.algorithm}_model.ckpt"
+        }
+    }
+
+    predictions {
+        path "${workflow.runName}"
     }
 }

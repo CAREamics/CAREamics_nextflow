@@ -18,7 +18,8 @@ process CAREAMICS_TRAIN {
     tuple val(meta), path(careamics_config), path(train_data), path(train_target), path(val_data), path(val_target)
 
     output:
-    tuple val(meta), path("checkpoints/*/*last.ckpt"), emit: model
+    tuple val(meta), path("checkpoints/*/*.ckpt", arity: '1..*'), path("checkpoints/*/checkpoint_record.json", arity: '1'), emit: model
+    tuple val(meta), path("csv_logs/*/version_*/metrics.csv", arity: '1'), emit: metrics
     path "versions.yml", emit: versions, topic: versions
 
     when:
@@ -52,7 +53,25 @@ process CAREAMICS_TRAIN {
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     mkdir -p "checkpoints/${prefix}"
+    touch "checkpoints/${prefix}/best.ckpt"
     touch "checkpoints/${prefix}/last.ckpt"
+    cat <<-END_RECORD > "checkpoints/${prefix}/checkpoint_record.json"
+    {
+        "last": "last.ckpt",
+        "best": "best.ckpt",
+        "monitor": "val_loss",
+        "mode": "min",
+        "best_k": [{"name": "best.ckpt", "score": 0.1}],
+        "checkpoints": ["best.ckpt", "last.ckpt"],
+        "selected": "last.ckpt"
+    }
+    END_RECORD
+
+    mkdir -p "csv_logs/${prefix}/version_0"
+    cat <<-END_METRICS > "csv_logs/${prefix}/version_0/metrics.csv"
+    epoch,step,train_loss,val_loss
+    0,0,0.2,0.1
+    END_METRICS
 
     cat <<-END_VERSIONS > versions.yml
     "${task.process}":
