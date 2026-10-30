@@ -37,6 +37,36 @@ repos:
     hooks:
       - id: check-github-workflows
         priority: 20
+      - id: check-jsonschema
+        priority: 20
+        name: "Validate environment.ymls against schema"
+        files: ^modules/careamics/.*/environment\.yml$
+        types: [yaml]
+        args:
+          [
+            "--schemafile",
+            "https://raw.githubusercontent.com/nf-core/modules/refs/heads/master/modules/environment-schema.json",
+          ]
+      - id: check-jsonschema
+        priority: 20
+        name: "Validate module meta.yml files"
+        files: ^modules/careamics/.*/meta\.yml$
+        types: [yaml]
+        args:
+          [
+            "--schemafile",
+            "https://raw.githubusercontent.com/nf-core/modules/master/modules/meta-schema.json",
+          ]
+      - id: check-jsonschema
+        priority: 20
+        name: "Validate subworkflow meta.yml files"
+        files: ^subworkflows/careamics/.*/meta\.yml$
+        types: [yaml]
+        args:
+          [
+            "--schemafile",
+            "https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json",
+          ]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.13
