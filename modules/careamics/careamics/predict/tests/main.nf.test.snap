@@ -1,0 +1,43 @@
+{
+    "stub with runtime test data": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_predict_stub"
+                        },
+                        "test_predict_stub_denoised.tiff:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        "CAREAMICS_PREDICT",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ],
+                "predictions": [
+                    [
+                        {
+                            "id": "test_predict_stub"
+                        },
+                        "test_predict_stub_denoised.tiff:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_careamics": [
+                    [
+                        "CAREAMICS_PREDICT",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-10-30T18:25:10.39240256",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.4"
+        }
+    }
+}
