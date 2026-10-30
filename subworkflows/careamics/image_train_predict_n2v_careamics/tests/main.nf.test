@@ -1,0 +1,133 @@
+nextflow_workflow {
+
+    name "Test Subworkflow IMAGE_TRAIN_PREDICT_N2V_CAREAMICS"
+    script "../main.nf"
+    workflow "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS"
+    config "./nextflow.config"
+
+    tag "subworkflows"
+    tag "subworkflows_careamics"
+    tag "subworkflows/image_train_predict_n2v_careamics"
+    tag "image_train_predict_careamics"
+    tag "careamics"
+    tag "careamics/confign2v"
+    tag "careamics/train"
+    tag "careamics/predict"
+
+    test("tiff - N2V trains and predicts on nf-core test data") {
+
+        when {
+            params {
+                module_args = '--num_epochs 1 --num_steps 1 --n_val_patches 1 --seed 42'
+            }
+
+            workflow {
+                """
+                def test_image = file(
+                    params.modules_testdata_base_path + 'imaging/tiff/mindagap.mouse_heart.wga.tiff',
+                    checkIfExists: true
+                )
+
+                input[0] = Channel.of(tuple(
+                    [ id:'test_n2v_real', model:'n2v' ],
+                    'test_n2v_real',
+                    'tiff',
+                    'YX',
+                    '64 64',
+                    1
+                ))
+                input[1] = Channel.of(tuple(
+                    [ replicate:'one' ],
+                    test_image,
+                    []
+                ))
+                input[2] = Channel.of(tuple(
+                    [ id:'test_predict_real' ],
+                    test_image
+                ))
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert workflow.out.careamics_config.size() == 1 },
+                { assert workflow.out.checkpoints.size() == 1 },
+                { assert workflow.out.metrics.size() == 1 },
+                { assert workflow.out.model.size() == 1 },
+                { assert workflow.out.predictions.size() == 1 },
+                { assert workflow.out.versions.size() == 3 },
+                { assert workflow.out.careamics_config[0][0] == [ id:'test_n2v_real', model:'n2v' ] },
+                { assert workflow.out.checkpoints[0][0] == [ id:'test_n2v_real', model:'n2v', replicate:'one' ] },
+                { assert workflow.out.metrics[0][0] == [ id:'test_n2v_real', model:'n2v', replicate:'one' ] },
+                { assert workflow.out.model[0][0] == [ id:'test_n2v_real', model:'n2v', replicate:'one' ] },
+                { assert workflow.out.predictions[0][0] == [ id:'test_predict_real', model_id:'test_n2v_real' ] },
+                { assert path(workflow.out.careamics_config[0][1]).text.contains('seed: 42') },
+                { assert path(workflow.out.careamics_config[0][1]).text.contains('max_epochs: 1') },
+                { assert path(workflow.out.careamics_config[0][1]).text.contains('limit_train_batches: 1') },
+                { assert workflow.out.checkpoints[0][1].every { path(it).exists() && path(it).toFile().length() > 0 } },
+                { assert path(workflow.out.metrics[0][1]).exists() && path(workflow.out.metrics[0][1]).toFile().length() > 0 },
+                { assert path(workflow.out.model[0][1]).exists() && path(workflow.out.model[0][1]).toFile().length() > 0 },
+                { assert path(workflow.out.predictions[0][1]).exists() && path(workflow.out.predictions[0][1]).toFile().length() > 0 },
+                { assert workflow.out.checkpoints[0][1].collect { path(it).getFileName().toString() }.contains(path(workflow.out.model[0][1]).getFileName().toString()) },
+                { assert snapshot(
+                    workflow.out.careamics_config,
+                    workflow.out.checkpoints.collect { meta, files -> [meta, files.collect { path(it).getFileName().toString() }.sort()] },
+                    workflow.out.metrics.collect { meta, file -> [meta, path(file).getFileName().toString()] },
+                    workflow.out.model.collect { meta, file -> [meta, path(file).getFileName().toString()] },
+                    workflow.out.predictions.collect { meta, file -> [meta, path(file).getFileName().toString()] },
+                    workflow.out.versions
+                ).match() }
+            )
+        }
+    }
+
+    test("stub - tiff - N2V self-supervised training with validation data") {
+
+        options "-stub"
+
+        setup {
+            def testDir = new File(System.getProperty("java.io.tmpdir"), "careamics-nextflow-nf-test/image-train-predict-n2v")
+            testDir.mkdirs()
+            new File(testDir, "train.tif").text = "stub"
+            new File(testDir, "val.tif").text = "stub"
+            new File(testDir, "predict.tif").text = "stub"
+        }
+
+        when {
+            params {
+                module_args = ''
+            }
+
+            workflow {
+                """
+                input[0] = Channel.of(tuple(
+                    [ id:'test_n2v', model:'n2v' ],
+                    'test_n2v',
+                    'tiff',
+                    'YX',
+                    '64 64',
+                    1
+                ))
+                input[1] = Channel.of(tuple(
+                    [ replicate:'one' ],
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/image-train-predict-n2v/train.tif", checkIfExists: true),
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/image-train-predict-n2v/val.tif", checkIfExists: true)
+                ))
+                input[2] = Channel.of(tuple(
+                    [ id:'test_predict' ],
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/image-train-predict-n2v/predict.tif", checkIfExists: true)
+                ))
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

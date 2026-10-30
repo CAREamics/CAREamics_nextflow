@@ -1,0 +1,149 @@
+{
+    "stub - tiff - CARE supervised training with validation data": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_care",
+                            "model": "care"
+                        },
+                        "careamics.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_care",
+                            "model": "care",
+                            "replicate": "one"
+                        },
+                        [
+                            "best.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test_care",
+                            "model": "care",
+                            "replicate": "one"
+                        },
+                        "metrics.csv:md5,00d5b005a415038bdd051b7aebd1e561"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "test_care",
+                            "model": "care",
+                            "replicate": "one"
+                        },
+                        "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "4": [
+                    [
+                        {
+                            "id": "test_predict",
+                            "model_id": "test_care"
+                        },
+                        "test_predict_denoised.tiff:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "5": [
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:CAREAMICS_CONFIGCARE",
+                        "careamics",
+                        "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "careamics",
+                        "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ],
+                "careamics_config": [
+                    [
+                        {
+                            "id": "test_care",
+                            "model": "care"
+                        },
+                        "careamics.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "checkpoints": [
+                    [
+                        {
+                            "id": "test_care",
+                            "model": "care",
+                            "replicate": "one"
+                        },
+                        [
+                            "best.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "metrics": [
+                    [
+                        {
+                            "id": "test_care",
+                            "model": "care",
+                            "replicate": "one"
+                        },
+                        "metrics.csv:md5,00d5b005a415038bdd051b7aebd1e561"
+                    ]
+                ],
+                "model": [
+                    [
+                        {
+                            "id": "test_care",
+                            "model": "care",
+                            "replicate": "one"
+                        },
+                        "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "predictions": [
+                    [
+                        {
+                            "id": "test_predict",
+                            "model_id": "test_care"
+                        },
+                        "test_predict_denoised.tiff:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:CAREAMICS_CONFIGCARE",
+                        "careamics",
+                        "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "careamics",
+                        "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-10-30T17:10:37.289368527",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.4"
+        }
+    }
+}
