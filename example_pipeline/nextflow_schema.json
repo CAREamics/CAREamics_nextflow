@@ -161,7 +161,7 @@
         },
         "write_type": {
           "type": "string",
-          "enum": ["tiff", "zarr", "custom"]
+          "enum": ["tiff", "zarr"]
         }
       }
     }
