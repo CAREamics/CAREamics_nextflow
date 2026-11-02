@@ -109,6 +109,29 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y apptainer squashfuse
 
+      - name: Test Apptainer with Alpine
+        if: startsWith(matrix.profile, 'singularity')
+        shell: bash
+        run: |
+          echo "=== System information ==="
+          cat /etc/os-release
+          apptainer --version
+
+          echo "=== User namespace settings ==="
+          sysctl kernel.unprivileged_userns_clone || true
+          sysctl kernel.apparmor_restrict_unprivileged_userns || true
+
+          echo "=== Test unprivileged user namespaces ==="
+          if unshare -Ur true; then
+            echo "User namespace creation succeeded"
+          else
+            echo "User namespace creation failed"
+          fi
+
+          echo "=== Test Apptainer with Alpine ==="
+          apptainer exec docker://alpine:3.20 /bin/sh -c \
+            'echo "Hello from inside Alpine"; cat /etc/os-release'
+
       - name: Run module tests
         env:
           NFT_WORKDIR: ${{ runner.temp }}/nf-test
