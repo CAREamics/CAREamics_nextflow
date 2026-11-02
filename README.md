@@ -1,5 +1,11 @@
 # CAREamics Nextflow
 
+[![CI](https://github.com/CAREamics/CAREamics_nextflow/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/CAREamics/CAREamics_nextflow/actions/workflows/ci.yaml)
+[![nf-test](https://img.shields.io/badge/tested_with-nf--test-337ab7.svg)](https://github.com/askimed/nf-test)
+[![run with Conda](https://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/)
+[![run with Docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
+[![run with Singularity](https://img.shields.io/badge/run%20with-singularity-1d355c?labelColor=000000)](https://docs.sylabs.io/)
+
 Nextflow modules and subworkflows for training and running prediction with
 [CAREamics](https://careamics.github.io). Compatible with installation using `nf-core` tooling.
 

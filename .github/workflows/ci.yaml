@@ -1,0 +1,107 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NXF_ANSI_LOG: "false"
+  NXF_SYNTAX_PARSER: v2
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Nextflow
+        uses: nf-core/setup-nextflow@v2
+        with:
+          version: 25.10.4
+
+      - name: Run pre-commit hooks
+        uses: j178/prek-action@4e14d07f9231acabce116ccfca13b13dd9755ece # v3.0.0
+        with:
+          prek-version: 0.5.7
+
+  nf-test:
+    name: nf-test (Docker, full suite)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Nextflow
+        uses: nf-core/setup-nextflow@v2
+        with:
+          version: 25.10.4
+
+      - name: Set up nf-test
+        uses: nf-core/setup-nf-test@v1
+        with:
+          version: 0.9.5
+
+      - name: Run all tests
+        env:
+          NFT_WORKDIR: ${{ runner.temp }}/nf-test
+        run: nf-test test --ci --profile=docker
+
+  module-compatibility:
+    name: Modules (${{ matrix.profile }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        profile:
+          - conda
+          - singularity
+          - singularity_oras
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Nextflow
+        uses: nf-core/setup-nextflow@v2
+        with:
+          version: 25.10.4
+
+      - name: Set up nf-test
+        uses: nf-core/setup-nf-test@v1
+        with:
+          version: 0.9.5
+
+      - name: Set up Conda
+        if: matrix.profile == 'conda'
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-activate-base: true
+          miniforge-version: latest
+          use-mamba: true
+
+      - name: Set up Singularity
+        if: startsWith(matrix.profile, 'singularity')
+        uses: eWaterCycle/setup-singularity@v7
+        with:
+          singularity-version: 3.8.3
+
+      - name: Run module tests
+        env:
+          NFT_WORKDIR: ${{ runner.temp }}/nf-test
+          NXF_CONDA_CACHEDIR: ${{ runner.temp }}/conda
+          NXF_SINGULARITY_CACHEDIR: ${{ runner.temp }}/singularity
+        run: nf-test test modules/careamics --ci --profile="${{ matrix.profile }}"
