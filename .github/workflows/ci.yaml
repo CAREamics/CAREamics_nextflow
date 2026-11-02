@@ -102,6 +102,13 @@ jobs:
           miniforge-version: latest
           use-mamba: true
 
+      - name: Set up apptainer
+        if: startsWith(matrix.profile, 'singularity')
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y apptainer squashfuse
+
       - name: Configure Apptainer AppArmor profile
         if: startsWith(matrix.profile, 'singularity')
         shell: bash
@@ -135,13 +142,6 @@ jobs:
         run: |
           apptainer exec docker://alpine:3.20 \
             /bin/sh -c 'echo "Apptainer works!"'
-
-      - name: Set up apptainer
-        if: startsWith(matrix.profile, 'singularity')
-        shell: bash
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y apptainer squashfuse
 
       - name: Run module tests
         env:
