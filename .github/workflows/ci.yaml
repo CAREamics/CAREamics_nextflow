@@ -103,7 +103,7 @@ jobs:
           use-mamba: true
 
       - name: Set up apptainer
-        if: contains(inputs.profile, 'singularity')
+        if: startsWith(matrix.profile, 'singularity')
         shell: bash
         run: |
           sudo apt update
