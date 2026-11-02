@@ -102,46 +102,12 @@ jobs:
           miniforge-version: latest
           use-mamba: true
 
-      - name: Set up apptainer
+      - name: Set up Apptainer
         if: startsWith(matrix.profile, 'singularity')
-        shell: bash
         run: |
-          sudo apt-get update
-          sudo apt-get install -y apptainer squashfuse
-
-      - name: Configure Apptainer AppArmor profile
-        if: startsWith(matrix.profile, 'singularity')
-        shell: bash
-        run: |
-          echo "Checking Apptainer starter..."
-          ls -l /usr/libexec/apptainer/bin/starter
-
-          echo "Checking existing AppArmor profile..."
-          if [ -f /etc/apparmor.d/apptainer ]; then
-            cat /etc/apparmor.d/apptainer
-          else
-            echo "No existing Apptainer profile found."
-
-            sudo tee /etc/apparmor.d/apptainer > /dev/null <<'EOF'
-          abi <abi/4.0>,
-          include <tunables/global>
-
-          profile apptainer /usr/libexec/apptainer/bin/starter{,-suid} flags=(unconfined) {
-            userns,
-            include if exists <local/apptainer>
-          }
-          EOF
-          fi
-
-          echo "Loading AppArmor profile..."
-          sudo apparmor_parser -r /etc/apparmor.d/apptainer
-
-      - name: Verify Apptainer with Alpine
-        if: startsWith(matrix.profile, 'singularity')
-        shell: bash
-        run: |
-          apptainer exec docker://alpine:3.20 \
-            /bin/sh -c 'echo "Apptainer works!"'
+          curl -fL -o /tmp/apptainer.deb \
+            https://github.com/apptainer/apptainer/releases/download/v1.5.5/apptainer_1.5.5-trixie+_amd64.deb
+          sudo apt-get install -y /tmp/apptainer.deb
 
       - name: Run module tests
         env:
