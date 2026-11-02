@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 from typing import Any
 
-from careamics.config import create_n2n_config
+from careamics.config import create_advanced_n2n_config
 from careamics.config.support import SupportedData
 from careamics.config.utils.configuration_io import save_configuration
 
@@ -39,10 +39,11 @@ if __name__ == "__main__":
     parser.add_argument("--n_val_patches", type=int, default=None)
     parser.add_argument("--n_channels_in", type=int, default=None)
     parser.add_argument("--n_channels_out", type=int, default=None)
+    parser.add_argument("--seed", type=int, default=None)
 
     args = parser.parse_args()
 
-    config = create_n2n_config(
+    config = create_advanced_n2n_config(
         experiment_name=args.experiment_name,
         data_type=args.data_type.value,
         axes=args.axes,
@@ -56,6 +57,7 @@ if __name__ == "__main__":
                 "n_val_patches": args.n_val_patches,
                 "n_channels_in": args.n_channels_in,
                 "n_channels_out": args.n_channels_out,
+                "seed": args.seed,
             }
         ),
     )

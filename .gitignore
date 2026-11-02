@@ -14,6 +14,9 @@ testing*
 null/
 .lineage/
 
+# nf-test
+nf-test
+
 # vscode
 .vscode
 

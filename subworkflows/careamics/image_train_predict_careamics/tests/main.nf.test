@@ -1,0 +1,55 @@
+nextflow_workflow {
+
+    name "Test Subworkflow IMAGE_TRAIN_PREDICT_CAREAMICS"
+    script "../main.nf"
+    workflow "IMAGE_TRAIN_PREDICT_CAREAMICS"
+
+    tag "subworkflows"
+    tag "subworkflows_careamics"
+    tag "subworkflows/image_train_predict_careamics"
+    tag "careamics"
+    tag "careamics/train"
+    tag "careamics/predict"
+
+    test("stub - tiff - supervised training with validation data") {
+
+        options "-stub"
+
+        setup {
+            def testDir = new File(System.getProperty("java.io.tmpdir"), "careamics-nextflow-nf-test/image-train-predict")
+            testDir.mkdirs()
+            new File(testDir, "careamics.yaml").text = "stub"
+            new File(testDir, "train.tif").text = "stub"
+            new File(testDir, "train_target.tif").text = "stub"
+            new File(testDir, "val.tif").text = "stub"
+            new File(testDir, "val_target.tif").text = "stub"
+            new File(testDir, "predict.tif").text = "stub"
+        }
+
+        when {
+            workflow {
+                """
+                input[0] = Channel.of(tuple(
+                    [ id:'test_train' ],
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/image-train-predict/careamics.yaml", checkIfExists: true),
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/image-train-predict/train.tif", checkIfExists: true),
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/image-train-predict/train_target.tif", checkIfExists: true),
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/image-train-predict/val.tif", checkIfExists: true),
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/image-train-predict/val_target.tif", checkIfExists: true)
+                ))
+                input[1] = Channel.of(tuple(
+                    [ id:'test_predict' ],
+                    file("\${System.getProperty('java.io.tmpdir')}/careamics-nextflow-nf-test/image-train-predict/predict.tif", checkIfExists: true)
+                ))
+                """
+            }
+        }
+
+        then {
+            assertAll(
+                { assert workflow.success },
+                { assert snapshot(workflow.out).match() }
+            )
+        }
+    }
+}

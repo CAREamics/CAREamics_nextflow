@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from careamics import CAREamist
-from careamics.config import create_n2v_config
+from careamics.config import create_advanced_n2v_config
 from careamics.config.configuration import Configuration
 from careamics.config.support import SupportedData
 from careamics.config.utils.configuration_io import save_configuration
@@ -55,10 +55,11 @@ if __name__ == "__main__":
     parser.add_argument("--n_val_patches", type=int, default=None)
     parser.add_argument("--use_n2v2", action="store_true", default=None)
     parser.add_argument("--n_channels", type=int, default=None)
+    parser.add_argument("--seed", type=int, default=None)
 
     args = parser.parse_args()
 
-    config = create_n2v_config(
+    config = create_advanced_n2v_config(
         experiment_name=args.experiment_name,
         data_type=args.data_type.value,
         axes=args.axes,
@@ -72,6 +73,7 @@ if __name__ == "__main__":
                 "n_val_patches": args.n_val_patches,
                 "use_n2v2": args.use_n2v2,
                 "n_channels": args.n_channels,
+                "seed": args.seed,
             }
         ),
     )
