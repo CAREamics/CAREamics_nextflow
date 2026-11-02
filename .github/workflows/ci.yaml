@@ -1,0 +1,117 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NXF_ANSI_LOG: "false"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    env:
+      NXF_SYNTAX_PARSER: v2
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Nextflow
+        uses: nf-core/setup-nextflow@v2
+        with:
+          version: 25.10.4
+
+      - name: Run pre-commit hooks
+        uses: j178/prek-action@4e14d07f9231acabce116ccfca13b13dd9755ece # v3.0.0
+        with:
+          prek-version: 0.5.7
+
+  nf-test:
+    name: nf-test (Docker, full suite)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6
+        with:
+          distribution: "temurin"
+          java-version: "25"
+
+      - name: Setup Nextflow latest-edge
+        uses: nf-core/setup-nextflow@v2
+
+      - name: Install nf-test
+        run: |
+          wget -qO- https://get.nf-test.com | bash
+          sudo mv nf-test /usr/local/bin/
+
+      - name: Run all tests
+        env:
+          NFT_WORKDIR: ${{ runner.temp }}/nf-test
+        run: nf-test test --ci --profile=docker
+
+  module-compatibility:
+    name: Modules (${{ matrix.profile }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        profile:
+          - conda
+          - singularity
+          - singularity_oras
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6
+        with:
+          distribution: "temurin"
+          java-version: "25"
+
+      - name: Setup Nextflow latest-edge
+        uses: nf-core/setup-nextflow@v2
+
+      - name: Install nf-test
+        run: |
+          wget -qO- https://get.nf-test.com | bash
+          sudo mv nf-test /usr/local/bin/
+
+      - name: Set up Conda
+        if: matrix.profile == 'conda'
+        uses: conda-incubator/setup-miniconda@v3
+        with:
+          auto-activate-base: true
+          miniforge-version: latest
+          use-mamba: true
+
+      - name: Set up Apptainer
+        if: startsWith(matrix.profile, 'singularity')
+        run: |
+          curl -fL -o /tmp/apptainer.deb \
+            https://github.com/apptainer/apptainer/releases/download/v1.5.5/apptainer_1.5.5-trixie+_amd64.deb
+          sudo apt-get install -y /tmp/apptainer.deb
+
+      - name: Run module tests
+        env:
+          NFT_WORKDIR: ${{ runner.temp }}/nf-test
+          NXF_SINGULARITY_CACHEDIR: ${{ runner.temp }}/singularity
+          NXF_CONDA_CACHEDIR: ${{ runner.temp }}/conda
+        run: nf-test test modules/careamics --ci --profile="${{ matrix.profile }}"
