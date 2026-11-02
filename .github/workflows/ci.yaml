@@ -102,11 +102,15 @@ jobs:
           miniforge-version: latest
           use-mamba: true
 
-      - name: Set up Singularity
-        if: startsWith(matrix.profile, 'singularity')
-        uses: eWaterCycle/setup-singularity@v7
-        with:
-          singularity-version: 3.8.3
+      - name: Set up apptainer
+        if: contains(inputs.profile, 'singularity')
+        shell: bash
+        run: |
+          sudo apt update
+          sudo apt install -y software-properties-common
+          sudo add-apt-repository -y ppa:apptainer/ppa
+          sudo apt update
+          sudo apt install -y apptainer apptainer-suid
 
       - name: Run module tests
         env:
