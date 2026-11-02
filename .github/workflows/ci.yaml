@@ -68,8 +68,8 @@ jobs:
       matrix:
         profile:
           - conda
-          - singularity
-          - singularity_oras
+          - apptainer
+          - apptainer_oras
 
     steps:
       - name: Check out repository
@@ -93,15 +93,15 @@ jobs:
           miniforge-version: latest
           use-mamba: true
 
-      - name: Set up Singularity
-        if: startsWith(matrix.profile, 'singularity')
-        uses: eWaterCycle/setup-singularity@v7
+      - name: Set up Apptainer
+        if: startsWith(matrix.profile, 'apptainer')
+        uses: eWaterCycle/setup-apptainer@v2
         with:
-          singularity-version: 3.8.3
+          apptainer-version: 1.5.4
 
       - name: Run module tests
         env:
           NFT_WORKDIR: ${{ runner.temp }}/nf-test
+          NXF_APPTAINER_CACHEDIR: ${{ runner.temp }}/apptainer
           NXF_CONDA_CACHEDIR: ${{ runner.temp }}/conda
-          NXF_SINGULARITY_CACHEDIR: ${{ runner.temp }}/singularity
         run: nf-test test modules/careamics --ci --profile="${{ matrix.profile }}"

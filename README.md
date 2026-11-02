@@ -5,6 +5,7 @@
 [![run with Conda](https://img.shields.io/badge/run%20with-conda-3EB049?labelColor=000000&logo=anaconda)](https://docs.conda.io/)
 [![run with Docker](https://img.shields.io/badge/run%20with-docker-0db7ed?labelColor=000000&logo=docker)](https://www.docker.com/)
 [![run with Singularity](https://img.shields.io/badge/run%20with-singularity-1d355c?labelColor=000000)](https://docs.sylabs.io/)
+[![run with Apptainer](https://img.shields.io/badge/run%20with-apptainer-1a65a5?labelColor=000000)](https://apptainer.org/)
 
 Nextflow modules and subworkflows for training and running prediction with
 [CAREamics](https://careamics.github.io). Compatible with installation using `nf-core` tooling.
