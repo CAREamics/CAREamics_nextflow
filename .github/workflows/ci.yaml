@@ -16,12 +16,13 @@ permissions:
 
 env:
   NXF_ANSI_LOG: "false"
-  NXF_SYNTAX_PARSER: v2
 
 jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    env:
+      NXF_SYNTAX_PARSER: v2
 
     steps:
       - name: Check out repository
@@ -42,18 +43,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Nextflow
-        uses: nf-core/setup-nextflow@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
         with:
-          version: 25.10.4
+          java-version: "11"
+          distribution: "adopt"
 
-      - name: Set up nf-test
-        uses: nf-core/setup-nf-test@v1
+      - name: Setup Nextflow latest-edge
+        uses: nf-core/setup-nextflow@v1
         with:
-          version: 0.9.5
+          version: "latest-edge"
+
+      - name: Install nf-test
+        run: |
+          wget -qO- https://get.nf-test.com | bash
+          sudo mv nf-test /usr/local/bin/
 
       - name: Run all tests
         env:
@@ -68,22 +75,28 @@ jobs:
       matrix:
         profile:
           - conda
-          - apptainer
-          - apptainer_oras
+          - singularity
+          - singularity_oras
 
     steps:
-      - name: Check out repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Nextflow
-        uses: nf-core/setup-nextflow@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
         with:
-          version: 25.10.4
+          java-version: "11"
+          distribution: "adopt"
 
-      - name: Set up nf-test
-        uses: nf-core/setup-nf-test@v1
+      - name: Setup Nextflow latest-edge
+        uses: nf-core/setup-nextflow@v1
         with:
-          version: 0.9.5
+          version: "latest-edge"
+
+      - name: Install nf-test
+        run: |
+          wget -qO- https://get.nf-test.com | bash
+          sudo mv nf-test /usr/local/bin/
 
       - name: Set up Conda
         if: matrix.profile == 'conda'
@@ -93,15 +106,15 @@ jobs:
           miniforge-version: latest
           use-mamba: true
 
-      - name: Set up Apptainer
-        if: startsWith(matrix.profile, 'apptainer')
-        uses: eWaterCycle/setup-apptainer@v2
+      - name: Set up Singularity
+        if: startsWith(matrix.profile, 'singularity')
+        uses: eWaterCycle/setup-singularity@v7
         with:
-          apptainer-version: 1.5.4
+          singularity-version: 3.8.3
 
       - name: Run module tests
         env:
           NFT_WORKDIR: ${{ runner.temp }}/nf-test
-          NXF_APPTAINER_CACHEDIR: ${{ runner.temp }}/apptainer
+          NXF_SINGULARITY_CACHEDIR: ${{ runner.temp }}/singularity
           NXF_CONDA_CACHEDIR: ${{ runner.temp }}/conda
         run: nf-test test modules/careamics --ci --profile="${{ matrix.profile }}"
