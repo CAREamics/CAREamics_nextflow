@@ -8,28 +8,28 @@
                             "id": "test_careamics_configcare",
                             "model": "care"
                         },
-                        "careamics.yaml:md5,248092a6d4c6576632646d9c2207202e"
+                        "careamics.yaml:md5,88cc275b17add636994e9571f4fefcb1"
                     ]
                 ],
                 "1": [
                     [
                         "CAREAMICS_CONFIGCARE",
                         "careamics",
-                        "0.3.6.dev30+gabede2c0d"
+                        "0.3.5"
                     ]
                 ],
                 "2": [
                     [
                         "CAREAMICS_CONFIGCARE",
                         "torch",
-                        "2.9.1+cu128"
+                        "2.7.1+cu118"
                     ]
                 ],
                 "3": [
                     [
                         "CAREAMICS_CONFIGCARE",
                         "python",
-                        "3.13.5"
+                        "3.11.13"
                     ]
                 ],
                 "careamics_config": [
@@ -38,33 +38,33 @@
                             "id": "test_careamics_configcare",
                             "model": "care"
                         },
-                        "careamics.yaml:md5,248092a6d4c6576632646d9c2207202e"
+                        "careamics.yaml:md5,88cc275b17add636994e9571f4fefcb1"
                     ]
                 ],
                 "versions_careamics": [
                     [
                         "CAREAMICS_CONFIGCARE",
                         "careamics",
-                        "0.3.6.dev30+gabede2c0d"
+                        "0.3.5"
                     ]
                 ],
                 "versions_python": [
                     [
                         "CAREAMICS_CONFIGCARE",
                         "python",
-                        "3.13.5"
+                        "3.11.13"
                     ]
                 ],
                 "versions_torch": [
                     [
                         "CAREAMICS_CONFIGCARE",
                         "torch",
-                        "2.9.1+cu128"
+                        "2.7.1+cu118"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-11-05T15:09:31.67436628",
+        "timestamp": "2026-11-05T15:58:23.877367766",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -86,21 +86,21 @@
                     [
                         "CAREAMICS_CONFIGCARE",
                         "careamics",
-                        "0.3.6.dev30+gabede2c0d"
+                        "0.3.5"
                     ]
                 ],
                 "2": [
                     [
                         "CAREAMICS_CONFIGCARE",
                         "torch",
-                        "2.9.1+cu128"
+                        "2.7.1+cu118"
                     ]
                 ],
                 "3": [
                     [
                         "CAREAMICS_CONFIGCARE",
                         "python",
-                        "3.13.5"
+                        "3.11.13"
                     ]
                 ],
                 "careamics_config": [
@@ -116,26 +116,26 @@
                     [
                         "CAREAMICS_CONFIGCARE",
                         "careamics",
-                        "0.3.6.dev30+gabede2c0d"
+                        "0.3.5"
                     ]
                 ],
                 "versions_python": [
                     [
                         "CAREAMICS_CONFIGCARE",
                         "python",
-                        "3.13.5"
+                        "3.11.13"
                     ]
                 ],
                 "versions_torch": [
                     [
                         "CAREAMICS_CONFIGCARE",
                         "torch",
-                        "2.9.1+cu128"
+                        "2.7.1+cu118"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-11-05T15:10:01.115108003",
+        "timestamp": "2026-11-05T15:59:07.643121038",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"

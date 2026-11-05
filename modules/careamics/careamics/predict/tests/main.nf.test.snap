@@ -14,21 +14,21 @@
                     [
                         "CAREAMICS_PREDICT",
                         "careamics",
-                        "0.3.6.dev30+gabede2c0d"
+                        "0.3.5"
                     ]
                 ],
                 "2": [
                     [
                         "CAREAMICS_PREDICT",
                         "torch",
-                        "2.9.1+cu128"
+                        "2.7.1+cu118"
                     ]
                 ],
                 "3": [
                     [
                         "CAREAMICS_PREDICT",
                         "python",
-                        "3.13.5"
+                        "3.11.13"
                     ]
                 ],
                 "predictions": [
@@ -43,26 +43,26 @@
                     [
                         "CAREAMICS_PREDICT",
                         "careamics",
-                        "0.3.6.dev30+gabede2c0d"
+                        "0.3.5"
                     ]
                 ],
                 "versions_python": [
                     [
                         "CAREAMICS_PREDICT",
                         "python",
-                        "3.13.5"
+                        "3.11.13"
                     ]
                 ],
                 "versions_torch": [
                     [
                         "CAREAMICS_PREDICT",
                         "torch",
-                        "2.9.1+cu128"
+                        "2.7.1+cu118"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-11-05T15:13:08.375743688",
+        "timestamp": "2026-11-05T16:01:49.882497889",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"

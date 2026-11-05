@@ -42,32 +42,32 @@
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "careamics",
-                        "0.3.6.dev30+gabede2c0d"
+                        "0.3.5"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "python",
-                        "3.13.5"
+                        "3.11.13"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "torch",
-                        "2.9.1+cu128"
+                        "2.7.1+cu118"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "careamics",
-                        "0.3.6.dev30+gabede2c0d"
+                        "0.3.5"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "python",
-                        "3.13.5"
+                        "3.11.13"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "torch",
-                        "2.9.1+cu128"
+                        "2.7.1+cu118"
                     ]
                 ],
                 "checkpoints": [
@@ -110,37 +110,37 @@
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "careamics",
-                        "0.3.6.dev30+gabede2c0d"
+                        "0.3.5"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "python",
-                        "3.13.5"
+                        "3.11.13"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "torch",
-                        "2.9.1+cu128"
+                        "2.7.1+cu118"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "careamics",
-                        "0.3.6.dev30+gabede2c0d"
+                        "0.3.5"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "python",
-                        "3.13.5"
+                        "3.11.13"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "torch",
-                        "2.9.1+cu128"
+                        "2.7.1+cu118"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-11-05T15:16:07.792777838",
+        "timestamp": "2026-11-05T16:23:13.633686658",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
