@@ -221,7 +221,7 @@
                             "id": "test_careamics_configcare",
                             "model": "care"
                         },
-                        "careamics.yaml:md5,248092a6d4c6576632646d9c2207202e"
+                        "careamics.yaml:md5,88cc275b17add636994e9571f4fefcb1"
                     ]
                 ],
                 "1": [
@@ -251,7 +251,7 @@
                             "id": "test_careamics_configcare",
                             "model": "care"
                         },
-                        "careamics.yaml:md5,248092a6d4c6576632646d9c2207202e"
+                        "careamics.yaml:md5,88cc275b17add636994e9571f4fefcb1"
                     ]
                 ],
                 "versions_careamics": [
@@ -277,7 +277,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T20:03:39.41712492",
+        "timestamp": "2026-11-05T23:54:53.14563102",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"

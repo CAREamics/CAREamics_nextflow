@@ -421,7 +421,7 @@
                         "id": "test_n2v_real",
                         "model": "n2v"
                     },
-                    "careamics.yaml:md5,6bade8ab86741159dd866364f45149d4"
+                    "careamics.yaml:md5,46f316a7d31b54224ea7e06d680084e3"
                 ]
             ],
             [
@@ -479,7 +479,7 @@
                 [
                     "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:CAREAMICS_CONFIGN2V",
                     "torch",
-                    "2.7.1"
+                    "2.7.1+cu118"
                 ],
                 [
                     "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
@@ -494,7 +494,7 @@
                 [
                     "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                     "torch",
-                    "2.7.1"
+                    "2.7.1+cu118"
                 ],
                 [
                     "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
@@ -509,11 +509,11 @@
                 [
                     "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                     "torch",
-                    "2.7.1"
+                    "2.7.1+cu118"
                 ]
             ]
         ],
-        "timestamp": "2026-11-05T22:37:46.268977705",
+        "timestamp": "2026-11-06T00:10:22.427816968",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
