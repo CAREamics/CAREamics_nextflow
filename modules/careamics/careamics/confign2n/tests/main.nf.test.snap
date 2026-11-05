@@ -8,14 +8,28 @@
                             "id": "test_careamics_confign2n",
                             "model": "n2n"
                         },
-                        "careamics.yaml:md5,d94692b3e2b976f4e48118a7f4d512ef"
+                        "careamics.yaml:md5,37faa93e8e47ee2da25f95429d8d09bf"
                     ]
                 ],
                 "1": [
                     [
                         "CAREAMICS_CONFIGN2N",
                         "careamics",
-                        "0.3.5"
+                        "0.3.6.dev30+gabede2c0d"
+                    ]
+                ],
+                "2": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
+                        "torch",
+                        "2.9.1+cu128"
+                    ]
+                ],
+                "3": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
+                        "python",
+                        "3.13.5"
                     ]
                 ],
                 "careamics_config": [
@@ -24,19 +38,33 @@
                             "id": "test_careamics_confign2n",
                             "model": "n2n"
                         },
-                        "careamics.yaml:md5,d94692b3e2b976f4e48118a7f4d512ef"
+                        "careamics.yaml:md5,37faa93e8e47ee2da25f95429d8d09bf"
                     ]
                 ],
                 "versions_careamics": [
                     [
                         "CAREAMICS_CONFIGN2N",
                         "careamics",
-                        "0.3.5"
+                        "0.3.6.dev30+gabede2c0d"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
+                        "python",
+                        "3.13.5"
+                    ]
+                ],
+                "versions_torch": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
+                        "torch",
+                        "2.9.1+cu128"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-10-30T18:23:59.549993947",
+        "timestamp": "2026-11-05T15:10:51.838967276",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -58,7 +86,21 @@
                     [
                         "CAREAMICS_CONFIGN2N",
                         "careamics",
-                        "0.3.5"
+                        "0.3.6.dev30+gabede2c0d"
+                    ]
+                ],
+                "2": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
+                        "torch",
+                        "2.9.1+cu128"
+                    ]
+                ],
+                "3": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
+                        "python",
+                        "3.13.5"
                     ]
                 ],
                 "careamics_config": [
@@ -74,12 +116,26 @@
                     [
                         "CAREAMICS_CONFIGN2N",
                         "careamics",
-                        "0.3.5"
+                        "0.3.6.dev30+gabede2c0d"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
+                        "python",
+                        "3.13.5"
+                    ]
+                ],
+                "versions_torch": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
+                        "torch",
+                        "2.9.1+cu128"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-10-30T18:24:15.687296203",
+        "timestamp": "2026-11-05T15:11:21.018446112",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
