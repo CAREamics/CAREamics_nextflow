@@ -67,7 +67,7 @@
                     [
                         "IMAGE_TRAIN_PREDICT_N2N_CAREAMICS:CAREAMICS_CONFIGN2N",
                         "torch",
-                        "2.7.1"
+                        "2.7.1+cu118"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_N2N_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
@@ -82,7 +82,7 @@
                     [
                         "IMAGE_TRAIN_PREDICT_N2N_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "torch",
-                        "2.7.1"
+                        "2.7.1+cu118"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_N2N_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
@@ -97,7 +97,7 @@
                     [
                         "IMAGE_TRAIN_PREDICT_N2N_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "torch",
-                        "2.7.1"
+                        "2.7.1+cu118"
                     ]
                 ],
                 "careamics_config": [
@@ -165,7 +165,7 @@
                     [
                         "IMAGE_TRAIN_PREDICT_N2N_CAREAMICS:CAREAMICS_CONFIGN2N",
                         "torch",
-                        "2.7.1"
+                        "2.7.1+cu118"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_N2N_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
@@ -180,7 +180,7 @@
                     [
                         "IMAGE_TRAIN_PREDICT_N2N_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "torch",
-                        "2.7.1"
+                        "2.7.1+cu118"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_N2N_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
@@ -195,12 +195,12 @@
                     [
                         "IMAGE_TRAIN_PREDICT_N2N_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "torch",
-                        "2.7.1"
+                        "2.7.1+cu118"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-11-05T20:07:22.547616749",
+        "timestamp": "2026-11-05T20:14:02.340674857",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
