@@ -6,4 +6,5 @@ channels:
   - defaults
 dependencies:
   - careamics=0.3.5
-  - python=3.11
+  - pytorch=2.7
+  - python=3.11.13

@@ -67,5 +67,74 @@
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
         }
+    },
+    "stub with runtime test data (conda)": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_predict_stub"
+                        },
+                        "test_predict_stub_denoised.tiff:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        "CAREAMICS_PREDICT",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ],
+                "2": [
+                    [
+                        "CAREAMICS_PREDICT",
+                        "torch",
+                        "2.7.1"
+                    ]
+                ],
+                "3": [
+                    [
+                        "CAREAMICS_PREDICT",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
+                "predictions": [
+                    [
+                        {
+                            "id": "test_predict_stub"
+                        },
+                        "test_predict_stub_denoised.tiff:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_careamics": [
+                    [
+                        "CAREAMICS_PREDICT",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "CAREAMICS_PREDICT",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
+                "versions_torch": [
+                    [
+                        "CAREAMICS_PREDICT",
+                        "torch",
+                        "2.7.1"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-11-05T20:05:21.921120299",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.4"
+        }
     }
 }

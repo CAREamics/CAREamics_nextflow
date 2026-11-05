@@ -70,6 +70,77 @@
             "nextflow": "26.10.4"
         }
     },
+    "stub careamics_confign2v (conda)": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_careamics_confign2v",
+                            "model": "n2v"
+                        },
+                        "careamics.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        "CAREAMICS_CONFIGN2V",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ],
+                "2": [
+                    [
+                        "CAREAMICS_CONFIGN2V",
+                        "torch",
+                        "2.7.1"
+                    ]
+                ],
+                "3": [
+                    [
+                        "CAREAMICS_CONFIGN2V",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
+                "careamics_config": [
+                    [
+                        {
+                            "id": "test_careamics_confign2v",
+                            "model": "n2v"
+                        },
+                        "careamics.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions_careamics": [
+                    [
+                        "CAREAMICS_CONFIGN2V",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "CAREAMICS_CONFIGN2V",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
+                "versions_torch": [
+                    [
+                        "CAREAMICS_CONFIGN2V",
+                        "torch",
+                        "2.7.1"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-11-05T20:05:07.57199864",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.4"
+        }
+    },
     "stub careamics_confign2v": {
         "content": [
             {
@@ -136,6 +207,77 @@
             }
         ],
         "timestamp": "2026-11-05T16:01:19.210412314",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.4"
+        }
+    },
+    "careamics_confign2v (conda)": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_careamics_confign2v",
+                            "model": "n2v"
+                        },
+                        "careamics.yaml:md5,baaa78c702443da63eca79004cb3e913"
+                    ]
+                ],
+                "1": [
+                    [
+                        "CAREAMICS_CONFIGN2V",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ],
+                "2": [
+                    [
+                        "CAREAMICS_CONFIGN2V",
+                        "torch",
+                        "2.7.1"
+                    ]
+                ],
+                "3": [
+                    [
+                        "CAREAMICS_CONFIGN2V",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
+                "careamics_config": [
+                    [
+                        {
+                            "id": "test_careamics_confign2v",
+                            "model": "n2v"
+                        },
+                        "careamics.yaml:md5,baaa78c702443da63eca79004cb3e913"
+                    ]
+                ],
+                "versions_careamics": [
+                    [
+                        "CAREAMICS_CONFIGN2V",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "CAREAMICS_CONFIGN2V",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
+                "versions_torch": [
+                    [
+                        "CAREAMICS_CONFIGN2V",
+                        "torch",
+                        "2.7.1"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-11-05T20:04:52.702633428",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"

@@ -52,7 +52,7 @@
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "torch",
-                        "2.7.1+cu118"
+                        "2.7.1"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
@@ -67,7 +67,7 @@
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "torch",
-                        "2.7.1+cu118"
+                        "2.7.1"
                     ]
                 ],
                 "checkpoints": [
@@ -120,7 +120,7 @@
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "torch",
-                        "2.7.1+cu118"
+                        "2.7.1"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
@@ -135,12 +135,12 @@
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "torch",
-                        "2.7.1+cu118"
+                        "2.7.1"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-11-05T16:23:13.633686658",
+        "timestamp": "2026-11-05T20:06:48.81226092",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
