@@ -1,4 +1,211 @@
 {
+    "stub - tiff - N2V self-supervised training with validation data (conda)": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_n2v",
+                            "model": "n2v"
+                        },
+                        "careamics.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_n2v",
+                            "model": "n2v",
+                            "replicate": "one"
+                        },
+                        [
+                            "best.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "2": [
+                    [
+                        {
+                            "id": "test_n2v",
+                            "model": "n2v",
+                            "replicate": "one"
+                        },
+                        "metrics.csv:md5,00d5b005a415038bdd051b7aebd1e561"
+                    ]
+                ],
+                "3": [
+                    [
+                        {
+                            "id": "test_n2v",
+                            "model": "n2v",
+                            "replicate": "one"
+                        },
+                        "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "4": [
+                    [
+                        {
+                            "id": "test_predict",
+                            "model_id": "test_n2v"
+                        },
+                        "test_predict_denoised.tiff:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "5": [
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:CAREAMICS_CONFIGN2V",
+                        "careamics",
+                        "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:CAREAMICS_CONFIGN2V",
+                        "python",
+                        "3.11.13"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:CAREAMICS_CONFIGN2V",
+                        "torch",
+                        "2.7.1"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "careamics",
+                        "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "python",
+                        "3.11.13"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "torch",
+                        "2.7.1"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "careamics",
+                        "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "python",
+                        "3.11.13"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "torch",
+                        "2.7.1"
+                    ]
+                ],
+                "careamics_config": [
+                    [
+                        {
+                            "id": "test_n2v",
+                            "model": "n2v"
+                        },
+                        "careamics.yaml:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "checkpoints": [
+                    [
+                        {
+                            "id": "test_n2v",
+                            "model": "n2v",
+                            "replicate": "one"
+                        },
+                        [
+                            "best.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ]
+                    ]
+                ],
+                "metrics": [
+                    [
+                        {
+                            "id": "test_n2v",
+                            "model": "n2v",
+                            "replicate": "one"
+                        },
+                        "metrics.csv:md5,00d5b005a415038bdd051b7aebd1e561"
+                    ]
+                ],
+                "model": [
+                    [
+                        {
+                            "id": "test_n2v",
+                            "model": "n2v",
+                            "replicate": "one"
+                        },
+                        "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "predictions": [
+                    [
+                        {
+                            "id": "test_predict",
+                            "model_id": "test_n2v"
+                        },
+                        "test_predict_denoised.tiff:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "versions": [
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:CAREAMICS_CONFIGN2V",
+                        "careamics",
+                        "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:CAREAMICS_CONFIGN2V",
+                        "python",
+                        "3.11.13"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:CAREAMICS_CONFIGN2V",
+                        "torch",
+                        "2.7.1"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "careamics",
+                        "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "python",
+                        "3.11.13"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "torch",
+                        "2.7.1"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "careamics",
+                        "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "python",
+                        "3.11.13"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "torch",
+                        "2.7.1"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-11-05T22:43:43.110692635",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.4"
+        }
+    },
     "stub - tiff - N2V self-supervised training with validation data": {
         "content": [
             {
@@ -214,7 +421,7 @@
                         "id": "test_n2v_real",
                         "model": "n2v"
                     },
-                    "careamics.yaml:md5,46f316a7d31b54224ea7e06d680084e3"
+                    "careamics.yaml:md5,6bade8ab86741159dd866364f45149d4"
                 ]
             ],
             [
@@ -272,7 +479,7 @@
                 [
                     "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:CAREAMICS_CONFIGN2V",
                     "torch",
-                    "2.7.1+cu118"
+                    "2.7.1"
                 ],
                 [
                     "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
@@ -287,7 +494,7 @@
                 [
                     "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                     "torch",
-                    "2.7.1+cu118"
+                    "2.7.1"
                 ],
                 [
                     "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
@@ -302,11 +509,11 @@
                 [
                     "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                     "torch",
-                    "2.7.1+cu118"
+                    "2.7.1"
                 ]
             ]
         ],
-        "timestamp": "2026-11-05T20:15:14.803219807",
+        "timestamp": "2026-11-05T22:37:46.268977705",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
