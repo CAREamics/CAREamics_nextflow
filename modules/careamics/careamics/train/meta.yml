@@ -74,6 +74,27 @@ output:
       - python -c "import careamics; print(careamics.__version__)":
           type: eval
           description: The expression to obtain the version of CAREamics
+  versions_torch:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - torch:
+          type: string
+          description: The name of the tool
+      - python -c "import torch; print(torch.__version__)":
+          type: eval
+          description: The expression to obtain the version of PyTorch
+  versions_python:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - python:
+          type: string
+          description: The name of the tool
+      - python -c "import platform; print(platform.python_version())":
+          type: eval
+          description: The expression to obtain the version of Python
+
 topics:
   versions:
     - - ${task.process}:
@@ -85,6 +106,25 @@ topics:
       - python -c "import careamics; print(careamics.__version__)":
           type: eval
           description: The expression to obtain the version of CAREamics
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - torch:
+          type: string
+          description: The name of the tool
+      - python -c "import torch; print(torch.__version__)":
+          type: eval
+          description: The expression to obtain the version of PyTorch
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - python:
+          type: string
+          description: The name of the tool
+      - python -c "import platform; print(platform.python_version())":
+          type: eval
+          description: The expression to obtain the version of Python
+
 authors:
   - "@tatianawoller"
   - "@melisande-c"

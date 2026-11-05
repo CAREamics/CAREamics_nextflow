@@ -39,6 +39,8 @@ nextflow_process {
                 { assert process.success },
                 { assert process.out.predictions.size() == 1 },
                 { assert process.out.versions_careamics.size() == 1 },
+                { assert process.out.versions_torch.size() == 1 },
+                { assert process.out.versions_python.size() == 1 },
                 { assert process.out.predictions[0][0] == [ id:'test_predict_stub' ] },
                 { assert path(process.out.predictions[0][1]).getFileName().toString() == "test_predict_stub_denoised.tiff" },
                 { assert path(process.out.predictions[0][1]).exists() },

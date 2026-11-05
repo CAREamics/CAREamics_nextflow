@@ -21,6 +21,8 @@ process CAREAMICS_TRAIN {
     tuple val(meta), path("checkpoints/*/*.ckpt", arity: '1..*'), path("checkpoints/*/checkpoint_record.json", arity: '1'), emit: model
     tuple val(meta), path("csv_logs/*/version_*/metrics.csv", arity: '1'), emit: metrics
     tuple val("${task.process}"), val('careamics'), eval('python -c "import careamics; print(careamics.__version__)"'), emit: versions_careamics, topic: versions
+    tuple val("${task.process}"), val('torch'), eval('python -c "import torch; print(torch.__version__)"'), emit: versions_torch, topic: versions
+    tuple val("${task.process}"), val('python'), eval('python -c "import platform; print(platform.python_version())"'), emit: versions_python, topic: versions
 
     when:
     task.ext.when == null || task.ext.when

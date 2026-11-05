@@ -25,5 +25,8 @@ workflow IMAGE_TRAIN_PREDICT_N2V_CAREAMICS {
     metrics          = IMAGE_TRAIN_PREDICT_CAREAMICS.out.metrics // [ val(meta), path(metrics.csv) ]
     model            = IMAGE_TRAIN_PREDICT_CAREAMICS.out.model // [ val(meta), path(model) ]
     predictions      = IMAGE_TRAIN_PREDICT_CAREAMICS.out.predictions // [ val(meta), path(predictions) ]
-    versions         = CAREAMICS_CONFIGN2V.out.versions_careamics.mix(IMAGE_TRAIN_PREDICT_CAREAMICS.out.versions) // [ val(process), val(tool), val(version) ]
+    versions         = CAREAMICS_CONFIGN2V.out.versions_careamics
+        .mix(CAREAMICS_CONFIGN2V.out.versions_torch)
+        .mix(CAREAMICS_CONFIGN2V.out.versions_python)
+        .mix(IMAGE_TRAIN_PREDICT_CAREAMICS.out.versions) // [ val(process), val(tool), val(version) ]
 }

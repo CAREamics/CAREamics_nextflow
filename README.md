@@ -63,7 +63,7 @@ Lower-level config and training modules are also available for custom workflows:
 
 ## Subworkflows
 
-All subworkflows emit `checkpoints`, containing every trained checkpoint; `model`, containing only the checkpoint selected for prediction; and `metrics`, containing the CSV log of training and validation losses and additional metrics. They also emit `versions`, a channel containing process, tool, and version strings from the processes they run. CAREamics config processes use the `process_single` label, while train and predict processes use the `process_medium` label.
+All subworkflows emit `checkpoints`, containing every trained checkpoint; `model`, containing only the checkpoint selected for prediction; and `metrics`, containing the CSV log of training and validation losses and additional metrics. They also emit `versions`, a channel containing CAREamics, PyTorch, and Python version tuples from every process they run. CAREamics config processes use the `process_single` label, while train and predict processes use the `process_medium` label.
 
 ### `image_train_predict_n2v_careamics`
 
