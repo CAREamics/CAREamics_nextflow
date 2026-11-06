@@ -473,7 +473,7 @@
             "nextflow": "26.10.4"
         }
     },
-    "tiff - N2V trains and predicts on nf-core test data": {
+    "tiff - N2V trains and predicts on nf-core test data (conda)": {
         "content": [
             [
                 [
@@ -588,7 +588,128 @@
                 ]
             ]
         ],
-        "timestamp": "2026-11-06T13:51:49.762405334",
+        "timestamp": "2026-11-06T14:06:50.364417987",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.4"
+        }
+    },
+    "tiff - N2V trains and predicts on nf-core test data": {
+        "content": [
+            [
+                [
+                    {
+                        "id": "test_n2v_real",
+                        "model": "n2v"
+                    },
+                    "careamics.yaml:md5,46f316a7d31b54224ea7e06d680084e3"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test_n2v_real",
+                        "model": "n2v",
+                        "replicate": "one"
+                    },
+                    [
+                        "test_n2v_real_last.ckpt"
+                    ]
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test_n2v_real",
+                        "model": "n2v",
+                        "replicate": "one"
+                    },
+                    "metrics.csv"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test_n2v_real",
+                        "model": "n2v",
+                        "replicate": "one"
+                    },
+                    "test_n2v_real_last.ckpt"
+                ]
+            ],
+            [
+                [
+                    {
+                        "id": "test_predict_real",
+                        "model_id": "test_n2v_real"
+                    },
+                    "mindagap.mouse_heart.wga.tiff"
+                ]
+            ],
+            [
+                [
+                    "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:CAREAMICS_CONFIGN2V",
+                    "careamics",
+                    "0.3.5"
+                ],
+                [
+                    "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:CAREAMICS_CONFIGN2V",
+                    "cuda",
+                    "11.8"
+                ],
+                [
+                    "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:CAREAMICS_CONFIGN2V",
+                    "python",
+                    "3.11.13"
+                ],
+                [
+                    "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:CAREAMICS_CONFIGN2V",
+                    "torch",
+                    "2.7.1+cu118"
+                ],
+                [
+                    "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                    "careamics",
+                    "0.3.5"
+                ],
+                [
+                    "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                    "cuda",
+                    "11.8"
+                ],
+                [
+                    "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                    "python",
+                    "3.11.13"
+                ],
+                [
+                    "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                    "torch",
+                    "2.7.1+cu118"
+                ],
+                [
+                    "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                    "careamics",
+                    "0.3.5"
+                ],
+                [
+                    "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                    "cuda",
+                    "11.8"
+                ],
+                [
+                    "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                    "python",
+                    "3.11.13"
+                ],
+                [
+                    "IMAGE_TRAIN_PREDICT_N2V_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                    "torch",
+                    "2.7.1+cu118"
+                ]
+            ]
+        ],
+        "timestamp": "2026-11-06T14:10:31.890743197",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"

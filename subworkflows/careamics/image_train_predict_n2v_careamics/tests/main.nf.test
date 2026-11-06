@@ -78,7 +78,7 @@ nextflow_workflow {
                     workflow.out.model.collect { meta, file -> [meta, path(file).getFileName().toString()] },
                     workflow.out.predictions.collect { meta, file -> [meta, path(file).getFileName().toString()] },
                     workflow.out.versions
-                ).match() }
+                ).match(test.parent.profiles.contains('conda') ? "${test.name} (conda)" : test.name) }
             )
         }
     }
