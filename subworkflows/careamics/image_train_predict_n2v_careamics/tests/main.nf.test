@@ -78,7 +78,11 @@ nextflow_workflow {
                     workflow.out.model.collect { meta, file -> [meta, path(file).getFileName().toString()] },
                     workflow.out.predictions.collect { meta, file -> [meta, path(file).getFileName().toString()] },
                     workflow.out.versions
-                ).match(test.parent.profiles.contains('conda') ? "${test.name} (conda)" : test.name) }
+                ).match(
+                    test.parent.profiles.any { it in ['conda', '+conda'] }
+                        ? "${test.name} (conda)"
+                        : test.name
+                ) }
             )
         }
     }
@@ -126,7 +130,11 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match(test.parent.profiles.contains('conda') ? "${test.name} (conda)" : test.name) },
+                { assert snapshot(workflow.out).match(
+                    test.parent.profiles.any { it in ['conda', '+conda'] }
+                        ? "${test.name} (conda)"
+                        : test.name
+                ) },
             )
         }
     }
