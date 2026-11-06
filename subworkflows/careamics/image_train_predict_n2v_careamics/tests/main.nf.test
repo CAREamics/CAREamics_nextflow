@@ -57,7 +57,7 @@ nextflow_workflow {
                 { assert workflow.out.metrics.size() == 1 },
                 { assert workflow.out.model.size() == 1 },
                 { assert workflow.out.predictions.size() == 1 },
-                { assert workflow.out.versions.size() == 3 },
+                { assert workflow.out.versions.size() == 12 },
                 { assert workflow.out.careamics_config[0][0] == [ id:'test_n2v_real', model:'n2v' ] },
                 { assert workflow.out.checkpoints[0][0] == [ id:'test_n2v_real', model:'n2v', replicate:'one' ] },
                 { assert workflow.out.metrics[0][0] == [ id:'test_n2v_real', model:'n2v', replicate:'one' ] },
@@ -78,7 +78,7 @@ nextflow_workflow {
                     workflow.out.model.collect { meta, file -> [meta, path(file).getFileName().toString()] },
                     workflow.out.predictions.collect { meta, file -> [meta, path(file).getFileName().toString()] },
                     workflow.out.versions
-                ).match() }
+                ).match(test.parent.profiles.contains('conda') ? "${test.name} (conda)" : test.name) }
             )
         }
     }
@@ -126,7 +126,7 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(workflow.out).match() }
+                { assert snapshot(workflow.out).match(test.parent.profiles.contains('conda') ? "${test.name} (conda)" : test.name) },
             )
         }
     }

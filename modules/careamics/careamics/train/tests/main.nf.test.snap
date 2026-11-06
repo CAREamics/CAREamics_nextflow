@@ -29,6 +29,27 @@
                         "0.3.5"
                     ]
                 ],
+                "3": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "torch",
+                        "2.7.1+cu118"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
+                "5": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
                 "metrics": [
                     [
                         {
@@ -55,10 +76,138 @@
                         "careamics",
                         "0.3.5"
                     ]
+                ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
+                "versions_torch": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "torch",
+                        "2.7.1+cu118"
+                    ]
                 ]
             }
         ],
-        "timestamp": "2026-10-30T18:16:47.206376122",
+        "timestamp": "2026-11-06T12:11:05.269712276",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.4"
+        }
+    },
+    "stub careamics_train self-supervised validation data (conda)": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_careamics_train_self_supervised"
+                        },
+                        [
+                            "best.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ],
+                        "checkpoint_record.json:md5,44253e5f102b5895028266dca9ddf000"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_careamics_train_self_supervised"
+                        },
+                        "metrics.csv:md5,00d5b005a415038bdd051b7aebd1e561"
+                    ]
+                ],
+                "2": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ],
+                "3": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "torch",
+                        "2.7.1"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
+                "5": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
+                "metrics": [
+                    [
+                        {
+                            "id": "test_careamics_train_self_supervised"
+                        },
+                        "metrics.csv:md5,00d5b005a415038bdd051b7aebd1e561"
+                    ]
+                ],
+                "model": [
+                    [
+                        {
+                            "id": "test_careamics_train_self_supervised"
+                        },
+                        [
+                            "best.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ],
+                        "checkpoint_record.json:md5,44253e5f102b5895028266dca9ddf000"
+                    ]
+                ],
+                "versions_careamics": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
+                "versions_torch": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "torch",
+                        "2.7.1"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-11-06T13:23:09.829459203",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -94,6 +243,27 @@
                         "0.3.5"
                     ]
                 ],
+                "3": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "torch",
+                        "2.7.1+cu118"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
+                "5": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
                 "metrics": [
                     [
                         {
@@ -120,10 +290,138 @@
                         "careamics",
                         "0.3.5"
                     ]
+                ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
+                "versions_torch": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "torch",
+                        "2.7.1+cu118"
+                    ]
                 ]
             }
         ],
-        "timestamp": "2026-10-30T18:17:04.043172428",
+        "timestamp": "2026-11-06T12:11:33.541702064",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.10.4"
+        }
+    },
+    "stub careamics_train with validation data (conda)": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "test_careamics_train_with_val"
+                        },
+                        [
+                            "best.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ],
+                        "checkpoint_record.json:md5,44253e5f102b5895028266dca9ddf000"
+                    ]
+                ],
+                "1": [
+                    [
+                        {
+                            "id": "test_careamics_train_with_val"
+                        },
+                        "metrics.csv:md5,00d5b005a415038bdd051b7aebd1e561"
+                    ]
+                ],
+                "2": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ],
+                "3": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "torch",
+                        "2.7.1"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
+                "5": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
+                "metrics": [
+                    [
+                        {
+                            "id": "test_careamics_train_with_val"
+                        },
+                        "metrics.csv:md5,00d5b005a415038bdd051b7aebd1e561"
+                    ]
+                ],
+                "model": [
+                    [
+                        {
+                            "id": "test_careamics_train_with_val"
+                        },
+                        [
+                            "best.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "last.ckpt:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        ],
+                        "checkpoint_record.json:md5,44253e5f102b5895028266dca9ddf000"
+                    ]
+                ],
+                "versions_careamics": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "careamics",
+                        "0.3.5"
+                    ]
+                ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
+                "versions_python": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "python",
+                        "3.11.13"
+                    ]
+                ],
+                "versions_torch": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "torch",
+                        "2.7.1"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-11-06T13:22:52.589831252",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
