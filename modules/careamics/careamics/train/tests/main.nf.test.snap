@@ -39,6 +39,13 @@
                 "4": [
                     [
                         "CAREAMICS_TRAIN",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
+                "5": [
+                    [
+                        "CAREAMICS_TRAIN",
                         "python",
                         "3.11.13"
                     ]
@@ -70,6 +77,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_TRAIN",
@@ -86,7 +100,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T16:02:22.591546347",
+        "timestamp": "2026-11-06T12:11:05.269712276",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -132,6 +146,13 @@
                 "4": [
                     [
                         "CAREAMICS_TRAIN",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
+                "5": [
+                    [
+                        "CAREAMICS_TRAIN",
                         "python",
                         "3.11.13"
                     ]
@@ -163,6 +184,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_TRAIN",
@@ -179,7 +207,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T20:05:50.894823848",
+        "timestamp": "2026-11-06T13:23:09.829459203",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -225,6 +253,13 @@
                 "4": [
                     [
                         "CAREAMICS_TRAIN",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
+                "5": [
+                    [
+                        "CAREAMICS_TRAIN",
                         "python",
                         "3.11.13"
                     ]
@@ -256,6 +291,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_TRAIN",
@@ -272,7 +314,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T16:21:55.681608505",
+        "timestamp": "2026-11-06T12:11:33.541702064",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -318,6 +360,13 @@
                 "4": [
                     [
                         "CAREAMICS_TRAIN",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
+                "5": [
+                    [
+                        "CAREAMICS_TRAIN",
                         "python",
                         "3.11.13"
                     ]
@@ -349,6 +398,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_TRAIN",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_TRAIN",
@@ -365,7 +421,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T20:05:36.474928586",
+        "timestamp": "2026-11-06T13:22:52.589831252",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"

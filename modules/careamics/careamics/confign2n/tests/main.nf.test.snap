@@ -28,6 +28,13 @@
                 "3": [
                     [
                         "CAREAMICS_CONFIGN2N",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
                         "python",
                         "3.11.13"
                     ]
@@ -48,6 +55,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_CONFIGN2N",
@@ -64,7 +78,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T20:04:32.165560288",
+        "timestamp": "2026-11-06T13:21:34.838705617",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -99,6 +113,13 @@
                 "3": [
                     [
                         "CAREAMICS_CONFIGN2N",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
                         "python",
                         "3.11.13"
                     ]
@@ -119,6 +140,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_CONFIGN2N",
@@ -135,7 +163,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T23:55:24.682467779",
+        "timestamp": "2026-11-06T13:21:19.242983014",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -170,6 +198,13 @@
                 "3": [
                     [
                         "CAREAMICS_CONFIGN2N",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
                         "python",
                         "3.11.13"
                     ]
@@ -190,6 +225,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_CONFIGN2N",
@@ -206,7 +248,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T15:59:47.982514197",
+        "timestamp": "2026-11-06T12:08:45.523307656",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -241,6 +283,13 @@
                 "3": [
                     [
                         "CAREAMICS_CONFIGN2N",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
                         "python",
                         "3.11.13"
                     ]
@@ -261,6 +310,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_CONFIGN2N",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_CONFIGN2N",
@@ -277,7 +333,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T16:00:16.347550032",
+        "timestamp": "2026-11-06T12:09:12.550003893",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"

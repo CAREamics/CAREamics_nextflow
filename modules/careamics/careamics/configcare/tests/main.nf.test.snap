@@ -28,6 +28,13 @@
                 "3": [
                     [
                         "CAREAMICS_CONFIGCARE",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_CONFIGCARE",
                         "python",
                         "3.11.13"
                     ]
@@ -48,6 +55,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_CONFIGCARE",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_CONFIGCARE",
@@ -64,7 +78,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T15:58:23.877367766",
+        "timestamp": "2026-11-06T12:07:52.57735452",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -99,6 +113,13 @@
                 "3": [
                     [
                         "CAREAMICS_CONFIGCARE",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_CONFIGCARE",
                         "python",
                         "3.11.13"
                     ]
@@ -119,6 +140,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_CONFIGCARE",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_CONFIGCARE",
@@ -135,7 +163,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T15:59:07.643121038",
+        "timestamp": "2026-11-06T12:08:14.788077058",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -170,6 +198,13 @@
                 "3": [
                     [
                         "CAREAMICS_CONFIGCARE",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_CONFIGCARE",
                         "python",
                         "3.11.13"
                     ]
@@ -190,6 +225,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_CONFIGCARE",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_CONFIGCARE",
@@ -206,7 +248,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T20:03:55.191070737",
+        "timestamp": "2026-11-06T13:20:55.896376523",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -241,6 +283,13 @@
                 "3": [
                     [
                         "CAREAMICS_CONFIGCARE",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_CONFIGCARE",
                         "python",
                         "3.11.13"
                     ]
@@ -261,6 +310,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_CONFIGCARE",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_CONFIGCARE",
@@ -277,7 +333,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T23:54:53.14563102",
+        "timestamp": "2026-11-06T13:20:40.142893886",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"

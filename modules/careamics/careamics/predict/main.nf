@@ -21,6 +21,7 @@ process CAREAMICS_PREDICT {
     tuple val(meta), path("predictions/*"), emit: predictions
     tuple val("${task.process}"), val('careamics'), eval('python -c "import careamics; print(careamics.__version__)"'), emit: versions_careamics, topic: versions
     tuple val("${task.process}"), val('torch'), eval('python -c "import torch; print(torch.__version__)"'), emit: versions_torch, topic: versions
+    tuple val("${task.process}"), val('cuda'), eval('python -c "import torch; print(torch.version.cuda or \'no CUDA available\')"'), emit: versions_cuda, topic: versions
     tuple val("${task.process}"), val('python'), eval('python -c "import platform; print(platform.python_version())"'), emit: versions_python, topic: versions
 
     when:

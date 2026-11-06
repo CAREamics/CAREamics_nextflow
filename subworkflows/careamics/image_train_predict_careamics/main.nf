@@ -42,8 +42,10 @@ workflow IMAGE_TRAIN_PREDICT_CAREAMICS {
     predictions = CAREAMICS_PREDICT.out.predictions // [ val(meta), path(predictions) ]
     versions    = CAREAMICS_TRAIN.out.versions_careamics
         .mix(CAREAMICS_TRAIN.out.versions_torch)
+        .mix(CAREAMICS_TRAIN.out.versions_cuda)
         .mix(CAREAMICS_TRAIN.out.versions_python)
         .mix(CAREAMICS_PREDICT.out.versions_careamics)
         .mix(CAREAMICS_PREDICT.out.versions_torch)
+        .mix(CAREAMICS_PREDICT.out.versions_cuda)
         .mix(CAREAMICS_PREDICT.out.versions_python) // [ val(process), val(tool), val(version) ]
 }

@@ -61,6 +61,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:CAREAMICS_CONFIGCARE",
+                        "cuda",
+                        "11.8"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:CAREAMICS_CONFIGCARE",
                         "python",
                         "3.11.13"
                     ],
@@ -76,6 +81,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "cuda",
+                        "11.8"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "python",
                         "3.11.13"
                     ],
@@ -88,6 +98,11 @@
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "careamics",
                         "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "cuda",
+                        "11.8"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
@@ -159,6 +174,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:CAREAMICS_CONFIGCARE",
+                        "cuda",
+                        "11.8"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:CAREAMICS_CONFIGCARE",
                         "python",
                         "3.11.13"
                     ],
@@ -174,6 +194,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "cuda",
+                        "11.8"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "python",
                         "3.11.13"
                     ],
@@ -189,6 +214,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "cuda",
+                        "11.8"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "python",
                         "3.11.13"
                     ],
@@ -200,7 +230,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T20:12:39.470164508",
+        "timestamp": "2026-11-06T12:12:38.22826243",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -268,6 +298,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:CAREAMICS_CONFIGCARE",
+                        "cuda",
+                        "no CUDA available"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:CAREAMICS_CONFIGCARE",
                         "python",
                         "3.11.13"
                     ],
@@ -283,6 +318,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "cuda",
+                        "no CUDA available"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "python",
                         "3.11.13"
                     ],
@@ -295,6 +335,11 @@
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "careamics",
                         "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "cuda",
+                        "no CUDA available"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
@@ -366,6 +411,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:CAREAMICS_CONFIGCARE",
+                        "cuda",
+                        "no CUDA available"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:CAREAMICS_CONFIGCARE",
                         "python",
                         "3.11.13"
                     ],
@@ -381,6 +431,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "cuda",
+                        "no CUDA available"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "python",
                         "3.11.13"
                     ],
@@ -396,6 +451,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "cuda",
+                        "no CUDA available"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CARE_CAREAMICS:IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "python",
                         "3.11.13"
                     ],
@@ -407,7 +467,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T22:41:16.915657968",
+        "timestamp": "2026-11-06T13:23:49.816901839",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"

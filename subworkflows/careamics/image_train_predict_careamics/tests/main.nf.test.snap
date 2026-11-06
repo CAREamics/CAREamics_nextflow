@@ -46,6 +46,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "cuda",
+                        "11.8"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "python",
                         "3.11.13"
                     ],
@@ -58,6 +63,11 @@
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "careamics",
                         "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "cuda",
+                        "11.8"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
@@ -114,6 +124,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "cuda",
+                        "11.8"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "python",
                         "3.11.13"
                     ],
@@ -129,6 +144,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "cuda",
+                        "11.8"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "python",
                         "3.11.13"
                     ],
@@ -140,7 +160,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T20:13:12.306139272",
+        "timestamp": "2026-11-06T12:13:23.877242425",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -193,6 +213,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "cuda",
+                        "no CUDA available"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "python",
                         "3.11.13"
                     ],
@@ -205,6 +230,11 @@
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "careamics",
                         "0.3.5"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "cuda",
+                        "no CUDA available"
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
@@ -261,6 +291,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
+                        "cuda",
+                        "no CUDA available"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_PREDICT",
                         "python",
                         "3.11.13"
                     ],
@@ -276,6 +311,11 @@
                     ],
                     [
                         "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
+                        "cuda",
+                        "no CUDA available"
+                    ],
+                    [
+                        "IMAGE_TRAIN_PREDICT_CAREAMICS:CAREAMICS_TRAIN",
                         "python",
                         "3.11.13"
                     ],
@@ -287,7 +327,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T22:41:44.109714175",
+        "timestamp": "2026-11-06T13:24:16.945956603",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"

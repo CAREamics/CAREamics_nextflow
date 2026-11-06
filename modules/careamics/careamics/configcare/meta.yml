@@ -65,6 +65,16 @@ output:
       - python -c "import torch; print(torch.__version__)":
           type: eval
           description: The expression to obtain the version of PyTorch
+  versions_cuda:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - cuda:
+          type: string
+          description: The name of the CUDA toolkit
+      - python -c "import torch; print(torch.version.cuda or 'no CUDA available')":
+          type: eval
+          description: The expression to obtain the CUDA version used to build PyTorch
   versions_python:
     - - ${task.process}:
           type: string
@@ -96,6 +106,15 @@ topics:
       - python -c "import torch; print(torch.__version__)":
           type: eval
           description: The expression to obtain the version of PyTorch
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - cuda:
+          type: string
+          description: The name of the CUDA toolkit
+      - python -c "import torch; print(torch.version.cuda or 'no CUDA available')":
+          type: eval
+          description: The expression to obtain the CUDA version used to build PyTorch
     - - ${task.process}:
           type: string
           description: The name of the process

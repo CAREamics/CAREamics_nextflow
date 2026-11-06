@@ -27,6 +27,13 @@
                 "3": [
                     [
                         "CAREAMICS_PREDICT",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_PREDICT",
                         "python",
                         "3.11.13"
                     ]
@@ -46,6 +53,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_PREDICT",
+                        "cuda",
+                        "11.8"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_PREDICT",
@@ -62,7 +76,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T16:01:49.882497889",
+        "timestamp": "2026-11-06T12:10:37.909298471",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
@@ -96,6 +110,13 @@
                 "3": [
                     [
                         "CAREAMICS_PREDICT",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
+                "4": [
+                    [
+                        "CAREAMICS_PREDICT",
                         "python",
                         "3.11.13"
                     ]
@@ -115,6 +136,13 @@
                         "0.3.5"
                     ]
                 ],
+                "versions_cuda": [
+                    [
+                        "CAREAMICS_PREDICT",
+                        "cuda",
+                        "no CUDA available"
+                    ]
+                ],
                 "versions_python": [
                     [
                         "CAREAMICS_PREDICT",
@@ -131,7 +159,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-11-05T20:05:21.921120299",
+        "timestamp": "2026-11-06T13:22:33.460749496",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "26.10.4"
